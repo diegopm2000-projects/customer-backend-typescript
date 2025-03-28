@@ -1,10 +1,11 @@
 import { ID } from 'types-ddd'
 
 import { Email } from '../../../../../../src/modules/main/customer/domain/model/Email'
+import { Phone } from '../../../../../../src/modules/main/customer/domain/model/Phone'
+import { Address } from '../../../../../../src/modules/main/customer/domain/model/Address'
 
 // SUT
 import { Customer, CustomerProps } from '../../../../../../src/modules/main/customer/domain/model/Customer'
-import { Phone } from '../../../../../../src/modules/main/customer/domain/model/Phone'
 
 describe('Customer - Tests', () => {
   describe('constructor - Tests', () => {
@@ -17,7 +18,7 @@ describe('Customer - Tests', () => {
         email: Email.create({ value: 'johndoe@mail.com' }).value(),
         phoneNumber: Phone.create({ value: '123456789' }).value(),
         dateOfBirth: new Date('1990-01-01'),
-        address: 'Fake Street 123',
+        address: Address.create({ street: 'myStreet', number: 123, city: 'myCity', state: 'myState', postalCode: '123456', country: 'myCountry', additionalInfo: 'myAdditionalInfo' }).value(),
       }
       // Act
       const result = Customer.create(props)

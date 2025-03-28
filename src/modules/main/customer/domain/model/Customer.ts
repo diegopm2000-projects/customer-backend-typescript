@@ -2,6 +2,7 @@ import { Entity, Ok, Result, UID } from 'types-ddd'
 
 import { Email } from './Email'
 import { Phone } from './Phone'
+import { Address } from './Address'
 
 export interface CustomerProps {
   id: UID
@@ -10,7 +11,7 @@ export interface CustomerProps {
   email: Email
   phoneNumber: Phone
   dateOfBirth: Date
-  address: string // TODO - Mejorable también, se puede usar algún objeto complejo a ver si se puede usar
+  address: Address
 }
 
 export class Customer extends Entity<CustomerProps> {
@@ -32,7 +33,7 @@ export class Customer extends Entity<CustomerProps> {
   get dateOfBirth(): Date {
     return this.props.dateOfBirth
   }
-  get address(): string {
+  get address(): Address {
     return this.props.address
   }
 
