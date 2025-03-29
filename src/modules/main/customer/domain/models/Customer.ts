@@ -1,8 +1,8 @@
 import { Entity, Ok, Result, UID } from 'types-ddd'
 
-import { Email } from './Email'
-import { Phone } from './Phone'
-import { Address } from './Address'
+import { Email } from './value-objects/Email'
+import { Phone } from './value-objects/Phone'
+import { Address } from './value-objects/Address'
 
 export interface CustomerProps {
   id: UID
@@ -12,9 +12,12 @@ export interface CustomerProps {
   phoneNumber: Phone
   dateOfBirth: Date
   address: Address
+  nifCif: string // TODO montar un value object para esto
 }
 
 export class Customer extends Entity<CustomerProps> {
+  // TODO - ver si los getters es innecesario escribirlos
+  // TODO - ver como se desactivan los setters
   get id(): UID {
     return this.props.id
   }
@@ -35,6 +38,9 @@ export class Customer extends Entity<CustomerProps> {
   }
   get address(): Address {
     return this.props.address
+  }
+  get nifCif(): string {
+    return this.props.nifCif
   }
 
   private constructor(props: CustomerProps) {

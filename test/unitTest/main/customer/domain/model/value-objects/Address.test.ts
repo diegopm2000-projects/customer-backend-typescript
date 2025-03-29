@@ -1,5 +1,5 @@
 // SUT
-import { Address } from '../../../../../../src/modules/main/customer/domain/models/value-objects/Address'
+import { Address } from '../../../../../../../src/modules/main/customer/domain/models/value-objects/Address'
 
 describe('Address - Tests', () => {
   describe('constructor - Tests', () => {

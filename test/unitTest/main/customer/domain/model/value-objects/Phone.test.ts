@@ -1,30 +1,28 @@
 // SUT
-import { Email } from '../../../../../../src/modules/main/customer/domain/models/value-objects/Email'
+import { Phone } from '../../../../../../../src/modules/main/customer/domain/models/value-objects/Phone'
 
-export const DEFAULT_EMAIL = Email.create({ value: 'johndoe@mail.com' }).value()
-
-describe('Email - Tests', () => {
+describe('Phone - Tests', () => {
   describe('constructor - Tests', () => {
     it('constructor - default successful case', () => {
       // Arrange
       const props = {
-        value: 'jonhdoe@mail.com',
+        value: '+34 666666666',
       }
       // Act
-      const result = Email.create(props)
+      const result = Phone.create(props)
       const myObj = result.value()
       // Assert
       expect(result.isOk()).toBeTruthy()
-      expect(myObj).toBeInstanceOf(Email)
+      expect(myObj).toBeInstanceOf(Phone)
       expect(myObj.value).toBe(props.value)
     })
-    it('constructor - failed case when email is invalid', () => {
+    it('constructor - failed case when Phone is invalid', () => {
       // Arrange
       const props = {
         value: 'nonsense',
       }
       // Act
-      const result = Email.create(props)
+      const result = Phone.create(props)
       // Assert
       expect(result.isFail()).toBeTruthy()
     })

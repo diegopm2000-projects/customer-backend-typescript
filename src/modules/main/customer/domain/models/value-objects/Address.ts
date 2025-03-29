@@ -7,7 +7,7 @@ export interface AddressProps {
   state: string
   postalCode: string
   country: string
-  additionalInfo: string
+  additionalInfo?: string
 }
 
 export class Address extends ValueObject<AddressProps> {
@@ -29,7 +29,7 @@ export class Address extends ValueObject<AddressProps> {
   get country(): string {
     return this.props.country
   }
-  get additionalInfo(): string {
+  get additionalInfo(): string | undefined {
     return this.props.additionalInfo
   }
 

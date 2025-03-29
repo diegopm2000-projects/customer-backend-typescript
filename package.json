@@ -38,7 +38,11 @@
   },
   "dependencies": {
     "@types/reflect-metadata": "^0.0.5",
+    "dotenv": "^16.4.7",
+    "inversify": "^7.2.0",
+    "mongodb": "^4.10.0",
     "phone": "^3.1.58",
+    "reflect-metadata": "^0.2.2",
     "types-ddd": "^3.11.1",
     "validator": "^13.15.0"
   }

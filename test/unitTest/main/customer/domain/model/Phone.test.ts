@@ -1,5 +1,7 @@
 // SUT
-import { Phone } from '../../../../../../src/modules/main/customer/domain/model/Phone'
+import { Phone } from '../../../../../../src/modules/main/customer/domain/models/value-objects/Phone'
+
+export const DEFAULT_PHONE = Phone.create({ value: '+34 666666666' }).value()
 
 describe('Phone - Tests', () => {
   describe('constructor - Tests', () => {
@@ -11,6 +13,7 @@ describe('Phone - Tests', () => {
       // Act
       const result = Phone.create(props)
       const myObj = result.value()
+      console.log(`----> phone en el test: ${JSON.stringify(myObj)}`)
       // Assert
       expect(result.isOk()).toBeTruthy()
       expect(myObj).toBeInstanceOf(Phone)

@@ -1,11 +1,11 @@
 import { ID } from 'types-ddd'
 
-import { Email } from '../../../../../../src/modules/main/customer/domain/model/Email'
-import { Phone } from '../../../../../../src/modules/main/customer/domain/model/Phone'
-import { Address } from '../../../../../../src/modules/main/customer/domain/model/Address'
+import { Address } from '../../../../../../src/modules/main/customer/domain/models/value-objects/Address'
+import { DEFAULT_EMAIL } from './Email.test'
+import { DEFAULT_PHONE } from './Phone.test'
 
 // SUT
-import { Customer, CustomerProps } from '../../../../../../src/modules/main/customer/domain/model/Customer'
+import { Customer, CustomerProps } from '../../../../../../src/modules/main/customer/domain/models/Customer'
 
 describe('Customer - Tests', () => {
   describe('constructor - Tests', () => {
@@ -15,10 +15,11 @@ describe('Customer - Tests', () => {
         id: ID.create('706781a2-e4ee-4fc5-ab0f-fdf92f643c8a'),
         firstName: 'John',
         lastName: 'Doe',
-        email: Email.create({ value: 'johndoe@mail.com' }).value(),
-        phoneNumber: Phone.create({ value: '123456789' }).value(),
+        email: DEFAULT_EMAIL,
+        phoneNumber: DEFAULT_PHONE,
         dateOfBirth: new Date('1990-01-01'),
         address: Address.create({ street: 'myStreet', number: 123, city: 'myCity', state: 'myState', postalCode: '123456', country: 'myCountry', additionalInfo: 'myAdditionalInfo' }).value(),
+        nifCif: '123456789Z',
       }
       // Act
       const result = Customer.create(props)
@@ -33,6 +34,7 @@ describe('Customer - Tests', () => {
       expect(myObj.phoneNumber).toBe(props.phoneNumber)
       expect(myObj.dateOfBirth).toBe(props.dateOfBirth)
       expect(myObj.address).toBe(props.address)
+      expect(myObj.nifCif).toBe(props.nifCif)
     })
   })
 })
