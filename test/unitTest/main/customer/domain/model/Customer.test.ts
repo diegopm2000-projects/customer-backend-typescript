@@ -1,26 +1,31 @@
 import { ID } from 'types-ddd'
 
-import { Address } from '../../../../../../src/modules/main/customer/domain/models/value-objects/Address'
 import { DEFAULT_EMAIL } from './Email.test'
 import { DEFAULT_PHONE } from './Phone.test'
 
 // SUT
 import { Customer, CustomerProps } from '../../../../../../src/modules/main/customer/domain/models/Customer'
+import { DEFAULT_ADDRESS } from './Address.test'
+
+const DEFAULT_CUSTOMER_PROPS: CustomerProps = {
+  // TODO - Creo que tira con cualquier id...ver si se puede forzar a uuid
+  id: ID.create('706781a2-e4ee-4fc5-ab0f-fdf92f643c8a'),
+  firstName: 'John',
+  lastName: 'Doe',
+  email: DEFAULT_EMAIL,
+  phoneNumber: DEFAULT_PHONE,
+  dateOfBirth: new Date('1990-01-01'),
+  address: DEFAULT_ADDRESS,
+  nifCif: '123456789Z',
+}
+
+export const DEFAULT_CUSTOMER = Customer.create(DEFAULT_CUSTOMER_PROPS).value()
 
 describe('Customer - Tests', () => {
   describe('constructor - Tests', () => {
     it('constructor - default successful case', () => {
       // Arrange
-      const props: CustomerProps = {
-        id: ID.create('706781a2-e4ee-4fc5-ab0f-fdf92f643c8a'),
-        firstName: 'John',
-        lastName: 'Doe',
-        email: DEFAULT_EMAIL,
-        phoneNumber: DEFAULT_PHONE,
-        dateOfBirth: new Date('1990-01-01'),
-        address: Address.create({ street: 'myStreet', number: 123, city: 'myCity', state: 'myState', postalCode: '123456', country: 'myCountry', additionalInfo: 'myAdditionalInfo' }).value(),
-        nifCif: '123456789Z',
-      }
+      const props: CustomerProps = DEFAULT_CUSTOMER_PROPS
       // Act
       const result = Customer.create(props)
       const myObj = result.value()

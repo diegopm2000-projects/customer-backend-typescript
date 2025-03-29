@@ -1,11 +1,11 @@
 import { inject, injectable } from 'inversify'
 
-import { TYPES } from '../../../../shared/infrastructure/dependencyInjection/types'
-import { Customer } from '../../domain/models/Customer'
-import { ICustomerRepository } from '../../domain/repositories/ICustomer.repository'
-import { CustomerDTO } from '../dtos/Customer.dto'
+import { TYPES } from '../../../../../shared/infrastructure/dependencyInjection/types'
+import { Customer } from '../../../domain/models/Customer'
+import { ICustomerRepository } from '../../../domain/repositories/ICustomer.repository'
+import { CustomerDTO } from '../../dtos/Customer.dto'
+import { CustomerMapper } from '../../mappers/Customer.mapper'
 import { IGetAllCustomersResponse, IGetAllCustomersUseCase } from './IGetAllCustomers.usecase'
-import { CustomerMapper } from '../mappers/Customer.mapper'
 
 @injectable()
 export class GetAllCustomersUseCase implements IGetAllCustomersUseCase {

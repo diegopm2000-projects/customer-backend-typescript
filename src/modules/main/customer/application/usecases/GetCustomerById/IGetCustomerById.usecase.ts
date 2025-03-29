@@ -1,6 +1,6 @@
 import { IUseCase } from 'types-ddd'
 
-import { CustomerDTO } from '../dtos/Customer.dto'
+import { CustomerDTO } from '../../dtos/Customer.dto'
 
 export interface IGetCustomerByIdRequest {
   customerId: string

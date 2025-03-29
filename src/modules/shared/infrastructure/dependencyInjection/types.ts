@@ -23,4 +23,5 @@ export const TYPES = {
 
   IGetAllCustomersUseCase: Symbol.for('IGetAllCustomersUseCase'),
   IGetCustomerByIdUseCase: Symbol.for('IGetCustomerByIdUseCase'),
+  ICreateCustomerUseCase: Symbol.for('ICreateCustomerUseCase'),
 }

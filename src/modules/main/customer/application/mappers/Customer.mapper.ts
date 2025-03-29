@@ -21,7 +21,6 @@ class AddressMapper {
 
 export class CustomerMapper {
   static modelToDTO(customer: Customer): CustomerDTO {
-    console.log(`----> customer en el mapper: ${JSON.stringify(customer)}`)
     return {
       id: customer.id.value(),
       firstName: customer.firstName,

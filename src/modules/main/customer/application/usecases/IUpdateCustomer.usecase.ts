@@ -1,6 +1,6 @@
 import { IUseCase } from 'types-ddd'
 
-import { Customer } from '../domain/models/Customer'
+import { Customer } from '../../domain/models/Customer'
 
 export interface IUpdateCustomerRequest {
   id: string
