@@ -6,12 +6,12 @@ import { CreateCustomerController } from '../modules/main/customer/api/apirest/C
 import { DeleteCustomerByIdController } from '../modules/main/customer/api/apirest/DeleteCustomerById.controller'
 import { GetAllCustomersController } from '../modules/main/customer/api/apirest/GetAllCustomers.controller'
 import { GetCustomerByIdController } from '../modules/main/customer/api/apirest/GetCustomerById.controller'
+import { UpdateCustomerController } from '../modules/main/customer/api/apirest/UpdateCustomer.controller'
 import { DependencyContainer } from '../modules/shared/infrastructure/dependencyInjection/dependencyContainer'
 import { TYPES } from '../modules/shared/infrastructure/dependencyInjection/types'
 import { IExpressInfra } from '../modules/shared/infrastructure/express/IExpressInfra'
 import { IMongoDBInfra } from '../modules/shared/infrastructure/persistence/mongodb/IMongoDBInfra'
 import { IAppConfig } from './IAppConfig'
-import { UpdateCustomerController } from '../modules/main/customer/api/apirest/UpdateCustomer.controller'
 
 export class App {
   private _appConfig: IAppConfig
