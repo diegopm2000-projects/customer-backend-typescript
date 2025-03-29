@@ -4,6 +4,7 @@ export const TYPES = {
   // //////////////////////////////////////////////////////////
 
   IMongoDBInfra: Symbol.for('IMongoDBInfra'),
+  IExpressInfra: Symbol.for('IExpressInfra'),
 
   // //////////////////////////////////////////////////////////
   // COLLECTIONS
@@ -18,11 +19,22 @@ export const TYPES = {
   ICustomerRepository: Symbol.for('ICustomerRepository'),
 
   // //////////////////////////////////////////////////////////
-  // USECASE
+  // USECASES
   // //////////////////////////////////////////////////////////
 
   IGetAllCustomersUseCase: Symbol.for('IGetAllCustomersUseCase'),
   IGetCustomerByIdUseCase: Symbol.for('IGetCustomerByIdUseCase'),
   ICreateCustomerUseCase: Symbol.for('ICreateCustomerUseCase'),
   IDeleteCustomerByIdUseCase: Symbol.for('IDeleteCustomerByIdUseCase'),
+  IUpdateCustomerUseCase: Symbol.for('IUpdateCustomerUseCase'),
+
+  // //////////////////////////////////////////////////////////
+  // CONTROLLERS
+  // //////////////////////////////////////////////////////////
+
+  GetCustomerByIdController: Symbol.for('GetCustomerByIdController'),
+  GetAllCustomersController: Symbol.for('GetAllCustomersController'),
+  CreateCustomerController: Symbol.for('CreateCustomerController'),
+  UpdateCustomerController: Symbol.for('UpdateCustomerController'),
+  DeleteCustomerByIdController: Symbol.for('DeleteCustomerByIdController'),
 }

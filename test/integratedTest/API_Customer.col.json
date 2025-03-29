@@ -1,0 +1,752 @@
+{
+	"info": {
+		"_postman_id": "7cac1669-a59e-443c-8b1a-a48fdf585094",
+		"name": "Customer",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "298029",
+		"_collection_link": "https://gold-water-4010.postman.co/workspace/CodeChallenge~06cccf1d-539e-4d99-9ab3-4d377e71f66a/collection/298029-7cac1669-a59e-443c-8b1a-a48fdf585094?action=share&source=collection_link&creator=298029"
+	},
+	"item": [
+		{
+			"name": "Manual Tests",
+			"item": [
+				{
+					"name": "Create Customer",
+					"item": [
+						{
+							"name": "Create Customer - Dennis Ritchie",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 201\", () => {",
+											"    pm.response.to.have.status(201);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"id\": \"{{DENNIS_RITCHIE_CUSTOMER_ID}}\",\n  \"firstName\": \"Dennis\",\n  \"lastName\": \"Ritchie\",\n  \"email\": \"dennisritchie@mail.com\",\n  \"phoneNumber\": \"+34 666555321\",\n  \"dateOfBirth\": \"1992-01-01T00:00:00.000Z\",\n  \"address\": {\n      \"street\": \"myStreet\",\n      \"number\": 123,\n      \"city\": \"myCity\",\n      \"state\": \"myState\",\n      \"postalCode\": \"123456\",\n      \"country\": \"myCountry\",\n      \"additionalInfo\": \"myAdditionalInfo\"\n  },\n  \"nifCif\": \"123456789A\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{HOST_API_REST}}/customers",
+									"host": [
+										"{{HOST_API_REST}}"
+									],
+									"path": [
+										"customers"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Customer - Richard Stallman",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 201\", () => {",
+											"    pm.response.to.have.status(201);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"id\": \"{{RICHARD_STALLMAN_CUSTOMER_ID}}\",\n  \"firstName\": \"Richard\",\n  \"lastName\": \"Stallman\",\n  \"email\": \"richardstallman@mail.com\",\n  \"phoneNumber\": \"+34 666555321\",\n  \"dateOfBirth\": \"1992-01-01T00:00:00.000Z\",\n  \"address\": {\n      \"street\": \"myStreet\",\n      \"number\": 123,\n      \"city\": \"myCity\",\n      \"state\": \"myState\",\n      \"postalCode\": \"123456\",\n      \"country\": \"myCountry\",\n      \"additionalInfo\": \"myAdditionalInfo\"\n  },\n  \"nifCif\": \"123456789A\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{HOST_API_REST}}/customers",
+									"host": [
+										"{{HOST_API_REST}}"
+									],
+									"path": [
+										"customers"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Update Customer",
+					"item": [
+						{
+							"name": "Update Customer - Dennis Ritchie",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 201\", () => {",
+											"    pm.response.to.have.status(201);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"id\": \"{{DENNIS_RITCHIE_CUSTOMER_ID}}\",\n  \"firstName\": \"Dennis\",\n  \"lastName\": \"Ritchie\",\n  \"email\": \"dennisritchie@mail.com\",\n  \"phoneNumber\": \"+34 666555321\",\n  \"dateOfBirth\": \"1992-01-01T00:00:00.000Z\",\n  \"address\": {\n      \"street\": \"myNewStreet\",\n      \"number\": 12345,\n      \"city\": \"myCity\",\n      \"state\": \"myState\",\n      \"postalCode\": \"123456\",\n      \"country\": \"myCountry\",\n      \"additionalInfo\": \"myAdditionalInfo\"\n  },\n  \"nifCif\": \"123456789A\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{HOST_API_REST}}/customers",
+									"host": [
+										"{{HOST_API_REST}}"
+									],
+									"path": [
+										"customers"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Get Customer by Id",
+					"item": [
+						{
+							"name": "Get Customer by Id",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{HOST_API_REST}}/customers/{{RICHARD_STALLMAN_CUSTOMER_ID}}",
+									"host": [
+										"{{HOST_API_REST}}"
+									],
+									"path": [
+										"customers",
+										"{{RICHARD_STALLMAN_CUSTOMER_ID}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Get All Customers",
+					"item": [
+						{
+							"name": "Get All Customers",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{HOST_API_REST}}/customers",
+									"host": [
+										"{{HOST_API_REST}}"
+									],
+									"path": [
+										"customers"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Delete Customer",
+					"item": [
+						{
+							"name": "Delete Customer by Id - Dennis Ritchie",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 204\", () => {",
+											"    pm.response.to.have.status(204);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{HOST_API_REST}}/customers/{{DENNIS_RITCHIE_CUSTOMER_ID}}",
+									"host": [
+										"{{HOST_API_REST}}"
+									],
+									"path": [
+										"customers",
+										"{{DENNIS_RITCHIE_CUSTOMER_ID}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Customer by Id - Richard Stallman",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 204\", () => {",
+											"    pm.response.to.have.status(204);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{HOST_API_REST}}/customers/{{RICHARD_STALLMAN_CUSTOMER_ID}}",
+									"host": [
+										"{{HOST_API_REST}}"
+									],
+									"path": [
+										"customers",
+										"{{RICHARD_STALLMAN_CUSTOMER_ID}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Automatic Tests",
+			"item": [
+				{
+					"name": "Create Customer",
+					"item": [
+						{
+							"name": "Create Customer - 01t - Success",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 201\", () => {",
+											"    pm.response.to.have.status(201);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"id\": \"{{DENNIS_RITCHIE_CUSTOMER_ID}}\",\n  \"firstName\": \"Dennis\",\n  \"lastName\": \"Ritchie\",\n  \"email\": \"dritchie@mail.com\",\n  \"phoneNumber\": \"+34 666555321\",\n  \"dateOfBirth\": \"1992-01-01T00:00:00.000Z\",\n  \"address\": {\n      \"street\": \"myStreet\",\n      \"number\": 123,\n      \"city\": \"myCity\",\n      \"state\": \"myState\",\n      \"postalCode\": \"123456\",\n      \"country\": \"myCountry\",\n      \"additionalInfo\": \"myAdditionalInfo\"\n  },\n  \"nifCif\": \"123456789A\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{HOST_API_REST}}/customers",
+									"host": [
+										"{{HOST_API_REST}}"
+									],
+									"path": [
+										"customers"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Customer - 02t - Already Exists",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 409\", () => {",
+											"    pm.response.to.have.status(409);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"id\": \"{{DENNIS_RITCHIE_CUSTOMER_ID}}\",\n  \"firstName\": \"Dennis\",\n  \"lastName\": \"Ritchie\",\n  \"email\": \"dritchie@mail.com\",\n  \"phoneNumber\": \"+34 666555321\",\n  \"dateOfBirth\": \"1992-01-01T00:00:00.000Z\",\n  \"address\": {\n      \"street\": \"myStreet\",\n      \"number\": 123,\n      \"city\": \"myCity\",\n      \"state\": \"myState\",\n      \"postalCode\": \"123456\",\n      \"country\": \"myCountry\",\n      \"additionalInfo\": \"myAdditionalInfo\"\n  },\n  \"nifCif\": \"123456789A\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{HOST_API_REST}}/customers",
+									"host": [
+										"{{HOST_API_REST}}"
+									],
+									"path": [
+										"customers"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Customer - 03t - Bad parameters",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", () => {",
+											"    pm.response.to.have.status(400);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"id\": \"{{DENNIS_RITCHIE_CUSTOMER_ID}}\",\n  \"firstName\": \"Dennis\",\n  \"lastName\": \"Ritchie\",\n  \"email\": \"nonsense\",\n  \"phoneNumber\": \"+34 666555321\",\n  \"dateOfBirth\": \"1992-01-01T00:00:00.000Z\",\n  \"address\": {\n      \"street\": \"myStreet\",\n      \"number\": 123,\n      \"city\": \"myCity\",\n      \"state\": \"myState\",\n      \"postalCode\": \"123456\",\n      \"country\": \"myCountry\",\n      \"additionalInfo\": \"myAdditionalInfo\"\n  },\n  \"nifCif\": \"123456789A\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{HOST_API_REST}}/customers",
+									"host": [
+										"{{HOST_API_REST}}"
+									],
+									"path": [
+										"customers"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Update Customer Copy",
+					"item": [
+						{
+							"name": "Update Customer - 01t - Success",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 201\", () => {",
+											"    pm.response.to.have.status(201);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"id\": \"{{DENNIS_RITCHIE_CUSTOMER_ID}}\",\n  \"firstName\": \"Dennis\",\n  \"lastName\": \"Ritchie\",\n  \"email\": \"dennisritchie@mail.com\",\n  \"phoneNumber\": \"+34 666555321\",\n  \"dateOfBirth\": \"1992-01-01T00:00:00.000Z\",\n  \"address\": {\n      \"street\": \"myNewStreet\",\n      \"number\": 12345,\n      \"city\": \"myCity\",\n      \"state\": \"myState\",\n      \"postalCode\": \"123456\",\n      \"country\": \"myCountry\",\n      \"additionalInfo\": \"myAdditionalInfo\"\n  },\n  \"nifCif\": \"123456789A\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{HOST_API_REST}}/customers",
+									"host": [
+										"{{HOST_API_REST}}"
+									],
+									"path": [
+										"customers"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Customer - 02t - Not found",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 404\", () => {",
+											"    pm.response.to.have.status(404);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"id\": \"{{RICHARD_STALLMAN_CUSTOMER_ID}}\",\n  \"firstName\": \"Richard\",\n  \"lastName\": \"Stallman\",\n  \"email\": \"richardstallman@mail.com\",\n  \"phoneNumber\": \"+34 666555321\",\n  \"dateOfBirth\": \"1992-01-01T00:00:00.000Z\",\n  \"address\": {\n      \"street\": \"myStreet\",\n      \"number\": 123,\n      \"city\": \"myCity\",\n      \"state\": \"myState\",\n      \"postalCode\": \"123456\",\n      \"country\": \"myCountry\",\n      \"additionalInfo\": \"myAdditionalInfo\"\n  },\n  \"nifCif\": \"123456789A\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{HOST_API_REST}}/customers",
+									"host": [
+										"{{HOST_API_REST}}"
+									],
+									"path": [
+										"customers"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Customer - 03t - Bad parameters",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", () => {",
+											"    pm.response.to.have.status(400);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"id\": \"{{DENNIS_RITCHIE_CUSTOMER_ID}}\",\n  \"firstName\": \"Dennis\",\n  \"lastName\": \"Ritchie\",\n  \"email\": \"nonsense\",\n  \"phoneNumber\": \"+34 666555321\",\n  \"dateOfBirth\": \"1992-01-01T00:00:00.000Z\",\n  \"address\": {\n      \"street\": \"myStreet\",\n      \"number\": 123,\n      \"city\": \"myCity\",\n      \"state\": \"myState\",\n      \"postalCode\": \"123456\",\n      \"country\": \"myCountry\",\n      \"additionalInfo\": \"myAdditionalInfo\"\n  },\n  \"nifCif\": \"123456789A\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{HOST_API_REST}}/customers",
+									"host": [
+										"{{HOST_API_REST}}"
+									],
+									"path": [
+										"customers"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Get Customer by Id",
+					"item": [
+						{
+							"name": "GetCustomerById - 01t - Success",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{HOST_API_REST}}/customers/{{DENNIS_RITCHIE_CUSTOMER_ID}}",
+									"host": [
+										"{{HOST_API_REST}}"
+									],
+									"path": [
+										"customers",
+										"{{DENNIS_RITCHIE_CUSTOMER_ID}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetCustomerById - 02t - Not found",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 404\", () => {",
+											"    pm.response.to.have.status(404);",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{HOST_API_REST}}/customers/{{RICHARD_STALLMAN_CUSTOMER_ID}}",
+									"host": [
+										"{{HOST_API_REST}}"
+									],
+									"path": [
+										"customers",
+										"{{RICHARD_STALLMAN_CUSTOMER_ID}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetCustomerById - 03t - Bad parameters",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", () => {",
+											"    pm.response.to.have.status(400);",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{HOST_API_REST}}/customers/nonsense",
+									"host": [
+										"{{HOST_API_REST}}"
+									],
+									"path": [
+										"customers",
+										"nonsense"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Get All Customers",
+					"item": [
+						{
+							"name": "GetAllCustomers - 01t - Success",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{HOST_API_REST}}/customers",
+									"host": [
+										"{{HOST_API_REST}}"
+									],
+									"path": [
+										"customers"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Delete Customer",
+					"item": [
+						{
+							"name": "Delete Customer by Id - 01t - Success",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 204\", () => {",
+											"    pm.response.to.have.status(204);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{HOST_API_REST}}/customers/{{DENNIS_RITCHIE_CUSTOMER_ID}}",
+									"host": [
+										"{{HOST_API_REST}}"
+									],
+									"path": [
+										"customers",
+										"{{DENNIS_RITCHIE_CUSTOMER_ID}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Customer by Id - 02t - Not found",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 404\", () => {",
+											"    pm.response.to.have.status(404);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{HOST_API_REST}}/customers/{{RICHARD_STALLMAN_CUSTOMER_ID}}",
+									"host": [
+										"{{HOST_API_REST}}"
+									],
+									"path": [
+										"customers",
+										"{{RICHARD_STALLMAN_CUSTOMER_ID}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	]
+}

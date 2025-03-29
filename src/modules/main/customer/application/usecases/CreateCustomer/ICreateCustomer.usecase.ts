@@ -5,6 +5,7 @@ import { Email } from '../../../domain/models/value-objects/Email'
 import { Phone } from '../../../domain/models/value-objects/Phone'
 import { BadParametersInCustomerCreationError } from '../../errors/BadParametersInCustomerCreationError'
 import { CustomerDTO } from '../../dtos/Customer.dto'
+import { CustomerAlreadyExistsError } from '../../errors/CustomerAlreadyExistsError'
 
 export interface ICreateCustomerRequest {
   id: UID
@@ -17,6 +18,7 @@ export interface ICreateCustomerRequest {
   nifCif: string
 }
 
-export type ICreateCustomerResponse = CustomerDTO | BadParametersInCustomerCreationError
+// TODO - Se podría montar aquí el result tambien para envolver las respuestas
+export type ICreateCustomerResponse = CustomerDTO | BadParametersInCustomerCreationError | CustomerAlreadyExistsError
 
 export type ICreateCustomerUseCase = IUseCase<ICreateCustomerRequest, ICreateCustomerResponse>

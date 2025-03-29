@@ -10,8 +10,6 @@ export class DeleteCustomerByIdUseCase implements IDeleteCustomerByIdUseCase {
   constructor(@inject(TYPES.ICustomerRepository) private customerRepository: ICustomerRepository) {}
 
   async execute(request: IDeleteCustomerByIdRequest): Promise<IDeleteCustomerByIdResponse> {
-    const result = await this.customerRepository.deleteById(ID.create(request.customerId))
-
-    return { result }
+    return await this.customerRepository.deleteById(ID.create(request.customerId))
   }
 }
