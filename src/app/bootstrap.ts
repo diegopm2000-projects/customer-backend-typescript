@@ -14,6 +14,7 @@ import { Phone } from '../modules/main/customer/domain/models/value-objects/Phon
 import { TYPES } from '../modules/shared/infrastructure/dependencyInjection/types'
 import { IAppConfig } from './IAppConfig'
 import { App } from './app'
+import { IDeleteCustomerByIdUseCase } from '../modules/main/customer/application/usecases/DeleteCustomerById/IDeleteCustomerById.usecase'
 
 export async function init(): Promise<void> {
   dotenv.config()
@@ -81,6 +82,13 @@ export async function init(): Promise<void> {
   const customerCreateRequest: ICreateCustomerRequest = NEW_CUSTOMER_PROPS
 
   await myApp.container.get<ICreateCustomerUseCase>(TYPES.ICreateCustomerUseCase).execute(customerCreateRequest)
+
+  console.log('-----------------------------------------')
+  console.log('----> DELETE CUSTOMER')
+  console.log('-----------------------------------------')
+
+  const deletionResult = await myApp.container.get<IDeleteCustomerByIdUseCase>(TYPES.IDeleteCustomerByIdUseCase).execute({ customerId: '08bda2ee-c704-42ab-bf26-ad535847fc5f' })
+  console.log(`----> result of deleting customer: ${JSON.stringify(deletionResult)}`)
 
   // End the app
   await myApp.stop()

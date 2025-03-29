@@ -43,7 +43,7 @@ class AddressModelPersistenceConverter {
 export class CustomerModelPersistenceConverter {
   static modelToModelPersistence(model: Customer): CustomerModelPersistence {
     return {
-      _id: model.id.toString(),
+      _id: model.id.value(),
       firstName: model.firstName,
       lastName: model.lastName,
       email: model.email.value,

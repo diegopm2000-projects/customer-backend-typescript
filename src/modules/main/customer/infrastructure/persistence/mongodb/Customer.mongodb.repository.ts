@@ -45,7 +45,8 @@ export class CustomerMongoDBRepository implements ICustomerRepository {
 
     console.log(`----> customerId.value: ${customerId.value()}`)
 
-    const bdObjFound: Document | null = await client.collection(this.collection).findOne({ _id: customerId.value() })
+    const filter = { _id: customerId.value() }
+    const bdObjFound: Document | null = await client.collection(this.collection).findOne(filter)
     return bdObjFound ? CustomerModelPersistenceConverter.modelPersistenceToModel(<CustomerModelPersistence>bdObjFound) : undefined
   }
 
@@ -60,9 +61,22 @@ export class CustomerMongoDBRepository implements ICustomerRepository {
     const filter = { _id: myMP._id }
     const { ok, value } = await client.collection(this.collection).findOneAndUpdate(filter, this.buildUpdate(myMP), options)
     if (ok != 1) {
-      throw new ErrorInMongoDB('updateOne')
+      throw new ErrorInMongoDB('save')
     }
 
     return value != null
+  }
+
+  async deleteById(customerId: UID): Promise<boolean> {
+    const client = await this.mongoDBInfra.getConnectionDb()
+
+    const filter = { _id: customerId.value() }
+    const { acknowledged, deletedCount } = await client.collection(this.collection).deleteOne(filter)
+
+    if (!acknowledged) {
+      throw new ErrorInMongoDB('deleteById')
+    }
+
+    return deletedCount == 1
   }
 }

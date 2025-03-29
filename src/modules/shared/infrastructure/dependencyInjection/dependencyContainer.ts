@@ -12,6 +12,8 @@ import { ICustomerRepository } from '../../../main/customer/domain/repositories/
 import { CustomerMongoDBRepository } from '../../../main/customer/infrastructure/persistence/mongodb/Customer.mongodb.repository'
 import { IMongoDBInfra } from '../persistence/mongodb/IMongoDBInfra'
 import { MongodBInfra } from '../persistence/mongodb/MongoDBInfra'
+import { IDeleteCustomerByIdUseCase } from '../../../main/customer/application/usecases/DeleteCustomerById/IDeleteCustomerById.usecase'
+import { DeleteCustomerByIdUseCase } from '../../../main/customer/application/usecases/DeleteCustomerById/DeleteCustomerById.usecase'
 
 export class DependencyContainer {
   public static init(appConfig: IAppConfig): Container {
@@ -30,6 +32,7 @@ export class DependencyContainer {
     container.bind<IGetAllCustomersUseCase>(TYPES.IGetAllCustomersUseCase).to(GetAllCustomersUseCase).inSingletonScope()
     container.bind<IGetCustomerByIdUseCase>(TYPES.IGetCustomerByIdUseCase).to(GetCustomerByIdUseCase).inSingletonScope()
     container.bind<ICreateCustomerUseCase>(TYPES.ICreateCustomerUseCase).to(CreateCustomerUseCase).inSingletonScope()
+    container.bind<IDeleteCustomerByIdUseCase>(TYPES.IDeleteCustomerByIdUseCase).to(DeleteCustomerByIdUseCase).inSingletonScope()
 
     return container
   }
