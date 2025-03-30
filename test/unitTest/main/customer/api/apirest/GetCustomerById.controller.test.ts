@@ -91,7 +91,7 @@ describe('GetCustomerByIdController - Tests', () => {
           await myController.execute(request, response)
           // Assert
           expect(response.status).toHaveBeenCalledWith(httpStatus.BAD_REQUEST)
-          expect(response.json).toHaveBeenCalledWith()
+          expect(response.json).toHaveBeenCalledWith({ error: 'Bad Request' })
         } catch {
           fail(MESSAGE_TEST_FAILED)
         }
