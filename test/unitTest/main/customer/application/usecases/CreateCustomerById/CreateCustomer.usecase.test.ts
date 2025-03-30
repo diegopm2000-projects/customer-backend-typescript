@@ -26,7 +26,7 @@ const DEFAULT_REQUEST: ICreateCustomerRequest = {
   nifCif: '123456789Z',
 }
 
-const DEFAULT_CREATE_CUSTOMER_SVC_RESULT: CustomerDTO = {
+export const DEFAULT_CREATE_CUSTOMER_SVC_RESULT: CustomerDTO = {
   id: 'fcf95384-aee8-4dec-ab2a-7836c3b826f9',
   firstName: 'firstName',
   lastName: 'lastName',

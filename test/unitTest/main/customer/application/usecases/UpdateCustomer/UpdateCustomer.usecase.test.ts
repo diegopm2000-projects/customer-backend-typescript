@@ -3,7 +3,7 @@ import 'reflect-metadata'
 import { Fail, ID } from 'types-ddd'
 
 import { CustomerDTO } from '../../../../../../../src/modules/main/customer/application/dtos/Customer.dto'
-import { BadParametersInCustomerCreationError } from '../../../../../../../src/modules/main/customer/application/errors/BadParametersInCustomerCreationError'
+import { BadParametersInCustomerUpdateError } from '../../../../../../../src/modules/main/customer/application/errors/BadParametersInCustomerUpdateError copy'
 import { CustomerNotFoundError } from '../../../../../../../src/modules/main/customer/application/errors/CustomerNotFoundError'
 import { ICreateCustomerRequest } from '../../../../../../../src/modules/main/customer/application/usecases/CreateCustomer/ICreateCustomer.usecase'
 import { IUpdateCustomerRequest, IUpdateCustomerUseCase } from '../../../../../../../src/modules/main/customer/application/usecases/UpdateCustomer/IUpdateCustomer.usecase'
@@ -15,7 +15,6 @@ import { DEFAULT_ADDRESS, DEFAULT_ADDRESS_PROPS } from '../../../domain/model/Ad
 import { DEFAULT_CUSTOMER } from '../../../domain/model/Customer.test'
 import { DEFAULT_EMAIL } from '../../../domain/model/Email.test'
 import { DEFAULT_PHONE } from '../../../domain/model/Phone.test'
-import { BadParametersInCustomerUpdateError } from '../../../../../../../src/modules/main/customer/application/errors/BadParametersInCustomerUpdateError copy'
 
 const DEFAULT_REQUEST: IUpdateCustomerRequest = {
   id: ID.create('fcf95384-aee8-4dec-ab2a-7836c3b826f9'),
@@ -28,7 +27,7 @@ const DEFAULT_REQUEST: IUpdateCustomerRequest = {
   nifCif: '123456789Z',
 }
 
-const DEFAULT_UPDATE_CUSTOMER_SVC_RESULT: CustomerDTO = {
+export const DEFAULT_UPDATE_CUSTOMER_SVC_RESULT: CustomerDTO = {
   id: 'fcf95384-aee8-4dec-ab2a-7836c3b826f9',
   firstName: 'firstName modified',
   lastName: 'lastName modified',

@@ -14,7 +14,7 @@ const DEFAULT_REQUEST: IGetCustomerByIdRequest = {
   customerId: DEFAULT_CUSTOMER.id.value(),
 }
 
-const DEFAULT_GET_CUSTOMER_BY_ID_SVC_RESULT: CustomerDTO = {
+export const DEFAULT_GET_CUSTOMER_BY_ID_SVC_RESULT: CustomerDTO = {
   id: DEFAULT_CUSTOMER.id.value(),
   firstName: DEFAULT_CUSTOMER.firstName,
   lastName: DEFAULT_CUSTOMER.lastName,
