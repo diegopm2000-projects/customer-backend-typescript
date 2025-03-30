@@ -2,7 +2,7 @@
 
 import { MongoClient } from 'mongodb'
 
-import { mongoMock } from '../../../customer/infrastructure/persistence/mongodb/Customer.mongodb.repository.test'
+import { mongoMock } from '../../../modules/customer/infrastructure/persistence/mongodb/Customer.mongodb.repository.test'
 
 // SUT
 import { MongodBInfra } from '../../../../../../src/modules/shared/infrastructure/persistence/mongodb/MongoDBInfra'
