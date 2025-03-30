@@ -1,7 +1,7 @@
 // SUT
 import { Address, AddressProps } from '../../../../../../src/modules/main/customer/domain/models/value-objects/Address'
 
-const DEFAULT_ADDRESS_PROPS: AddressProps = {
+export const DEFAULT_ADDRESS_PROPS: AddressProps = {
   street: 'myStreet',
   number: 123,
   city: 'myCity',

@@ -288,6 +288,75 @@
 			"name": "Automatic Tests",
 			"item": [
 				{
+					"name": "PRE",
+					"item": [
+						{
+							"name": "Delete Customer by Id - 01t - Dennis Ritchie",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 204 or 404\", () => {",
+											"    pm.expect([204, 404]).to.include(pm.response.code);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{HOST_API_REST}}/customers/{{DENNIS_RITCHIE_CUSTOMER_ID}}",
+									"host": [
+										"{{HOST_API_REST}}"
+									],
+									"path": [
+										"customers",
+										"{{DENNIS_RITCHIE_CUSTOMER_ID}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Customer by Id - 02t - Richard Stallman",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 204 or 404\", () => {",
+											"    pm.expect([204, 404]).to.include(pm.response.code);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{HOST_API_REST}}/customers/{{RICHARD_STALLMAN_CUSTOMER_ID}}",
+									"host": [
+										"{{HOST_API_REST}}"
+									],
+									"path": [
+										"customers",
+										"{{RICHARD_STALLMAN_CUSTOMER_ID}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
 					"name": "Create Customer",
 					"item": [
 						{
