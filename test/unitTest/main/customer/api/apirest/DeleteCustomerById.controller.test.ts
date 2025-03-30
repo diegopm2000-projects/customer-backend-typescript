@@ -30,28 +30,28 @@ describe('DeleteCustomerByIdController - Tests', () => {
     myController = container.get<DeleteCustomerByIdController>(TYPES.DeleteCustomerByIdController)
   })
   describe('DeleteCustomerByIdController - successfully cases', () => {
-    // describe('DeleteCustomerByIdController - default successfully case when customer has been found', () => {
-    //   beforeEach(() => {
-    //     jest.spyOn(DeleteCustomerByIdUseCase.prototype, 'execute').mockResolvedValue(true)
-    //   })
-    //   afterEach(() => {
-    //     jest.restoreAllMocks()
-    //   })
-    //   it('DeleteCustomerByIdController - default successfully case when customer has been found', async () => {
-    //     // Arrange
-    //     const request = mockRequest(DEFAULT_REQUEST)
-    //     const response = mockResponse()
-    //     try {
-    //       // Act
-    //       await myController.execute(request, response)
-    //       // Assert
-    //       expect(response.status).toHaveBeenCalledWith(httpStatus.NO_CONTENT)
-    //       expect(response.json).toHaveBeenCalledWith()
-    //     } catch {
-    //       fail(MESSAGE_TEST_FAILED)
-    //     }
-    //   })
-    // })
+    describe('DeleteCustomerByIdController - default successfully case when customer has been found', () => {
+      beforeEach(() => {
+        jest.spyOn(DeleteCustomerByIdUseCase.prototype, 'execute').mockResolvedValue(true)
+      })
+      afterEach(() => {
+        jest.restoreAllMocks()
+      })
+      it('DeleteCustomerByIdController - default successfully case when customer has been found', async () => {
+        // Arrange
+        const request = mockRequest(DEFAULT_REQUEST)
+        const response = mockResponse()
+        try {
+          // Act
+          await myController.execute(request, response)
+          // Assert
+          expect(response.status).toHaveBeenCalledWith(httpStatus.NO_CONTENT)
+          expect(response.json).toHaveBeenCalledWith()
+        } catch {
+          fail(MESSAGE_TEST_FAILED)
+        }
+      })
+    })
   })
 
   describe('DeleteCustomerByIdController - failed cases', () => {
