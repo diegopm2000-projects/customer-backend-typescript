@@ -6,9 +6,12 @@ import * as dotenv from 'dotenv'
 import { IAppConfig } from './IAppConfig'
 import { App } from './app'
 
-export async function init(): Promise<void> {
-  dotenv.config()
+export async function init(): Promise<App> {
+  const res = dotenv.config()
+  console.log(`----> dotenv.config(): ${JSON.stringify(res)}`)
 
+  console.log(`----> process.env.MONGO_DB_URI: ${process.env.MONGO_DB_URI}`)
+  console.log(`----> process.env.EXPRESS_PORT: ${process.env.MONGO_DB_URI}`)
   if (!process.env.MONGO_DB_URI) {
     const message = 'MONGO_DB_URI is not defined'
     console.error(message)
@@ -22,4 +25,6 @@ export async function init(): Promise<void> {
 
   const myApp = new App(config)
   myApp.start()
+
+  return myApp
 }

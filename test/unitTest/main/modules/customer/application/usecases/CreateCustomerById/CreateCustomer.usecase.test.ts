@@ -16,9 +16,9 @@ import { Customer } from '../../../../../../../../src/modules/main/customer/doma
 import { BadParametersInCustomerCreationError } from '../../../../../../../../src/modules/main/customer/application/errors/BadParametersInCustomerCreationError'
 
 const DEFAULT_REQUEST: ICreateCustomerRequest = {
-  id: ID.create('fcf95384-aee8-4dec-ab2a-7836c3b826f9'),
-  firstName: 'firstName',
-  lastName: 'lastName',
+  id: ID.create('706781a2-e4ee-4fc5-ab0f-fdf92f643c8a'),
+  firstName: 'John',
+  lastName: 'Doe',
   email: DEFAULT_EMAIL,
   phoneNumber: DEFAULT_PHONE,
   dateOfBirth: new Date('1990-01-01'),
@@ -27,9 +27,9 @@ const DEFAULT_REQUEST: ICreateCustomerRequest = {
 }
 
 export const DEFAULT_CREATE_CUSTOMER_SVC_RESULT: CustomerDTO = {
-  id: 'fcf95384-aee8-4dec-ab2a-7836c3b826f9',
-  firstName: 'firstName',
-  lastName: 'lastName',
+  id: '706781a2-e4ee-4fc5-ab0f-fdf92f643c8a',
+  firstName: 'John',
+  lastName: 'Doe',
   email: DEFAULT_EMAIL.value,
   phoneNumber: DEFAULT_PHONE.value,
   dateOfBirth: new Date('1990-01-01'),
