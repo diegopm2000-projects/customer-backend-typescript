@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 // SUT
-import { ExpressInfra } from '../../../../../../src/modules/shared/infrastructure/express/ExpressInfra'
+import { ExpressInfra } from '../../../../../../../src/modules/shared/infrastructure/express/ExpressInfra'
 
 const DEFAULT_PARAMS = {
   port: 3000,
