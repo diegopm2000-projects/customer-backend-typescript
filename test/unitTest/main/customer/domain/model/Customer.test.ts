@@ -21,6 +21,34 @@ const DEFAULT_CUSTOMER_PROPS: CustomerProps = {
 
 export const DEFAULT_CUSTOMER = Customer.create(DEFAULT_CUSTOMER_PROPS).value()
 
+const ALT_CUSTOMER_PROPS: CustomerProps = {
+  // TODO - Creo que tira con cualquier id...ver si se puede forzar a uuid
+  id: ID.create('15d21aba-3b1f-4b59-9b56-212e3189f38c'),
+  firstName: 'Richard',
+  lastName: 'Stallman',
+  email: DEFAULT_EMAIL,
+  phoneNumber: DEFAULT_PHONE,
+  dateOfBirth: new Date('1990-01-01'),
+  address: DEFAULT_ADDRESS,
+  nifCif: '123456789Z',
+}
+
+export const ALT_CUSTOMER = Customer.create(ALT_CUSTOMER_PROPS).value()
+
+const ALT_2_CUSTOMER_PROPS: CustomerProps = {
+  // TODO - Creo que tira con cualquier id...ver si se puede forzar a uuid
+  id: ID.create('b2f044a2-f660-4471-b294-52d6e14dc288'),
+  firstName: 'Dennis',
+  lastName: 'Ritchie',
+  email: DEFAULT_EMAIL,
+  phoneNumber: DEFAULT_PHONE,
+  dateOfBirth: new Date('1990-01-01'),
+  address: DEFAULT_ADDRESS,
+  nifCif: '123456789Z',
+}
+
+export const ALT_2_CUSTOMER = Customer.create(ALT_2_CUSTOMER_PROPS).value()
+
 describe('Customer - Tests', () => {
   describe('constructor - Tests', () => {
     it('constructor - default successful case', () => {
