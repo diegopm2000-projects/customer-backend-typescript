@@ -1,3 +1,5 @@
+/* eslint-disable sonarjs/no-duplicate-string */
+
 import 'reflect-metadata'
 
 import httpStatus from 'http-status'
@@ -11,9 +13,10 @@ import { TYPES } from '../../../../../../src/modules/shared/infrastructure/depen
 import { ContainerFactory } from '../../../../expectations/expectations.container'
 import { DEFAULT_ERROR_IN_TEST_MESSAGE, MESSAGE_TEST_FAILED } from '../../../../expectations/expectations.global'
 import { DEFAULT_UPDATE_CUSTOMER_SVC_RESULT } from '../../application/usecases/UpdateCustomer/UpdateCustomer.usecase.test'
-import { DEFAULT_ADDRESS_PROPS } from '../../domain/model/Address.test'
+import { DEFAULT_ADDRESS, DEFAULT_ADDRESS_PROPS } from '../../domain/model/Address.test'
 import { DEFAULT_EMAIL } from '../../domain/model/Email.test'
 import { DEFAULT_PHONE } from '../../domain/model/Phone.test'
+import { BadParametersInCustomerUpdateError } from '../../../../../../src/modules/main/customer/application/errors/BadParametersInCustomerUpdateError copy'
 
 const DEFAULT_REQUEST = {
   body: {
@@ -94,6 +97,40 @@ describe('UpdateCustomerController - Tests', () => {
       it('UpdateCustomerController - failed case when bad parameters have been passed', async () => {
         // Arrange
         const request = mockRequest(BAD_PARAMETERS_REQUEST)
+        const response = mockResponse()
+        try {
+          // Act
+          await myController.execute(request, response)
+          // Assert
+          expect(response.status).toHaveBeenCalledWith(httpStatus.BAD_REQUEST)
+          expect(response.json).toHaveBeenCalledWith({ error: 'Bad Request' })
+        } catch {
+          fail(MESSAGE_TEST_FAILED)
+        }
+      })
+    })
+
+    describe('UpdateCustomer - failed case when svc returned that bad parameters have been passed', () => {
+      beforeEach(() => {
+        jest.spyOn(UpdateCustomerUseCase.prototype, 'execute').mockResolvedValue(
+          new BadParametersInCustomerUpdateError({
+            id: ID.create('fcf95384-aee8-4dec-ab2a-7836c3b826f9'),
+            firstName: 'firstName',
+            lastName: 'lastName',
+            email: DEFAULT_EMAIL,
+            phoneNumber: DEFAULT_PHONE,
+            dateOfBirth: new Date('1990-01-01'),
+            address: DEFAULT_ADDRESS,
+            nifCif: 'nonsense',
+          })
+        )
+      })
+      afterEach(() => {
+        jest.restoreAllMocks()
+      })
+      it('UpdateCustomer - failed case when svc returned that bad parameters have been passed', async () => {
+        // Arrange
+        const request = mockRequest(DEFAULT_REQUEST)
         const response = mockResponse()
         try {
           // Act
