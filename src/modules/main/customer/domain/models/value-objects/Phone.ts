@@ -1,6 +1,6 @@
 import { Fail, Ok, Result, ValueObject } from 'types-ddd'
 
-import { PhoneValidatorService } from '../service/PhoneValidator.service'
+import { PhoneValidatorService } from '../../services/PhoneValidator.service'
 
 export interface PhoneProps {
   value: string

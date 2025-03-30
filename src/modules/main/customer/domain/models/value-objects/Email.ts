@@ -1,6 +1,6 @@
 import { Result, Ok, ValueObject, Fail } from 'types-ddd'
 
-import { EmailValidatorService } from '../service/EmailValidator.service'
+import { EmailValidatorService } from '../../services/EmailValidator.service'
 
 export interface EmailProps {
   value: string

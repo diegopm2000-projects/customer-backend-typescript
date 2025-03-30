@@ -1,23 +1,19 @@
 // SUT
-import { Address, AddressProps } from '../../../../../../src/modules/main/customer/domain/models/value-objects/Address'
-
-export const DEFAULT_ADDRESS_PROPS: AddressProps = {
-  street: 'myStreet',
-  number: 123,
-  city: 'myCity',
-  state: 'myState',
-  postalCode: '123456',
-  country: 'myCountry',
-  additionalInfo: 'myAdditionalInfo',
-}
-
-export const DEFAULT_ADDRESS = Address.create(DEFAULT_ADDRESS_PROPS).value()
+import { Address } from '../../../../../../../src/modules/main/customer/domain/models/value-objects/Address'
 
 describe('Address - Tests', () => {
   describe('constructor - Tests', () => {
     it('constructor - default successful case', () => {
       // Arrange
-      const props = DEFAULT_ADDRESS_PROPS
+      const props = {
+        street: 'myStreet',
+        number: 123,
+        city: 'myCity',
+        state: 'myState',
+        postalCode: '123456',
+        country: 'myCountry',
+        additionalInfo: 'myAdditionalInfo',
+      }
       // Act
       const result = Address.create(props)
       const myObj = result.value()
