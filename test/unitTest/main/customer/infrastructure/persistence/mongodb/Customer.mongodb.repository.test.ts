@@ -36,7 +36,7 @@ const EXAMPLE_MODEL_PERSISTENCE_DEFAULT = {
   phoneNumber: '+34 666666666',
 }
 
-const mongoMock = {
+export const mongoMock = {
   db: () => ({
     collection: (collectionName: string) => ({
       find: (filter: Filter<Document>, options: CountDocumentsOptions) => ({
