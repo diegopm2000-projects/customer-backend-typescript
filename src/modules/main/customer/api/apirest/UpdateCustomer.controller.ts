@@ -80,7 +80,7 @@ export class UpdateCustomerController {
         return
       }
 
-      response.status(201).json(svcResult)
+      response.status(200).json(svcResult)
     } catch (error: any) {
       // TODO - Ver si esto del catch lo puedo llevar al shared para no repetir (un handler allí)
       console.error(`error.stack: ${error.stack}`)

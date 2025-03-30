@@ -20,6 +20,7 @@ export class DeleteCustomerByIdController {
       // Validate parameters
       const uuidSchema = z.string().uuid()
       const parametersValid = uuidSchema.safeParse(customerId)
+      console.log('----> parametersValid: ', parametersValid)
       if (parametersValid.success === false) {
         response.status(400).json({ error: 'Bad Request' })
         return
