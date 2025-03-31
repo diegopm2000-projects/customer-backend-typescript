@@ -23,10 +23,12 @@ const CustomerInputSchema = z.object({
 
 const uuidSchema = z.string().uuid()
 
-export function validateCustomerInputSchema(customerParams: any) {
-  return CustomerInputSchema.safeParse(customerParams)
-}
+export class InputSchemaValidator {
+  static validateCustomerInputSchema(customerParams: any) {
+    return CustomerInputSchema.safeParse(customerParams)
+  }
 
-export function validateUuidInputSchema(customerId: any) {
-  return uuidSchema.safeParse(customerId)
+  static validateUuidInputSchema(customerId: any) {
+    return uuidSchema.safeParse(customerId)
+  }
 }

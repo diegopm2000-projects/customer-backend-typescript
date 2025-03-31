@@ -2,12 +2,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { Request, Response } from 'express'
-import { inject, injectable } from 'inversify'
 import httpStatus from 'http-status'
-import { z } from 'zod'
+import { inject, injectable } from 'inversify'
 
 import { TYPES } from '../../../../shared/infrastructure/dependencyInjection/types'
 import { IDeleteCustomerByIdUseCase } from '../../application/usecases/DeleteCustomerById/IDeleteCustomerById.usecase'
+import { InputSchemaValidator } from './shared/InputSchemaValidator'
 
 @injectable()
 export class DeleteCustomerByIdController {
@@ -19,8 +19,7 @@ export class DeleteCustomerByIdController {
       console.log(`----> customerId: ${customerId}`)
 
       // Validate parameters
-      const uuidSchema = z.string().uuid()
-      const parametersValid = uuidSchema.safeParse(customerId)
+      const parametersValid = InputSchemaValidator.validateUuidInputSchema(customerId)
       console.log('----> parametersValid: ', parametersValid)
       if (parametersValid.success === false) {
         response.status(httpStatus.BAD_REQUEST).json({ error: 'Bad Request' })

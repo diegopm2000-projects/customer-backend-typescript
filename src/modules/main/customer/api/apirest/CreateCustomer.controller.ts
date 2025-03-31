@@ -13,7 +13,7 @@ import { ICreateCustomerRequest, ICreateCustomerUseCase } from '../../applicatio
 import { Address } from '../../domain/models/value-objects/Address'
 import { Email } from '../../domain/models/value-objects/Email'
 import { Phone } from '../../domain/models/value-objects/Phone'
-import { validateCustomerInputSchema } from './shared'
+import { InputSchemaValidator } from './shared/InputSchemaValidator'
 
 @injectable()
 export class CreateCustomerController {
@@ -25,7 +25,7 @@ export class CreateCustomerController {
       console.log(`----> customerParams: ${JSON.stringify(customerParams)}`)
 
       // Validate input parameters
-      const parametersValid = validateCustomerInputSchema(customerParams)
+      const parametersValid = InputSchemaValidator.validateCustomerInputSchema(customerParams)
       if (parametersValid.success === false) {
         response.status(httpStatus.BAD_REQUEST).json({ error: 'Bad Request' })
         return

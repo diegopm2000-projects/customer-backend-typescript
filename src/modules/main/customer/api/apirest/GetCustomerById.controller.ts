@@ -7,7 +7,7 @@ import { inject, injectable } from 'inversify'
 
 import { TYPES } from '../../../../shared/infrastructure/dependencyInjection/types'
 import { IGetCustomerByIdUseCase } from '../../application/usecases/GetCustomerById/IGetCustomerById.usecase'
-import { validateUuidInputSchema } from './shared'
+import { InputSchemaValidator } from './shared/InputSchemaValidator'
 
 @injectable()
 export class GetCustomerByIdController {
@@ -19,7 +19,7 @@ export class GetCustomerByIdController {
       console.log(`----> customerId: ${customerId}`)
 
       // Validate parameters
-      const parametersValid = validateUuidInputSchema(customerId)
+      const parametersValid = InputSchemaValidator.validateUuidInputSchema(customerId)
       if (parametersValid.success === false) {
         response.status(httpStatus.BAD_REQUEST).json({ error: 'Bad Request' })
         return
