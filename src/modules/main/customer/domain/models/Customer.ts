@@ -16,8 +16,6 @@ export interface CustomerProps {
 }
 
 export class Customer extends Entity<CustomerProps> {
-  // TODO - ver si los getters es innecesario escribirlos
-  // TODO - ver como se desactivan los setters
   get id(): UID {
     return this.props.id
   }

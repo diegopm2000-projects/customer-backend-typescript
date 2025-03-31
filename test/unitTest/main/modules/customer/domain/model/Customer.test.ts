@@ -10,7 +10,6 @@ import { DEFAULT_ADDRESS } from './Address.test'
 import { Customer, CustomerProps } from '../../../../../../../src/modules/main/customer/domain/models/Customer'
 
 const DEFAULT_CUSTOMER_PROPS: CustomerProps = {
-  // TODO - Creo que tira con cualquier id...ver si se puede forzar a uuid
   id: ID.create('706781a2-e4ee-4fc5-ab0f-fdf92f643c8a'),
   firstName: 'John',
   lastName: 'Doe',
@@ -24,7 +23,6 @@ const DEFAULT_CUSTOMER_PROPS: CustomerProps = {
 export const DEFAULT_CUSTOMER = Customer.create(DEFAULT_CUSTOMER_PROPS).value()
 
 const ALT_CUSTOMER_PROPS: CustomerProps = {
-  // TODO - Creo que tira con cualquier id...ver si se puede forzar a uuid
   id: ID.create('15d21aba-3b1f-4b59-9b56-212e3189f38c'),
   firstName: 'Richard',
   lastName: 'Stallman',
@@ -38,7 +36,6 @@ const ALT_CUSTOMER_PROPS: CustomerProps = {
 export const ALT_CUSTOMER = Customer.create(ALT_CUSTOMER_PROPS).value()
 
 const ALT_2_CUSTOMER_PROPS: CustomerProps = {
-  // TODO - Creo que tira con cualquier id...ver si se puede forzar a uuid
   id: ID.create('b2f044a2-f660-4471-b294-52d6e14dc288'),
   firstName: 'Dennis',
   lastName: 'Ritchie',

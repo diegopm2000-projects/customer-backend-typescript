@@ -1,12 +1,13 @@
 /* eslint-disable no-console */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { inject, injectable } from 'inversify'
 import { Request, Response } from 'express'
-import { z } from 'zod'
+import httpStatus from 'http-status'
+import { inject, injectable } from 'inversify'
 
 import { TYPES } from '../../../../shared/infrastructure/dependencyInjection/types'
 import { IGetCustomerByIdUseCase } from '../../application/usecases/GetCustomerById/IGetCustomerById.usecase'
+import { validateUuidInputSchema } from './shared'
 
 @injectable()
 export class GetCustomerByIdController {
@@ -18,26 +19,25 @@ export class GetCustomerByIdController {
       console.log(`----> customerId: ${customerId}`)
 
       // Validate parameters
-      const uuidSchema = z.string().uuid()
-      const parametersValid = uuidSchema.safeParse(customerId)
+      const parametersValid = validateUuidInputSchema(customerId)
       if (parametersValid.success === false) {
-        response.status(400).json({ error: 'Bad Request' })
+        response.status(httpStatus.BAD_REQUEST).json({ error: 'Bad Request' })
         return
       }
 
       const svcResult = await this.usecase.execute({ customerId })
 
       if (!svcResult) {
-        response.status(404).json({ error: 'Customer not found' })
+        response.status(httpStatus.NOT_FOUND).json({ error: 'Customer not found' })
         return
       }
 
-      response.status(200).json(svcResult)
+      response.status(httpStatus.OK).json(svcResult)
     } catch (error: any) {
       console.error(`error.stack: ${error.stack}`)
       console.error(`error.message: ${error.message}`)
 
-      response.status(500).json({ error: 'Internal Server error' })
+      response.status(httpStatus.INTERNAL_SERVER_ERROR).json({ error: 'Internal Server error' })
     }
   }
 }
