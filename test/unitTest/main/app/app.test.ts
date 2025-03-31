@@ -105,7 +105,6 @@ describe('App - Tests', () => {
           await myApp.start()
           const endpointPath = `http://localhost:${DEFAULT_CONFIG.expressPort}/api/customers/706781a2-e4ee-4fc5-ab0f-fdf92f643c8a`
           const res = await superagent.get(endpointPath)
-          console.log(`---> ${JSON.stringify(res.body)}`)
           // Assert
           expect(res.status).toBe(200)
           expect(res.body).toStrictEqual(DEFAULT_CUSTOMER_BODY_RESPONSE)
@@ -129,7 +128,6 @@ describe('App - Tests', () => {
           await myApp.start()
           const endpointPath = `http://localhost:${DEFAULT_CONFIG.expressPort}/api/customers`
           const res = await superagent.get(endpointPath)
-          console.log(`---> ${JSON.stringify(res.body)}`)
           // Assert
           expect(res.status).toBe(200)
           expect(res.body).toStrictEqual([DEFAULT_CUSTOMER_BODY_RESPONSE])
@@ -153,7 +151,6 @@ describe('App - Tests', () => {
           await myApp.start()
           const endpointPath = `http://localhost:${DEFAULT_CONFIG.expressPort}/api/customers`
           const res = await superagent.post(endpointPath).send(DEFAULT_CUSTOMER_BODY_REQUEST)
-          console.log(`---> ${JSON.stringify(res.body)}`)
           // Assert
           expect(res.status).toBe(201)
           expect(res.body).toStrictEqual(DEFAULT_CUSTOMER_BODY_RESPONSE)
@@ -177,7 +174,6 @@ describe('App - Tests', () => {
           await myApp.start()
           const endpointPath = `http://localhost:${DEFAULT_CONFIG.expressPort}/api/customers`
           const res = await superagent.put(endpointPath).send(DEFAULT_CUSTOMER_BODY_REQUEST)
-          console.log(`---> ${JSON.stringify(res.body)}`)
           // Assert
           expect(res.status).toBe(200)
           expect(res.body).toStrictEqual(DEFAULT_CUSTOMER_BODY_RESPONSE)
@@ -201,7 +197,6 @@ describe('App - Tests', () => {
           await myApp.start()
           const endpointPath = `http://localhost:${DEFAULT_CONFIG.expressPort}/api/customers/706781a2-e4ee-4fc5-ab0f-fdf92f643c8a`
           const res = await superagent.delete(endpointPath)
-          console.log(`---> ${JSON.stringify(res.body)}`)
           // Assert
           expect(res.status).toBe(204)
           expect(fnService).toHaveBeenCalledTimes(1)
