@@ -482,7 +482,7 @@
 					]
 				},
 				{
-					"name": "Update Customer Copy",
+					"name": "Update Customer",
 					"item": [
 						{
 							"name": "Update Customer - 01t - Success",
@@ -492,7 +492,7 @@
 									"script": {
 										"exec": [
 											"pm.test(\"Status code is 201\", () => {",
-											"    pm.response.to.have.status(201);",
+											"    pm.response.to.have.status(200);",
 											"});"
 										],
 										"type": "text/javascript",
