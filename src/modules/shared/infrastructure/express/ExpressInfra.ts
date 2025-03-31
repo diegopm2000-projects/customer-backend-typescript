@@ -18,7 +18,7 @@ export class ExpressInfra implements IExpressInfra {
     this._port = params.port
   }
 
-  async start(): Promise<void> {
+  async start(): Promise<boolean> {
     this._app = express()
 
     this._app.use(express.json())
@@ -27,9 +27,11 @@ export class ExpressInfra implements IExpressInfra {
       // eslint-disable-next-line no-console
       console.log(`Server is running on http://localhost:${this._port}`)
     })
+
+    return true
   }
 
-  async stop(): Promise<void> {
+  async stop(): Promise<boolean> {
     return new Promise((resolve, reject) => {
       if (this._server) {
         this._server.close((err) => {
@@ -38,12 +40,12 @@ export class ExpressInfra implements IExpressInfra {
             reject(err)
           } else {
             console.log('----> Server stopped successfully.')
-            resolve()
+            resolve(true)
           }
         })
       } else {
         console.warn('----> Server is not running.')
-        resolve()
+        resolve(false)
       }
     })
   }

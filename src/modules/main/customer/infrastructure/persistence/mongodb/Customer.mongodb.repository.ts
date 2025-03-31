@@ -43,8 +43,6 @@ export class CustomerMongoDBRepository implements ICustomerRepository {
   async getById(customerId: UID): Promise<Customer | undefined> {
     const client = await this.mongoDBInfra.getConnectionDb()
 
-    console.log(`----> customerId.value: ${customerId.value()}`)
-
     const filter = { _id: customerId.value() }
     const bdObjFound: Document | null = await client.collection(this.collection).findOne(filter)
     return bdObjFound ? CustomerModelPersistenceConverter.modelPersistenceToModel(<CustomerModelPersistence>bdObjFound) : undefined

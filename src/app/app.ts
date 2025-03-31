@@ -44,10 +44,13 @@ export class App {
     expressInfra.app.post(BASE_API_CUSTOMERS, (req, res) => this.container?.get<CreateCustomerController>(TYPES.CreateCustomerController).execute(req, res))
     expressInfra.app.put(BASE_API_CUSTOMERS, (req, res) => this.container?.get<UpdateCustomerController>(TYPES.UpdateCustomerController).execute(req, res))
     expressInfra.app.delete(`${BASE_API_CUSTOMERS}/:customerId`, (req, res) => this.container?.get<DeleteCustomerByIdController>(TYPES.DeleteCustomerByIdController).execute(req, res))
+
+    return true
   }
 
   async stop() {
     if (this._container) {
+      console.log('Stopping application...')
       await this._container.get<IMongoDBInfra>(TYPES.IMongoDBInfra).closeConnectionDb()
       console.log('MongoDB connection closed')
       await this._container.get<IExpressInfra>(TYPES.IExpressInfra).stop()
