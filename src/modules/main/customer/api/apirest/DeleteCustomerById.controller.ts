@@ -8,6 +8,7 @@ import { inject, injectable } from 'inversify'
 import { TYPES } from '../../../../shared/infrastructure/dependencyInjection/types'
 import { IDeleteCustomerByIdUseCase } from '../../application/usecases/DeleteCustomerById/IDeleteCustomerById.usecase'
 import { InputSchemaValidator } from './shared/InputSchemaValidator'
+import { PresentationErrorBuilder } from './shared/PresentationErrors'
 
 @injectable()
 export class DeleteCustomerByIdController {
@@ -19,10 +20,11 @@ export class DeleteCustomerByIdController {
       console.log(`----> customerId: ${customerId}`)
 
       // Validate parameters
-      const parametersValid = InputSchemaValidator.validateUuidInputSchema(customerId)
-      console.log('----> parametersValid: ', parametersValid)
-      if (parametersValid.success === false) {
-        response.status(httpStatus.BAD_REQUEST).json({ error: 'Bad Request' })
+      const paramValidationResult = InputSchemaValidator.validateUuidInputSchema(request.params)
+      if (paramValidationResult.success === false) {
+        console.log(`----> paramValidationResult data: ${paramValidationResult.data}, error: ${paramValidationResult.error}`)
+        const detailedMessage = paramValidationResult.error.errors.map(err => ({ code: err.code, message: err.message, path: err.path }));
+        response.status(httpStatus.BAD_REQUEST).json(PresentationErrorBuilder.buildBadRequest({ path: request.path, detailedMessage }))
         return
       }
 
@@ -38,7 +40,7 @@ export class DeleteCustomerByIdController {
       console.error(`error.stack: ${error.stack}`)
       console.error(`error.message: ${error.message}`)
 
-      response.status(httpStatus.INTERNAL_SERVER_ERROR).json({ error: 'Internal Server error' })
+      response.status(httpStatus.INTERNAL_SERVER_ERROR).json(PresentationErrorBuilder.buildInternalServerError({ path: request.path, message: error.message }))
     }
   }
 }

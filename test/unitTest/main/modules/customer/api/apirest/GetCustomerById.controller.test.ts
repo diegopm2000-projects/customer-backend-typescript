@@ -72,7 +72,11 @@ describe('GetCustomerByIdController - Tests', () => {
           await myController.execute(request, response)
           // Assert
           expect(response.status).toHaveBeenCalledWith(httpStatus.NOT_FOUND)
-          expect(response.json).toHaveBeenCalledWith({ error: 'Customer not found' })
+          // expect(response.json).toHaveBeenCalledWith({ error: 'Customer not found' })
+          expect(response.json).toHaveBeenCalledWith(expect.objectContaining({
+            status: httpStatus.NOT_FOUND,
+            error: "Object not found",
+          }))
         } catch {
           fail(MESSAGE_TEST_FAILED)
         }
@@ -91,7 +95,11 @@ describe('GetCustomerByIdController - Tests', () => {
           await myController.execute(request, response)
           // Assert
           expect(response.status).toHaveBeenCalledWith(httpStatus.BAD_REQUEST)
-          expect(response.json).toHaveBeenCalledWith({ error: 'Bad Request' })
+          // expect(response.json).toHaveBeenCalledWith({ error: 'Bad Request' })
+          expect(response.json).toHaveBeenCalledWith(expect.objectContaining({
+            status: httpStatus.BAD_REQUEST,
+            error: "Bad request",
+          }))
         } catch {
           fail(MESSAGE_TEST_FAILED)
         }
@@ -113,7 +121,10 @@ describe('GetCustomerByIdController - Tests', () => {
           // Act
           await myController.execute(request, response)
           // Assert
-          expect(response.status).toHaveBeenCalledWith(httpStatus.INTERNAL_SERVER_ERROR)
+          expect(response.json).toHaveBeenCalledWith(expect.objectContaining({
+            status: httpStatus.INTERNAL_SERVER_ERROR,
+            error: "Internal server error",
+          }))
         } catch {
           fail(MESSAGE_TEST_FAILED)
         }

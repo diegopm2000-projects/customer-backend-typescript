@@ -7,6 +7,7 @@ import { inject, injectable } from 'inversify'
 
 import { TYPES } from '../../../../shared/infrastructure/dependencyInjection/types'
 import { IGetAllCustomersUseCase } from '../../application/usecases/GetAllCustomers/IGetAllCustomers.usecase'
+import { PresentationErrorBuilder } from './shared/PresentationErrors'
 
 @injectable()
 export class GetAllCustomersController {
@@ -21,7 +22,7 @@ export class GetAllCustomersController {
       console.error(`error.stack: ${error.stack}`)
       console.error(`error.message: ${error.message}`)
 
-      response.status(httpStatus.INTERNAL_SERVER_ERROR).json({ error: 'Internal Server error' })
+      response.status(httpStatus.INTERNAL_SERVER_ERROR).json(PresentationErrorBuilder.buildInternalServerError({ path: request.path, message: error.message }))
     }
   }
 }

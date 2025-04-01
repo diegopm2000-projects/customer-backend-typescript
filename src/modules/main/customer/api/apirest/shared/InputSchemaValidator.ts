@@ -21,14 +21,16 @@ const CustomerInputSchema = z.object({
   nifCif: z.string(),
 })
 
-const uuidSchema = z.string().uuid()
+const customerUuidSchema = z.object({
+  customerId: z.string().uuid()
+});
 
 export class InputSchemaValidator {
   static validateCustomerInputSchema(customerParams: any) {
     return CustomerInputSchema.safeParse(customerParams)
   }
 
-  static validateUuidInputSchema(customerId: any) {
-    return uuidSchema.safeParse(customerId)
+  static validateUuidInputSchema(params: any) {
+    return customerUuidSchema.safeParse(params)
   }
 }

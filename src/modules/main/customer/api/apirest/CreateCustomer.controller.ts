@@ -14,6 +14,7 @@ import { Address } from '../../domain/models/value-objects/Address'
 import { Email } from '../../domain/models/value-objects/Email'
 import { Phone } from '../../domain/models/value-objects/Phone'
 import { InputSchemaValidator } from './shared/InputSchemaValidator'
+import { PresentationErrorBuilder } from './shared/PresentationErrors'
 
 @injectable()
 export class CreateCustomerController {
@@ -63,7 +64,7 @@ export class CreateCustomerController {
       console.error(`error.stack: ${error.stack}`)
       console.error(`error.message: ${error.message}`)
 
-      response.status(httpStatus.INTERNAL_SERVER_ERROR).json({ error: 'Internal Server error' })
+      response.status(httpStatus.INTERNAL_SERVER_ERROR).json(PresentationErrorBuilder.buildInternalServerError({ path: request.path, message: error.message }))
     }
   }
 }
