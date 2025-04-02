@@ -50,10 +50,10 @@ export class CustomerMongoDBRepository implements ICustomerRepository {
     return bdObjFound ? CustomerModelPersistenceConverter.modelPersistenceToModel(<CustomerModelPersistence>bdObjFound) : undefined
   }
 
-  async getByNIFCIFNIE(dninifnie: SpainID): Promise<Customer | undefined> {
+  async getByNIFCIFNIE(nifCifNie: SpainID): Promise<Customer | undefined> {
     const client = await this.mongoDBInfra.getConnectionDb()
 
-    const filter = { nifCifNie: dninifnie.value }
+    const filter = { nifCifNie: nifCifNie.value }
     const bdObjFound: Document | null = await client.collection(this.collection).findOne(filter)
     return bdObjFound ? CustomerModelPersistenceConverter.modelPersistenceToModel(<CustomerModelPersistence>bdObjFound) : undefined
   }

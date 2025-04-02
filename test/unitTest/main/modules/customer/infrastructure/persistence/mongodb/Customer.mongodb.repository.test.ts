@@ -11,6 +11,7 @@ import { TYPES } from '../../../../../../../../src/modules/shared/infrastructure
 import { ContainerFactory } from '../../../../../../expectations/expectations.container'
 import { ALT_2_CUSTOMER, ALT_CUSTOMER, DEFAULT_CUSTOMER } from '../../../../customer/domain/model/Customer.test'
 import { MESSAGE_TEST_FAILED } from '../../../../../../expectations/expectations.global'
+import { SpainID } from '../../../../../../../../src/modules/main/customer/domain/models/value-objects/SpainID'
 
 const EXAMPLE_MODEL_PERSISTENCE_DEFAULT = {
   _id: 'cd4ef971-2f9b-4b18-830f-b5ead60565fe',
@@ -44,6 +45,8 @@ export const mongoMock = {
       }),
       findOne: (filter: Filter<Document>, options: CountDocumentsOptions) => {
         if (JSON.stringify(filter) == JSON.stringify({ _id: DEFAULT_CUSTOMER.id.value() })) {
+          return EXAMPLE_MODEL_PERSISTENCE_DEFAULT
+        } else if (JSON.stringify(filter) == JSON.stringify({ nifCifNie: DEFAULT_CUSTOMER.nifCifNie.value })) {
           return EXAMPLE_MODEL_PERSISTENCE_DEFAULT
         } else {
           return undefined
@@ -106,6 +109,24 @@ describe('CustomerMongoDBRepository - Tests', () => {
       // N/A
       // Act
       const result = await myRepository.getById(ID.create('b297166b-a16a-42f8-8828-86496d46f06d'))
+      // Assert
+      expect(result).toBeUndefined()
+    })
+  })
+  describe('getByNIFCIFNIE - Tests', () => {
+    it('getByNIFCIFNIE - successful case when customer was found', async () => {
+      // Arrange
+      // N/A
+      // Act
+      const result = await myRepository.getByNIFCIFNIE(DEFAULT_CUSTOMER.nifCifNie)
+      // Assert
+      expect(result).toBeDefined()
+    })
+    it('getById - case when customer was not found', async () => {
+      // Arrange
+      // N/A
+      // Act
+      const result = await myRepository.getByNIFCIFNIE(SpainID.create({ value: '14741806W' }).value())
       // Assert
       expect(result).toBeUndefined()
     })
