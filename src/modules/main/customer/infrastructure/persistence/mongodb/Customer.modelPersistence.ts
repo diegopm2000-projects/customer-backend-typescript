@@ -16,5 +16,5 @@ export interface CustomerModelPersistence {
   phoneNumber: string
   dateOfBirth: Date
   address: AddressModelPersistence
-  nifCif: string
+  nifCifNie: string
 }

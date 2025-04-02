@@ -23,7 +23,7 @@ const DEFAULT_MODEL_PERSISTENCE = {
     country: 'myCountry',
     additionalInfo: 'myAdditionalInfo',
   },
-  nifCif: DEFAULT_CUSTOMER.nifCif,
+  nifCifNie: DEFAULT_CUSTOMER.nifCifNie.value,
 }
 
 describe('CustomerModelPersistenceConverter - Tests', () => {
@@ -59,7 +59,7 @@ describe('CustomerModelPersistenceConverter - Tests', () => {
       expect(result.address.postalCode).toEqual(DEFAULT_MODEL_PERSISTENCE.address.postalCode)
       expect(result.address.country).toEqual(DEFAULT_MODEL_PERSISTENCE.address.country)
       expect(result.address.additionalInfo).toEqual(DEFAULT_MODEL_PERSISTENCE.address.additionalInfo)
-      expect(result.nifCif).toEqual(DEFAULT_MODEL_PERSISTENCE.nifCif)
+      expect(result.nifCifNie.value).toEqual(DEFAULT_MODEL_PERSISTENCE.nifCifNie)
     })
   })
 })

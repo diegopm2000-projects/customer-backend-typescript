@@ -15,9 +15,10 @@ import { TYPES } from '../../../../../../../src/modules/shared/infrastructure/de
 import { ContainerFactory } from '../../../../../expectations/expectations.container'
 import { DEFAULT_ERROR_IN_TEST_MESSAGE, MESSAGE_TEST_FAILED } from '../../../../../expectations/expectations.global'
 import { DEFAULT_CREATE_CUSTOMER_SVC_RESULT } from '../../application/usecases/CreateCustomerById/CreateCustomer.usecase.test'
-import { DEFAULT_ADDRESS, DEFAULT_ADDRESS_PROPS } from '../../domain/model/Address.test'
-import { DEFAULT_EMAIL } from '../../domain/model/Email.test'
-import { DEFAULT_PHONE } from '../../domain/model/Phone.test'
+import { DEFAULT_ADDRESS, DEFAULT_ADDRESS_PROPS } from '../../domain/model/value-objects/Address.test'
+import { DEFAULT_EMAIL } from '../../domain/model/value-objects/Email.test'
+import { DEFAULT_PHONE } from '../../domain/model/value-objects/Phone.test'
+import { DEFAULT_NIFCIFNIE } from '../../domain/model/value-objects/SpainID.test'
 
 const DEFAULT_REQUEST = {
   body: {
@@ -28,7 +29,7 @@ const DEFAULT_REQUEST = {
     phoneNumber: DEFAULT_PHONE.value,
     dateOfBirth: '1992-01-01T00:00:00.000Z',
     address: DEFAULT_ADDRESS_PROPS,
-    nifCif: '123456789Z',
+    nifCifNie: DEFAULT_NIFCIFNIE.value,
   },
 }
 

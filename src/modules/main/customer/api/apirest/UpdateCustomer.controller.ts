@@ -12,6 +12,7 @@ import { IUpdateCustomerUseCase } from '../../application/usecases/UpdateCustome
 import { Address } from '../../domain/models/value-objects/Address'
 import { Email } from '../../domain/models/value-objects/Email'
 import { Phone } from '../../domain/models/value-objects/Phone'
+import { SpainID } from '../../domain/models/value-objects/SpainID'
 import { BasePresenter } from './shared/BasePresenter'
 import { InputSchemaValidator } from './shared/InputSchemaValidator'
 
@@ -40,7 +41,7 @@ export class UpdateCustomerController {
         phoneNumber: Phone.create({ value: customerParams.phoneNumber }).value(),
         dateOfBirth: new Date(customerParams.dateOfBirth),
         address: Address.create(customerParams.address).value(),
-        nifCif: customerParams.nifCif,
+        nifCifNie: SpainID.create({ value: customerParams.nifCifNie }).value(),
       }
 
       const svcResult = await this.usecase.execute(createCustomerRequest)

@@ -6,6 +6,7 @@ import { Phone } from '../../../domain/models/value-objects/Phone'
 import { CustomerDTO } from '../../dtos/Customer.dto'
 import { BadParametersInCustomerUpdateError } from '../../errors/BadParametersInCustomerUpdateError copy'
 import { CustomerNotFoundError } from '../../errors/CustomerNotFoundError'
+import { SpainID } from '../../../domain/models/value-objects/SpainID'
 
 export interface IUpdateCustomerRequest {
   id: UID
@@ -15,7 +16,7 @@ export interface IUpdateCustomerRequest {
   phoneNumber: Phone
   dateOfBirth: Date
   address: Address
-  nifCif: string
+  nifCifNie: SpainID
 }
 
 export type IUpdateCustomerResponse = CustomerDTO | BadParametersInCustomerUpdateError | CustomerNotFoundError

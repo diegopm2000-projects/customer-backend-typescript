@@ -32,7 +32,7 @@ const EXAMPLE_MODEL_PERSISTENCE_DEFAULT = {
   modifiedAt: {
     $date: '2025-03-30T14:15:28.928Z',
   },
-  nifCif: '123456789Z',
+  nifCifNie: '39740191D',
   phoneNumber: '+34 666666666',
 }
 

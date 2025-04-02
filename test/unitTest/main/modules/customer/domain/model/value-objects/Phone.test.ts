@@ -1,6 +1,8 @@
 // SUT
 import { Phone } from '../../../../../../../../src/modules/main/customer/domain/models/value-objects/Phone'
 
+export const DEFAULT_PHONE = Phone.create({ value: '+34 666666666' }).value()
+
 describe('Phone - Tests', () => {
   describe('constructor - Tests', () => {
     it('constructor - default successful case', () => {

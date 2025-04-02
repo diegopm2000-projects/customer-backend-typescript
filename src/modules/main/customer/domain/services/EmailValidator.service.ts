@@ -1,7 +1,7 @@
 import { isEmail } from 'validator'
 
 export class EmailValidatorService {
-  public static isValid(email: string): boolean {
-    return isEmail(email)
+  public static isValid(emailValue: string): boolean {
+    return isEmail(emailValue)
   }
 }

@@ -2,6 +2,7 @@
 
 import { z } from 'zod'
 import { PhoneValidatorService } from '../../../domain/services/PhoneValidator.service'
+import { SpainIDValidatorService } from '../../../domain/services/SpainIDValidator.service'
 
 const AddressInputSchema = z.object({
   street: z.string(),
@@ -20,7 +21,7 @@ const CustomerInputSchema = z
     phoneNumber: z.string(),
     dateOfBirth: z.string().datetime(), // ISO 8601
     address: AddressInputSchema,
-    nifCif: z.string(),
+    nifCifNie: z.string(),
   })
   .refine(
     (data) => {
@@ -28,6 +29,14 @@ const CustomerInputSchema = z
     },
     {
       message: 'Invalid phone number',
+    }
+  )
+  .refine(
+    (data) => {
+      return SpainIDValidatorService.isValid(data.nifCifNie)
+    },
+    {
+      message: 'Invalid nifCifNie',
     }
   )
 

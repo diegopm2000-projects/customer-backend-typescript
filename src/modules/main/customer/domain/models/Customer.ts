@@ -3,6 +3,7 @@ import { Entity, Ok, Result, UID } from 'types-ddd'
 import { Email } from './value-objects/Email'
 import { Phone } from './value-objects/Phone'
 import { Address } from './value-objects/Address'
+import { SpainID } from './value-objects/SpainID'
 
 export interface CustomerProps {
   id: UID
@@ -12,7 +13,7 @@ export interface CustomerProps {
   phoneNumber: Phone
   dateOfBirth: Date
   address: Address
-  nifCif: string // TODO montar un value object para esto
+  nifCifNie: SpainID
 }
 
 export class Customer extends Entity<CustomerProps> {
@@ -37,8 +38,8 @@ export class Customer extends Entity<CustomerProps> {
   get address(): Address {
     return this.props.address
   }
-  get nifCif(): string {
-    return this.props.nifCif
+  get nifCifNie(): SpainID {
+    return this.props.nifCifNie
   }
 
   private constructor(props: CustomerProps) {

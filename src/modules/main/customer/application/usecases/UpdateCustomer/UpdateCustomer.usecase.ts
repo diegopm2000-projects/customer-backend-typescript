@@ -23,15 +23,11 @@ export class UpdateCustomerUseCase implements IUpdateCustomerUseCase {
       return new BadParametersInCustomerUpdateError(request)
     }
     const customer = customerToUpdateResult.value()
-    console.log(`----> customer to be Updated: ${JSON.stringify(customer)}`)
-    console.log(`----> customer.id: ${customer.id.value}`)
 
     const customerFound = await this.customerRepository.getById(customer.id)
     if (!customerFound) {
       return new CustomerNotFoundError(customer.id)
     }
-
-    console.log(`---> justo antes de llamar al save...`)
 
     await this.customerRepository.save(customer)
 

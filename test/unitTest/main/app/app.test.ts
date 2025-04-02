@@ -2,19 +2,19 @@ import superagent from 'superagent'
 
 import { IAppConfig } from '../../../../src/app/IAppConfig'
 
+import { CreateCustomerUseCase } from '../../../../src/modules/main/customer/application/usecases/CreateCustomer/CreateCustomer.usecase'
+import { DeleteCustomerByIdUseCase } from '../../../../src/modules/main/customer/application/usecases/DeleteCustomerById/DeleteCustomerById.usecase'
 import { GetAllCustomersUseCase } from '../../../../src/modules/main/customer/application/usecases/GetAllCustomers/GetAllCustomers.usecase'
+import { GetCustomerByIdUseCase } from '../../../../src/modules/main/customer/application/usecases/GetCustomerById/GetCustomerById.usecase'
+import { UpdateCustomerUseCase } from '../../../../src/modules/main/customer/application/usecases/UpdateCustomer/UpdateCustomer.usecase'
 import { MESSAGE_TEST_FAILED } from '../../expectations/expectations.global'
+import { DEFAULT_CREATE_CUSTOMER_SVC_RESULT } from '../modules/customer/application/usecases/CreateCustomerById/CreateCustomer.usecase.test'
 import { DEFAULT_GET_ALL_CUSTOMERS_SVC_RESULT } from '../modules/customer/application/usecases/GetAllCustomers/GetAllCustomers.usecase.test'
+import { DEFAULT_GET_CUSTOMER_BY_ID_SVC_RESULT } from '../modules/customer/application/usecases/GetCustomerById/GetCustomerById.test'
+import { DEFAULT_UPDATE_CUSTOMER_SVC_RESULT } from '../modules/customer/application/usecases/UpdateCustomer/UpdateCustomer.usecase.test'
 
 // SUT
 import { App } from '../../../../src/app/app'
-import { DEFAULT_GET_CUSTOMER_BY_ID_SVC_RESULT } from '../modules/customer/application/usecases/GetCustomerById/GetCustomerById.test'
-import { GetCustomerByIdUseCase } from '../../../../src/modules/main/customer/application/usecases/GetCustomerById/GetCustomerById.usecase'
-import { CreateCustomerUseCase } from '../../../../src/modules/main/customer/application/usecases/CreateCustomer/CreateCustomer.usecase'
-import { DEFAULT_CREATE_CUSTOMER_SVC_RESULT } from '../modules/customer/application/usecases/CreateCustomerById/CreateCustomer.usecase.test'
-import { DEFAULT_UPDATE_CUSTOMER_SVC_RESULT } from '../modules/customer/application/usecases/UpdateCustomer/UpdateCustomer.usecase.test'
-import { UpdateCustomerUseCase } from '../../../../src/modules/main/customer/application/usecases/UpdateCustomer/UpdateCustomer.usecase'
-import { DeleteCustomerByIdUseCase } from '../../../../src/modules/main/customer/application/usecases/DeleteCustomerById/DeleteCustomerById.usecase'
 
 const DEFAULT_CONFIG: IAppConfig = {
   mongodburi: 'mongodb://localhost:27017',
@@ -29,7 +29,7 @@ const DEFAULT_CUSTOMER_BODY_RESPONSE = {
   phoneNumber: '+34 666666666',
   dateOfBirth: '1990-01-01T00:00:00.000Z',
   address: { street: 'myStreet', number: 123, city: 'myCity', state: 'myState', postalCode: '123456', country: 'myCountry', additionalInfo: 'myAdditionalInfo' },
-  nifCif: '123456789Z',
+  nifCifNie: '39740191D',
 }
 
 const DEFAULT_CUSTOMER_BODY_REQUEST = DEFAULT_CUSTOMER_BODY_RESPONSE

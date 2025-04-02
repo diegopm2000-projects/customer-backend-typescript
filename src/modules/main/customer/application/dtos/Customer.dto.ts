@@ -16,5 +16,5 @@ export interface CustomerDTO {
   phoneNumber: string
   dateOfBirth: Date
   address: AddressDTO
-  nifCif: string
+  nifCifNie: string
 }

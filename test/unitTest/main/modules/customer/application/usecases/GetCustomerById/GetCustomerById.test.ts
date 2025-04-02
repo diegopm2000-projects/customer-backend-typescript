@@ -5,10 +5,11 @@ import { IGetCustomerByIdRequest, IGetCustomerByIdUseCase } from '../../../../..
 import { CustomerMongoDBRepository } from '../../../../../../../../src/modules/main/customer/infrastructure/persistence/mongodb/Customer.mongodb.repository'
 import { TYPES } from '../../../../../../../../src/modules/shared/infrastructure/dependencyInjection/types'
 import { ContainerFactory } from '../../../../../../expectations/expectations.container'
-import { DEFAULT_ADDRESS_PROPS } from '../../../domain/model/Address.test'
 import { DEFAULT_CUSTOMER } from '../../../domain/model/Customer.test'
-import { DEFAULT_EMAIL } from '../../../domain/model/Email.test'
-import { DEFAULT_PHONE } from '../../../domain/model/Phone.test'
+import { DEFAULT_ADDRESS_PROPS } from '../../../domain/model/value-objects/Address.test'
+import { DEFAULT_EMAIL } from '../../../domain/model/value-objects/Email.test'
+import { DEFAULT_PHONE } from '../../../domain/model/value-objects/Phone.test'
+import { DEFAULT_NIFCIFNIE } from '../../../domain/model/value-objects/SpainID.test'
 
 const DEFAULT_REQUEST: IGetCustomerByIdRequest = {
   customerId: DEFAULT_CUSTOMER.id.value(),
@@ -22,7 +23,7 @@ export const DEFAULT_GET_CUSTOMER_BY_ID_SVC_RESULT: CustomerDTO = {
   phoneNumber: DEFAULT_PHONE.value,
   dateOfBirth: new Date('1990-01-01'),
   address: DEFAULT_ADDRESS_PROPS,
-  nifCif: '123456789Z',
+  nifCifNie: DEFAULT_NIFCIFNIE.value,
 }
 
 describe('GetCustomerByIdUseCase - Tests', () => {

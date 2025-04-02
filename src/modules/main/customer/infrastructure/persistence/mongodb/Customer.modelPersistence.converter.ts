@@ -5,6 +5,7 @@ import { Address, AddressProps } from '../../../domain/models/value-objects/Addr
 import { Email } from '../../../domain/models/value-objects/Email'
 import { Phone } from '../../../domain/models/value-objects/Phone'
 import { AddressModelPersistence, CustomerModelPersistence } from './Customer.modelPersistence'
+import { SpainID } from '../../../domain/models/value-objects/SpainID'
 
 class AddressModelPersistenceConverter {
   static modelToModelPersistence(model: Address): AddressModelPersistence {
@@ -50,7 +51,7 @@ export class CustomerModelPersistenceConverter {
       phoneNumber: model.phoneNumber.value,
       dateOfBirth: model.dateOfBirth,
       address: AddressModelPersistenceConverter.modelToModelPersistence(model.address),
-      nifCif: model.nifCif,
+      nifCifNie: model.nifCifNie.value,
     }
   }
 
@@ -63,7 +64,7 @@ export class CustomerModelPersistenceConverter {
       phoneNumber: Phone.create({ value: modelPersistence.phoneNumber }).value(),
       dateOfBirth: modelPersistence.dateOfBirth,
       address: AddressModelPersistenceConverter.modelPersistenceToModel(modelPersistence.address),
-      nifCif: modelPersistence.nifCif,
+      nifCifNie: SpainID.create({ value: modelPersistence.nifCifNie }).value(),
     }
 
     return Customer.create(props).value()

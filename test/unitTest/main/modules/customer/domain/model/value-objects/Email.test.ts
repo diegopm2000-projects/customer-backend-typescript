@@ -1,6 +1,8 @@
 // SUT
 import { Email } from '../../../../../../../../src/modules/main/customer/domain/models/value-objects/Email'
 
+export const DEFAULT_EMAIL = Email.create({ value: 'johndoe@mail.com' }).value()
+
 describe('Email - Tests', () => {
   describe('constructor - Tests', () => {
     it('constructor - default successful case', () => {

@@ -2,9 +2,10 @@
 
 import { ID } from 'types-ddd'
 
-import { DEFAULT_EMAIL } from './Email.test'
-import { DEFAULT_PHONE } from './Phone.test'
-import { DEFAULT_ADDRESS } from './Address.test'
+import { DEFAULT_ADDRESS } from './value-objects/Address.test'
+import { DEFAULT_EMAIL } from './value-objects/Email.test'
+import { DEFAULT_PHONE } from './value-objects/Phone.test'
+import { DEFAULT_NIFCIFNIE } from './value-objects/SpainID.test'
 
 // SUT
 import { Customer, CustomerProps } from '../../../../../../../src/modules/main/customer/domain/models/Customer'
@@ -17,7 +18,7 @@ const DEFAULT_CUSTOMER_PROPS: CustomerProps = {
   phoneNumber: DEFAULT_PHONE,
   dateOfBirth: new Date('1990-01-01'),
   address: DEFAULT_ADDRESS,
-  nifCif: '123456789Z',
+  nifCifNie: DEFAULT_NIFCIFNIE,
 }
 
 export const DEFAULT_CUSTOMER = Customer.create(DEFAULT_CUSTOMER_PROPS).value()
@@ -30,7 +31,7 @@ const ALT_CUSTOMER_PROPS: CustomerProps = {
   phoneNumber: DEFAULT_PHONE,
   dateOfBirth: new Date('1990-01-01'),
   address: DEFAULT_ADDRESS,
-  nifCif: '123456789Z',
+  nifCifNie: DEFAULT_NIFCIFNIE,
 }
 
 export const ALT_CUSTOMER = Customer.create(ALT_CUSTOMER_PROPS).value()
@@ -43,7 +44,7 @@ const ALT_2_CUSTOMER_PROPS: CustomerProps = {
   phoneNumber: DEFAULT_PHONE,
   dateOfBirth: new Date('1990-01-01'),
   address: DEFAULT_ADDRESS,
-  nifCif: '123456789Z',
+  nifCifNie: DEFAULT_NIFCIFNIE,
 }
 
 export const ALT_2_CUSTOMER = Customer.create(ALT_2_CUSTOMER_PROPS).value()
@@ -66,7 +67,7 @@ describe('Customer - Tests', () => {
       expect(myObj.phoneNumber).toBe(props.phoneNumber)
       expect(myObj.dateOfBirth).toBe(props.dateOfBirth)
       expect(myObj.address).toBe(props.address)
-      expect(myObj.nifCif).toBe(props.nifCif)
+      expect(myObj.nifCifNie).toBe(props.nifCifNie)
     })
   })
 })

@@ -11,6 +11,7 @@ import { ICreateCustomerRequest, ICreateCustomerUseCase } from '../../applicatio
 import { Address } from '../../domain/models/value-objects/Address'
 import { Email } from '../../domain/models/value-objects/Email'
 import { Phone } from '../../domain/models/value-objects/Phone'
+import { SpainID } from '../../domain/models/value-objects/SpainID'
 import { BasePresenter } from './shared/BasePresenter'
 import { InputSchemaValidator } from './shared/InputSchemaValidator'
 
@@ -21,6 +22,8 @@ export class CreateCustomerController {
   async execute(request: Request, response: Response) {
     try {
       const customerParams = request.body
+
+      console.log('----> ENTRANDO EN CreateCustomerController')
 
       // Validate input parameters
       const paramValidationResult = InputSchemaValidator.validateCustomerInputSchema(customerParams)
@@ -39,8 +42,10 @@ export class CreateCustomerController {
         phoneNumber: Phone.create({ value: customerParams.phoneNumber }).value(),
         dateOfBirth: new Date(customerParams.dateOfBirth),
         address: Address.create(customerParams.address).value(),
-        nifCif: customerParams.nifCif,
+        nifCifNie: SpainID.create({ value: customerParams.nifCifNie }).value(),
       }
+
+      console.log('--> esto lo pasa')
 
       const svcResult = await this.usecase.execute(createCustomerRequest)
 
@@ -50,7 +55,6 @@ export class CreateCustomerController {
         return
       }
       if (svcResult instanceof CustomerAlreadyExistsError) {
-        console.log(`----> svcResult: ${JSON.stringify(svcResult)}`)
         BasePresenter.presentConflictError({ request, response, message: svcResult.message })
         return
       }

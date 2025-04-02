@@ -29,7 +29,7 @@ export class CustomerMapper {
       phoneNumber: customer.phoneNumber.value,
       dateOfBirth: customer.dateOfBirth,
       address: AddressMapper.modelToDTO(customer.address),
-      nifCif: customer.nifCif,
+      nifCifNie: customer.nifCifNie.value,
     }
   }
 }
