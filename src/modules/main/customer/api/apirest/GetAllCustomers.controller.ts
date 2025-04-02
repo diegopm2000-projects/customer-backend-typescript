@@ -1,8 +1,6 @@
-/* eslint-disable no-console */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { Request, Response } from 'express'
-import httpStatus from 'http-status'
 import { inject, injectable } from 'inversify'
 
 import { TYPES } from '../../../../shared/infrastructure/dependencyInjection/types'
@@ -17,7 +15,7 @@ export class GetAllCustomersController {
     try {
       const svcResult = await this.usecase.execute({})
 
-      response.status(httpStatus.OK).json(svcResult)
+      BasePresenter.presentOK({ response, object: svcResult })
     } catch (error: any) {
       BasePresenter.presentInternalServerError({ request, response, error })
     }

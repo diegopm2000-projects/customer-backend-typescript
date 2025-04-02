@@ -1,8 +1,6 @@
-/* eslint-disable no-console */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { Request, Response } from 'express'
-import httpStatus from 'http-status'
 import { inject, injectable } from 'inversify'
 import { ID } from 'types-ddd'
 
@@ -13,8 +11,8 @@ import { ICreateCustomerRequest, ICreateCustomerUseCase } from '../../applicatio
 import { Address } from '../../domain/models/value-objects/Address'
 import { Email } from '../../domain/models/value-objects/Email'
 import { Phone } from '../../domain/models/value-objects/Phone'
-import { InputSchemaValidator } from './shared/InputSchemaValidator'
 import { BasePresenter } from './shared/BasePresenter'
+import { InputSchemaValidator } from './shared/InputSchemaValidator'
 
 @injectable()
 export class CreateCustomerController {
@@ -23,18 +21,14 @@ export class CreateCustomerController {
   async execute(request: Request, response: Response) {
     try {
       const customerParams = request.body
-      console.log(`----> customerParams: ${JSON.stringify(customerParams)}`)
 
       // Validate input parameters
       const paramValidationResult = InputSchemaValidator.validateCustomerInputSchema(customerParams)
       if (paramValidationResult.success === false) {
-        console.log(`----> paramValidationResult data: ${paramValidationResult.data}, error: ${paramValidationResult.error}`)
-        const detailedMessage = paramValidationResult.error.errors.map(err => ({ code: err.code, message: err.message, path: err.path }));
-        response.status(httpStatus.BAD_REQUEST).json(BasePresenter.buildBadRequest({ path: request.path, detailedMessage }))
+        const detailedMessage = paramValidationResult.error.errors.map((err) => ({ code: err.code, message: err.message, path: err.path }))
+        BasePresenter.presentBadRequestError({ request, response, detailedMessage })
         return
       }
-
-      console.log('----> Preparing request...')
 
       // Prepare Request
       const createCustomerRequest: ICreateCustomerRequest = {
@@ -48,21 +42,20 @@ export class CreateCustomerController {
         nifCif: customerParams.nifCif,
       }
 
-      console.log('----> Calling use case...')
-
       const svcResult = await this.usecase.execute(createCustomerRequest)
 
       if (svcResult instanceof BadParametersInCustomerCreationError) {
-        console.log(`----> paramValidationResult data: ${paramValidationResult.data}, error: ${paramValidationResult.error}`)
-        const detailedMessage = [svcResult.message];
-        response.status(httpStatus.BAD_REQUEST).json(BasePresenter.buildBadRequest({ path: request.path, detailedMessage }))
+        const detailedMessage = [svcResult.message]
+        BasePresenter.presentBadRequestError({ request, response, detailedMessage })
+        return
       }
       if (svcResult instanceof CustomerAlreadyExistsError) {
+        console.log(`----> svcResult: ${JSON.stringify(svcResult)}`)
         BasePresenter.presentConflictError({ request, response, message: svcResult.message })
         return
       }
 
-      response.status(httpStatus.CREATED).json(svcResult)
+      BasePresenter.presentCreated({ response, object: svcResult })
     } catch (error: any) {
       BasePresenter.presentInternalServerError({ request, response, error })
     }

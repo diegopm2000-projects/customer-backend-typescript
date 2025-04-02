@@ -4,6 +4,6 @@ import { ApplicationError } from '../../../../shared/application/ApplicationErro
 
 export class CustomerAlreadyExistsError extends ApplicationError {
   constructor(id: UID) {
-    super(`Customer with id ${id.value} already exists`)
+    super(`Customer with id: ${id.value()} already exists`)
   }
 }

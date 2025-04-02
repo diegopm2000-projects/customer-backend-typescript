@@ -85,10 +85,12 @@ describe('UpdateCustomerController - Tests', () => {
           await myController.execute(request, response)
           // Assert
           expect(response.status).toHaveBeenCalledWith(httpStatus.NOT_FOUND)
-          expect(response.json).toHaveBeenCalledWith(expect.objectContaining({
-            status: httpStatus.NOT_FOUND,
-            error: OBJECT_NOT_FOUND_ERROR,
-          }))
+          expect(response.json).toHaveBeenCalledWith(
+            expect.objectContaining({
+              status: httpStatus.NOT_FOUND,
+              error: OBJECT_NOT_FOUND_ERROR,
+            })
+          )
         } catch {
           fail(MESSAGE_TEST_FAILED)
         }
@@ -107,10 +109,12 @@ describe('UpdateCustomerController - Tests', () => {
           await myController.execute(request, response)
           // Assert
           expect(response.status).toHaveBeenCalledWith(httpStatus.BAD_REQUEST)
-          expect(response.json).toHaveBeenCalledWith(expect.objectContaining({
-            status: httpStatus.BAD_REQUEST,
-            error: BAD_REQUEST_ERROR,
-          }))
+          expect(response.json).toHaveBeenCalledWith(
+            expect.objectContaining({
+              status: httpStatus.BAD_REQUEST,
+              error: BAD_REQUEST_ERROR,
+            })
+          )
         } catch {
           fail(MESSAGE_TEST_FAILED)
         }
@@ -144,10 +148,12 @@ describe('UpdateCustomerController - Tests', () => {
           await myController.execute(request, response)
           // Assert
           expect(response.status).toHaveBeenCalledWith(httpStatus.BAD_REQUEST)
-          expect(response.json).toHaveBeenCalledWith(expect.objectContaining({
-            status: httpStatus.BAD_REQUEST,
-            error: BAD_REQUEST_ERROR,
-          }))
+          expect(response.json).toHaveBeenCalledWith(
+            expect.objectContaining({
+              status: httpStatus.BAD_REQUEST,
+              error: BAD_REQUEST_ERROR,
+            })
+          )
         } catch {
           fail(MESSAGE_TEST_FAILED)
         }

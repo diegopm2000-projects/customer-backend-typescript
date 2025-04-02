@@ -22,8 +22,8 @@ const CustomerInputSchema = z.object({
 })
 
 const customerUuidSchema = z.object({
-  customerId: z.string().uuid()
-});
+  customerId: z.string().uuid(),
+})
 
 export class InputSchemaValidator {
   static validateCustomerInputSchema(customerParams: any) {

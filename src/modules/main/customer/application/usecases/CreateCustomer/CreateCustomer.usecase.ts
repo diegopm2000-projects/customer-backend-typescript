@@ -28,6 +28,7 @@ export class CreateCustomerUseCase implements ICreateCustomerUseCase {
 
     const customerFound = await this.customerRepository.getById(customer.id)
     if (customerFound) {
+      console.log(`---- customer.id: ${customer.id.value()}`)
       return new CustomerAlreadyExistsError(customer.id)
     }
 
