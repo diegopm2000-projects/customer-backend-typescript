@@ -25,7 +25,7 @@ export class CreateCustomerController {
       // Validate input parameters
       const paramValidationResult = InputSchemaValidator.validateCustomerInputSchema(customerParams)
       if (paramValidationResult.success === false) {
-        const detailedMessage = paramValidationResult.error.errors.map((err) => ({ code: err.code, message: err.message, path: err.path }))
+        const detailedMessage = paramValidationResult.error.errors.map((err) => ({ message: err.message }))
         BasePresenter.presentBadRequestError({ request, response, detailedMessage })
         return
       }

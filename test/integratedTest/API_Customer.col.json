@@ -92,6 +92,46 @@
 								}
 							},
 							"response": []
+						},
+						{
+							"name": "Create Customer - Test bad UUID",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 201\", () => {",
+											"    pm.response.to.have.status(201);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"id\": \"123456789\",\n  \"firstName\": \"Richard\",\n  \"lastName\": \"Stallman\",\n  \"email\": \"richardstallman@mail.com\",\n  \"phoneNumber\": \"+34 666555321\",\n  \"dateOfBirth\": \"1992-01-01T00:00:00.000Z\",\n  \"address\": {\n      \"street\": \"myStreet\",\n      \"number\": 123,\n      \"city\": \"myCity\",\n      \"state\": \"myState\",\n      \"postalCode\": \"123456\",\n      \"country\": \"myCountry\",\n      \"additionalInfo\": \"myAdditionalInfo\"\n  },\n  \"nifCif\": \"123456789A\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{HOST_API_REST}}/customers",
+									"host": [
+										"{{HOST_API_REST}}"
+									],
+									"path": [
+										"customers"
+									]
+								}
+							},
+							"response": []
 						}
 					]
 				},
@@ -440,7 +480,7 @@
 							"response": []
 						},
 						{
-							"name": "Create Customer - 03t - Bad parameters",
+							"name": "Create Customer - 03t - Bad parameters (email)",
 							"event": [
 								{
 									"listen": "test",
@@ -461,6 +501,86 @@
 								"body": {
 									"mode": "raw",
 									"raw": "{\n  \"id\": \"{{DENNIS_RITCHIE_CUSTOMER_ID}}\",\n  \"firstName\": \"Dennis\",\n  \"lastName\": \"Ritchie\",\n  \"email\": \"nonsense\",\n  \"phoneNumber\": \"+34 666555321\",\n  \"dateOfBirth\": \"1992-01-01T00:00:00.000Z\",\n  \"address\": {\n      \"street\": \"myStreet\",\n      \"number\": 123,\n      \"city\": \"myCity\",\n      \"state\": \"myState\",\n      \"postalCode\": \"123456\",\n      \"country\": \"myCountry\",\n      \"additionalInfo\": \"myAdditionalInfo\"\n  },\n  \"nifCif\": \"123456789A\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{HOST_API_REST}}/customers",
+									"host": [
+										"{{HOST_API_REST}}"
+									],
+									"path": [
+										"customers"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Customer - 04t - Bad parameters (phoneNumber)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", () => {",
+											"    pm.response.to.have.status(400);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"id\": \"{{DENNIS_RITCHIE_CUSTOMER_ID}}\",\n  \"firstName\": \"Dennis\",\n  \"lastName\": \"Ritchie\",\n  \"email\": \"dritchie@mail.com\",\n  \"phoneNumber\": \"nonsense\",\n  \"dateOfBirth\": \"1992-01-01T00:00:00.000Z\",\n  \"address\": {\n      \"street\": \"myStreet\",\n      \"number\": 123,\n      \"city\": \"myCity\",\n      \"state\": \"myState\",\n      \"postalCode\": \"123456\",\n      \"country\": \"myCountry\",\n      \"additionalInfo\": \"myAdditionalInfo\"\n  },\n  \"nifCif\": \"123456789A\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{HOST_API_REST}}/customers",
+									"host": [
+										"{{HOST_API_REST}}"
+									],
+									"path": [
+										"customers"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Customer - 05t - Bad parameters (email &phoneNumber)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", () => {",
+											"    pm.response.to.have.status(400);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"id\": \"{{DENNIS_RITCHIE_CUSTOMER_ID}}\",\n  \"firstName\": \"Dennis\",\n  \"lastName\": \"Ritchie\",\n  \"email\": \"nonsense\",\n  \"phoneNumber\": \"nonsense\",\n  \"dateOfBirth\": \"1992-01-01T00:00:00.000Z\",\n  \"address\": {\n      \"street\": \"myStreet\",\n      \"number\": 123,\n      \"city\": \"myCity\",\n      \"state\": \"myState\",\n      \"postalCode\": \"123456\",\n      \"country\": \"myCountry\",\n      \"additionalInfo\": \"myAdditionalInfo\"\n  },\n  \"nifCif\": \"123456789A\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -565,7 +685,7 @@
 							"response": []
 						},
 						{
-							"name": "Update Customer - 03t - Bad parameters",
+							"name": "Update Customer - 03t - Bad parameters (email)",
 							"event": [
 								{
 									"listen": "test",
@@ -586,6 +706,86 @@
 								"body": {
 									"mode": "raw",
 									"raw": "{\n  \"id\": \"{{DENNIS_RITCHIE_CUSTOMER_ID}}\",\n  \"firstName\": \"Dennis\",\n  \"lastName\": \"Ritchie\",\n  \"email\": \"nonsense\",\n  \"phoneNumber\": \"+34 666555321\",\n  \"dateOfBirth\": \"1992-01-01T00:00:00.000Z\",\n  \"address\": {\n      \"street\": \"myStreet\",\n      \"number\": 123,\n      \"city\": \"myCity\",\n      \"state\": \"myState\",\n      \"postalCode\": \"123456\",\n      \"country\": \"myCountry\",\n      \"additionalInfo\": \"myAdditionalInfo\"\n  },\n  \"nifCif\": \"123456789A\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{HOST_API_REST}}/customers",
+									"host": [
+										"{{HOST_API_REST}}"
+									],
+									"path": [
+										"customers"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Customer - 04t - Bad parameters (phoneNumber)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", () => {",
+											"    pm.response.to.have.status(400);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"id\": \"{{DENNIS_RITCHIE_CUSTOMER_ID}}\",\n  \"firstName\": \"Dennis\",\n  \"lastName\": \"Ritchie\",\n  \"email\": \"dennisritchie@mail.com\",\n  \"phoneNumber\": \"nonsense1\",\n  \"dateOfBirth\": \"1992-01-01T00:00:00.000Z\",\n  \"address\": {\n      \"street\": \"myStreet\",\n      \"number\": 123,\n      \"city\": \"myCity\",\n      \"state\": \"myState\",\n      \"postalCode\": \"123456\",\n      \"country\": \"myCountry\",\n      \"additionalInfo\": \"myAdditionalInfo\"\n  },\n  \"nifCif\": \"123456789A\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{HOST_API_REST}}/customers",
+									"host": [
+										"{{HOST_API_REST}}"
+									],
+									"path": [
+										"customers"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Customer - 05t - Bad parameters (email & phoneNumber)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", () => {",
+											"    pm.response.to.have.status(400);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"id\": \"{{DENNIS_RITCHIE_CUSTOMER_ID}}\",\n  \"firstName\": \"Dennis\",\n  \"lastName\": \"Ritchie\",\n  \"email\": \"nonsense\",\n  \"phoneNumber\": \"nonsense1\",\n  \"dateOfBirth\": \"1992-01-01T00:00:00.000Z\",\n  \"address\": {\n      \"street\": \"myStreet\",\n      \"number\": 123,\n      \"city\": \"myCity\",\n      \"state\": \"myState\",\n      \"postalCode\": \"123456\",\n      \"country\": \"myCountry\",\n      \"additionalInfo\": \"myAdditionalInfo\"\n  },\n  \"nifCif\": \"123456789A\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
