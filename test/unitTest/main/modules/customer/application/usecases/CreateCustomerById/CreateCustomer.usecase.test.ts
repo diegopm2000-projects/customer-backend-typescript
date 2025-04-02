@@ -4,7 +4,7 @@ import { Fail, ID } from 'types-ddd'
 
 import { CustomerDTO } from '../../../../../../../../src/modules/main/customer/application/dtos/Customer.dto'
 import { BadParametersInCustomerCreationError } from '../../../../../../../../src/modules/main/customer/application/errors/BadParametersInCustomerCreationError'
-import { CustomerAlreadyExistsError } from '../../../../../../../../src/modules/main/customer/application/errors/CustomerAlreadyExistsError'
+import { CustomerAlreadyExistsByIDError } from '../../../../../../../../src/modules/main/customer/application/errors/CustomerAlreadyExistsByIDError'
 import { ICreateCustomerRequest, ICreateCustomerUseCase } from '../../../../../../../../src/modules/main/customer/application/usecases/CreateCustomer/ICreateCustomer.usecase'
 import { Customer } from '../../../../../../../../src/modules/main/customer/domain/models/Customer'
 import { CustomerMongoDBRepository } from '../../../../../../../../src/modules/main/customer/infrastructure/persistence/mongodb/Customer.mongodb.repository'
@@ -15,6 +15,7 @@ import { DEFAULT_ADDRESS, DEFAULT_ADDRESS_PROPS } from '../../../domain/model/va
 import { DEFAULT_EMAIL } from '../../../domain/model/value-objects/Email.test'
 import { DEFAULT_PHONE } from '../../../domain/model/value-objects/Phone.test'
 import { DEFAULT_NIFCIFNIE } from '../../../domain/model/value-objects/SpainID.test'
+import { CustomerAlreadyExistsByDNINIFCIFError } from '../../../../../../../../src/modules/main/customer/application/errors/CustomerAlreadyExistsByNIFCIFNIEError'
 
 const DEFAULT_REQUEST: ICreateCustomerRequest = {
   id: ID.create('706781a2-e4ee-4fc5-ab0f-fdf92f643c8a'),
@@ -49,6 +50,7 @@ describe('CreateCustomerUseCase - Tests', () => {
     describe('execute - default successfully case', () => {
       beforeEach(() => {
         jest.spyOn(CustomerMongoDBRepository.prototype, 'getById').mockResolvedValue(undefined)
+        jest.spyOn(CustomerMongoDBRepository.prototype, 'getByNIFCIFNIE').mockResolvedValue(undefined)
         jest.spyOn(CustomerMongoDBRepository.prototype, 'save').mockResolvedValue(true)
       })
       afterEach(() => {
@@ -81,20 +83,39 @@ describe('CreateCustomerUseCase - Tests', () => {
       })
     })
 
-    describe('execute - failed case when customer has been found in the system', () => {
+    describe('execute - failed case when customer has been found by ID in the system', () => {
       beforeEach(() => {
         jest.spyOn(CustomerMongoDBRepository.prototype, 'getById').mockResolvedValue(DEFAULT_CUSTOMER)
+        jest.spyOn(CustomerMongoDBRepository.prototype, 'getByNIFCIFNIE').mockResolvedValue(undefined)
       })
       afterEach(() => {
         jest.restoreAllMocks()
       })
-      it('execute - failed case when customer has been found in the system', async () => {
+      it('execute - failed case when customer has been found by ID in the system', async () => {
         // Arrange
         const request: ICreateCustomerRequest = DEFAULT_REQUEST
         // Act
         const result = await myService.execute(request)
         // Assert
-        expect(result).toBeInstanceOf(CustomerAlreadyExistsError)
+        expect(result).toBeInstanceOf(CustomerAlreadyExistsByIDError)
+      })
+    })
+
+    describe('execute - failed case when customer has been found by NIFCIFNIE in the system', () => {
+      beforeEach(() => {
+        jest.spyOn(CustomerMongoDBRepository.prototype, 'getById').mockResolvedValue(undefined)
+        jest.spyOn(CustomerMongoDBRepository.prototype, 'getByNIFCIFNIE').mockResolvedValue(DEFAULT_CUSTOMER)
+      })
+      afterEach(() => {
+        jest.restoreAllMocks()
+      })
+      it('execute - failed case when customer has been found by NIFCIFNIE in the system', async () => {
+        // Arrange
+        const request: ICreateCustomerRequest = DEFAULT_REQUEST
+        // Act
+        const result = await myService.execute(request)
+        // Assert
+        expect(result).toBeInstanceOf(CustomerAlreadyExistsByDNINIFCIFError)
       })
     })
   })

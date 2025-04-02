@@ -9,7 +9,7 @@ import { ID } from 'types-ddd'
 import { CreateCustomerController } from '../../../../../../../src/modules/main/customer/api/apirest/CreateCustomer.controller'
 import { BAD_REQUEST_ERROR, CONFLICT_ERROR } from '../../../../../../../src/modules/main/customer/api/apirest/shared/BasePresenter'
 import { BadParametersInCustomerCreationError } from '../../../../../../../src/modules/main/customer/application/errors/BadParametersInCustomerCreationError'
-import { CustomerAlreadyExistsError } from '../../../../../../../src/modules/main/customer/application/errors/CustomerAlreadyExistsError'
+import { CustomerAlreadyExistsByIDError } from '../../../../../../../src/modules/main/customer/application/errors/CustomerAlreadyExistsByIDError'
 import { CreateCustomerUseCase } from '../../../../../../../src/modules/main/customer/application/usecases/CreateCustomer/CreateCustomer.usecase'
 import { TYPES } from '../../../../../../../src/modules/shared/infrastructure/dependencyInjection/types'
 import { ContainerFactory } from '../../../../../expectations/expectations.container'
@@ -72,7 +72,7 @@ describe('CreateCustomerController - Tests', () => {
 
     describe('CreateCustomerController - case when customer was already found', () => {
       beforeEach(() => {
-        jest.spyOn(CreateCustomerUseCase.prototype, 'execute').mockResolvedValue(new CustomerAlreadyExistsError(ID.create('fcf95384-aee8-4dec-ab2a-7836c3b826f9')))
+        jest.spyOn(CreateCustomerUseCase.prototype, 'execute').mockResolvedValue(new CustomerAlreadyExistsByIDError(ID.create('fcf95384-aee8-4dec-ab2a-7836c3b826f9')))
       })
       afterEach(() => {
         jest.restoreAllMocks()

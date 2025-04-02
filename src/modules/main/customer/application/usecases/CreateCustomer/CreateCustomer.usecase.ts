@@ -5,9 +5,10 @@ import { Customer } from '../../../domain/models/Customer'
 import { ICustomerRepository } from '../../../domain/repositories/ICustomer.repository'
 import { CustomerDTO } from '../../dtos/Customer.dto'
 import { BadParametersInCustomerCreationError } from '../../errors/BadParametersInCustomerCreationError'
-import { CustomerAlreadyExistsError } from '../../errors/CustomerAlreadyExistsError'
+import { CustomerAlreadyExistsByIDError } from '../../errors/CustomerAlreadyExistsByIDError'
 import { CustomerMapper } from '../../mappers/Customer.mapper'
 import { ICreateCustomerRequest, ICreateCustomerResponse, ICreateCustomerUseCase } from './ICreateCustomer.usecase'
+import { CustomerAlreadyExistsByDNINIFCIFError } from '../../errors/CustomerAlreadyExistsByNIFCIFNIEError'
 
 @injectable()
 export class CreateCustomerUseCase implements ICreateCustomerUseCase {
@@ -26,10 +27,15 @@ export class CreateCustomerUseCase implements ICreateCustomerUseCase {
     console.log(`----> customer to be created: ${JSON.stringify(customer)}`)
     console.log(`----> customer.id: ${customer.id.value}`)
 
-    const customerFound = await this.customerRepository.getById(customer.id)
-    if (customerFound) {
+    const customerFoundByID = await this.customerRepository.getById(customer.id)
+    if (customerFoundByID) {
       console.log(`---- customer.id: ${customer.id.value()}`)
-      return new CustomerAlreadyExistsError(customer.id)
+      return new CustomerAlreadyExistsByIDError(customer.id)
+    }
+    const customerFoundBYDNI = await this.customerRepository.getByNIFCIFNIE(customer.nifCifNie)
+    if (customerFoundBYDNI) {
+      console.log(`---- customer.nifcifnie: ${customer.nifCifNie.value}`)
+      return new CustomerAlreadyExistsByDNINIFCIFError(customer.nifCifNie)
     }
 
     console.log(`---> justo antes de llamar al save...`)

@@ -432,7 +432,7 @@
 					"name": "Create Customer",
 					"item": [
 						{
-							"name": "Create Customer - 01t - Success",
+							"name": "Create Customer - 01t - Success (Dennis Ritchie)",
 							"event": [
 								{
 									"listen": "test",
@@ -472,7 +472,7 @@
 							"response": []
 						},
 						{
-							"name": "Create Customer - 02t - Already Exists",
+							"name": "Create Customer - 02t - Already Exists by ID",
 							"event": [
 								{
 									"listen": "test",
@@ -493,6 +493,46 @@
 								"body": {
 									"mode": "raw",
 									"raw": "{\n  \"id\": \"{{DENNIS_RITCHIE_CUSTOMER_ID}}\",\n  \"firstName\": \"Dennis\",\n  \"lastName\": \"Ritchie\",\n  \"email\": \"dritchie@mail.com\",\n  \"phoneNumber\": \"+34 666555321\",\n  \"dateOfBirth\": \"1992-01-01T00:00:00.000Z\",\n  \"address\": {\n      \"street\": \"myStreet\",\n      \"number\": 123,\n      \"city\": \"myCity\",\n      \"state\": \"myState\",\n      \"postalCode\": \"123456\",\n      \"country\": \"myCountry\",\n      \"additionalInfo\": \"myAdditionalInfo\"\n  },\n  \"nifCifNie\": \"39740191D\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{HOST_API_REST}}/customers",
+									"host": [
+										"{{HOST_API_REST}}"
+									],
+									"path": [
+										"customers"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Customer - 02t - Already Exists by  DNI",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 409\", () => {",
+											"    pm.response.to.have.status(409);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"id\": \"{{RICHARD_STALLMAN_CUSTOMER_ID}}\",\n  \"firstName\": \"Dennis\",\n  \"lastName\": \"Ritchie\",\n  \"email\": \"dritchie@mail.com\",\n  \"phoneNumber\": \"+34 666555321\",\n  \"dateOfBirth\": \"1992-01-01T00:00:00.000Z\",\n  \"address\": {\n      \"street\": \"myStreet\",\n      \"number\": 123,\n      \"city\": \"myCity\",\n      \"state\": \"myState\",\n      \"postalCode\": \"123456\",\n      \"country\": \"myCountry\",\n      \"additionalInfo\": \"myAdditionalInfo\"\n  },\n  \"nifCifNie\": \"39740191D\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1046,6 +1086,10 @@
 							"response": []
 						}
 					]
+				},
+				{
+					"name": "New Folder",
+					"item": []
 				}
 			]
 		}

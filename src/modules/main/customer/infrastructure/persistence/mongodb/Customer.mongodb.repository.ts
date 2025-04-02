@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { inject, injectable } from 'inversify'
 import { omit } from 'lodash'
 import { Document, FindOneAndUpdateOptions } from 'mongodb'
@@ -11,6 +12,7 @@ import { Customer } from '../../../domain/models/Customer'
 import { ICustomerRepository } from '../../../domain/repositories/ICustomer.repository'
 import { CustomerModelPersistence } from './Customer.modelPersistence'
 import { CustomerModelPersistenceConverter } from './Customer.modelPersistence.converter'
+import { SpainID } from '../../../domain/models/value-objects/SpainID'
 
 @injectable()
 export class CustomerMongoDBRepository implements ICustomerRepository {
@@ -48,12 +50,18 @@ export class CustomerMongoDBRepository implements ICustomerRepository {
     return bdObjFound ? CustomerModelPersistenceConverter.modelPersistenceToModel(<CustomerModelPersistence>bdObjFound) : undefined
   }
 
+  async getByNIFCIFNIE(dninifnie: SpainID): Promise<Customer | undefined> {
+    const client = await this.mongoDBInfra.getConnectionDb()
+
+    const filter = { nifCifNie: dninifnie.value }
+    const bdObjFound: Document | null = await client.collection(this.collection).findOne(filter)
+    return bdObjFound ? CustomerModelPersistenceConverter.modelPersistenceToModel(<CustomerModelPersistence>bdObjFound) : undefined
+  }
+
   async save(customer: Customer): Promise<boolean> {
     const client = await this.mongoDBInfra.getConnectionDb()
 
     const myMP: Omit<CustomerModelPersistence, 'createdAt' | 'modifiedAt'> = CustomerModelPersistenceConverter.modelToModelPersistence(customer)
-
-    console.log(`----> myMP: ${JSON.stringify(myMP)}`)
 
     const options: FindOneAndUpdateOptions = { upsert: true, returnDocument: 'after' }
     const filter = { _id: myMP._id }

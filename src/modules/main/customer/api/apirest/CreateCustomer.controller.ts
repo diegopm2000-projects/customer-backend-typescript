@@ -6,7 +6,7 @@ import { ID } from 'types-ddd'
 
 import { TYPES } from '../../../../shared/infrastructure/dependencyInjection/types'
 import { BadParametersInCustomerCreationError } from '../../application/errors/BadParametersInCustomerCreationError'
-import { CustomerAlreadyExistsError } from '../../application/errors/CustomerAlreadyExistsError'
+import { CustomerAlreadyExistsByIDError } from '../../application/errors/CustomerAlreadyExistsByIDError'
 import { ICreateCustomerRequest, ICreateCustomerUseCase } from '../../application/usecases/CreateCustomer/ICreateCustomer.usecase'
 import { Address } from '../../domain/models/value-objects/Address'
 import { Email } from '../../domain/models/value-objects/Email'
@@ -14,6 +14,7 @@ import { Phone } from '../../domain/models/value-objects/Phone'
 import { SpainID } from '../../domain/models/value-objects/SpainID'
 import { BasePresenter } from './shared/BasePresenter'
 import { InputSchemaValidator } from './shared/InputSchemaValidator'
+import { CustomerAlreadyExistsByDNINIFCIFError } from '../../application/errors/CustomerAlreadyExistsByNIFCIFNIEError'
 
 @injectable()
 export class CreateCustomerController {
@@ -50,7 +51,7 @@ export class CreateCustomerController {
         BasePresenter.presentBadRequestError({ request, response, detailedMessage })
         return
       }
-      if (svcResult instanceof CustomerAlreadyExistsError) {
+      if (svcResult instanceof CustomerAlreadyExistsByIDError || svcResult instanceof CustomerAlreadyExistsByDNINIFCIFError) {
         BasePresenter.presentConflictError({ request, response, message: svcResult.message })
         return
       }
