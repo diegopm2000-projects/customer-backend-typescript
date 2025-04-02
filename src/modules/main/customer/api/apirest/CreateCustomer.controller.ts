@@ -23,8 +23,6 @@ export class CreateCustomerController {
     try {
       const customerParams = request.body
 
-      console.log('----> ENTRANDO EN CreateCustomerController')
-
       // Validate input parameters
       const paramValidationResult = InputSchemaValidator.validateCustomerInputSchema(customerParams)
       if (paramValidationResult.success === false) {
@@ -44,8 +42,6 @@ export class CreateCustomerController {
         address: Address.create(customerParams.address).value(),
         nifCifNie: SpainID.create({ value: customerParams.nifCifNie }).value(),
       }
-
-      console.log('--> esto lo pasa')
 
       const svcResult = await this.usecase.execute(createCustomerRequest)
 

@@ -15,7 +15,6 @@ export class GetCustomerByIdController {
   async execute(request: Request, response: Response) {
     try {
       const customerId = request.params.customerId
-      console.log(`----> customerId: ${customerId}`)
 
       // Validate parameters
       const paramValidationResult = InputSchemaValidator.validateUuidInputSchema(request.params)
