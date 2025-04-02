@@ -15,6 +15,7 @@ import { Address } from '../../domain/models/value-objects/Address'
 import { Email } from '../../domain/models/value-objects/Email'
 import { Phone } from '../../domain/models/value-objects/Phone'
 import { InputSchemaValidator } from './shared/InputSchemaValidator'
+import { PresentationErrorBuilder } from './shared/PresentationErrors'
 
 @injectable()
 export class UpdateCustomerController {
@@ -26,9 +27,11 @@ export class UpdateCustomerController {
       console.log(`----> customerParams: ${JSON.stringify(customerParams)}`)
 
       // Validate input parameters
-      const parametersValid = InputSchemaValidator.validateCustomerInputSchema(customerParams)
-      if (parametersValid.success === false) {
-        response.status(httpStatus.BAD_REQUEST).json({ error: 'Bad Request' })
+      const paramValidationResult = InputSchemaValidator.validateCustomerInputSchema(customerParams)
+      if (paramValidationResult.success === false) {
+        console.log(`----> paramValidationResult data: ${paramValidationResult.data}, error: ${paramValidationResult.error}`)
+        const detailedMessage = paramValidationResult.error.errors.map(err => ({ code: err.code, message: err.message, path: err.path }));
+        response.status(httpStatus.BAD_REQUEST).json(PresentationErrorBuilder.buildBadRequest({ path: request.path, detailedMessage }))
         return
       }
 
@@ -51,11 +54,11 @@ export class UpdateCustomerController {
       const svcResult = await this.usecase.execute(createCustomerRequest)
 
       if (svcResult instanceof BadParametersInCustomerUpdateError) {
-        response.status(httpStatus.BAD_REQUEST).json({ error: 'Bad Request' })
-        return
+        const detailedMessage = [svcResult.message];
+        response.status(httpStatus.BAD_REQUEST).json(PresentationErrorBuilder.buildBadRequest({ path: request.path, detailedMessage }))
       }
       if (svcResult instanceof CustomerNotFoundError) {
-        response.status(httpStatus.NOT_FOUND).json({ error: 'Customer not found' })
+        response.status(httpStatus.NOT_FOUND).json(PresentationErrorBuilder.buildNotFoundError({ path: request.path, customerId: customerParams.id }))
         return
       }
 
@@ -65,7 +68,7 @@ export class UpdateCustomerController {
       console.error(`error.stack: ${error.stack}`)
       console.error(`error.message: ${error.message}`)
 
-      response.status(httpStatus.INTERNAL_SERVER_ERROR).json({ error: 'Internal Server error' })
+      response.status(httpStatus.INTERNAL_SERVER_ERROR).json(PresentationErrorBuilder.buildInternalServerError({ path: request.path, message: error.message }))
     }
   }
 }

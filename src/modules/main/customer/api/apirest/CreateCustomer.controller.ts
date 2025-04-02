@@ -26,9 +26,11 @@ export class CreateCustomerController {
       console.log(`----> customerParams: ${JSON.stringify(customerParams)}`)
 
       // Validate input parameters
-      const parametersValid = InputSchemaValidator.validateCustomerInputSchema(customerParams)
-      if (parametersValid.success === false) {
-        response.status(httpStatus.BAD_REQUEST).json({ error: 'Bad Request' })
+      const paramValidationResult = InputSchemaValidator.validateCustomerInputSchema(customerParams)
+      if (paramValidationResult.success === false) {
+        console.log(`----> paramValidationResult data: ${paramValidationResult.data}, error: ${paramValidationResult.error}`)
+        const detailedMessage = paramValidationResult.error.errors.map(err => ({ code: err.code, message: err.message, path: err.path }));
+        response.status(httpStatus.BAD_REQUEST).json(PresentationErrorBuilder.buildBadRequest({ path: request.path, detailedMessage }))
         return
       }
 
@@ -51,11 +53,12 @@ export class CreateCustomerController {
       const svcResult = await this.usecase.execute(createCustomerRequest)
 
       if (svcResult instanceof BadParametersInCustomerCreationError) {
-        response.status(httpStatus.BAD_REQUEST).json({ error: 'Bad Request' })
-        return
+        console.log(`----> paramValidationResult data: ${paramValidationResult.data}, error: ${paramValidationResult.error}`)
+        const detailedMessage = [svcResult.message];
+        response.status(httpStatus.BAD_REQUEST).json(PresentationErrorBuilder.buildBadRequest({ path: request.path, detailedMessage }))
       }
       if (svcResult instanceof CustomerAlreadyExistsError) {
-        response.status(httpStatus.CONFLICT).json({ error: 'Customer already exists' })
+        response.status(httpStatus.CONFLICT).json(PresentationErrorBuilder.buildConflictError({ path: request.path, message: svcResult.message }))
         return
       }
 

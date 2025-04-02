@@ -9,6 +9,7 @@ import { TYPES } from '../../../../../../../src/modules/shared/infrastructure/de
 import { ContainerFactory } from '../../../../../expectations/expectations.container'
 import { DEFAULT_ERROR_IN_TEST_MESSAGE, MESSAGE_TEST_FAILED } from '../../../../../expectations/expectations.global'
 import { DEFAULT_CUSTOMER } from '../../domain/model/Customer.test'
+import { BAD_REQUEST_ERROR } from '../../../../../../../src/modules/main/customer/api/apirest/shared/PresentationErrors'
 
 const DEFAULT_REQUEST = {
   params: {
@@ -65,7 +66,10 @@ describe('DeleteCustomerByIdController - Tests', () => {
           await myController.execute(request, response)
           // Assert
           expect(response.status).toHaveBeenCalledWith(httpStatus.BAD_REQUEST)
-          expect(response.json).toHaveBeenCalledWith({ error: 'Bad Request' })
+          expect(response.json).toHaveBeenCalledWith(expect.objectContaining({
+            status: httpStatus.BAD_REQUEST,
+            error: BAD_REQUEST_ERROR,
+          }))
         } catch {
           fail(MESSAGE_TEST_FAILED)
         }

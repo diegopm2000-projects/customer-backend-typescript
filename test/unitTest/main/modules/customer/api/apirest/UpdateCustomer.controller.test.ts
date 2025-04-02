@@ -6,7 +6,9 @@ import httpStatus from 'http-status'
 import { mockRequest, mockResponse } from 'jest-mock-req-res'
 import { ID } from 'types-ddd'
 
+import { BAD_REQUEST_ERROR, OBJECT_NOT_FOUND_ERROR } from '../../../../../../../src/modules/main/customer/api/apirest/shared/PresentationErrors'
 import { UpdateCustomerController } from '../../../../../../../src/modules/main/customer/api/apirest/UpdateCustomer.controller'
+import { BadParametersInCustomerUpdateError } from '../../../../../../../src/modules/main/customer/application/errors/BadParametersInCustomerUpdateError copy'
 import { CustomerNotFoundError } from '../../../../../../../src/modules/main/customer/application/errors/CustomerNotFoundError'
 import { UpdateCustomerUseCase } from '../../../../../../../src/modules/main/customer/application/usecases/UpdateCustomer/UpdateCustomer.usecase'
 import { TYPES } from '../../../../../../../src/modules/shared/infrastructure/dependencyInjection/types'
@@ -16,7 +18,6 @@ import { DEFAULT_UPDATE_CUSTOMER_SVC_RESULT } from '../../application/usecases/U
 import { DEFAULT_ADDRESS, DEFAULT_ADDRESS_PROPS } from '../../domain/model/Address.test'
 import { DEFAULT_EMAIL } from '../../domain/model/Email.test'
 import { DEFAULT_PHONE } from '../../domain/model/Phone.test'
-import { BadParametersInCustomerUpdateError } from '../../../../../../../src/modules/main/customer/application/errors/BadParametersInCustomerUpdateError copy'
 
 const DEFAULT_REQUEST = {
   body: {
@@ -84,7 +85,10 @@ describe('UpdateCustomerController - Tests', () => {
           await myController.execute(request, response)
           // Assert
           expect(response.status).toHaveBeenCalledWith(httpStatus.NOT_FOUND)
-          expect(response.json).toHaveBeenCalledWith({ error: 'Customer not found' })
+          expect(response.json).toHaveBeenCalledWith(expect.objectContaining({
+            status: httpStatus.NOT_FOUND,
+            error: OBJECT_NOT_FOUND_ERROR,
+          }))
         } catch {
           fail(MESSAGE_TEST_FAILED)
         }
@@ -103,7 +107,10 @@ describe('UpdateCustomerController - Tests', () => {
           await myController.execute(request, response)
           // Assert
           expect(response.status).toHaveBeenCalledWith(httpStatus.BAD_REQUEST)
-          expect(response.json).toHaveBeenCalledWith({ error: 'Bad Request' })
+          expect(response.json).toHaveBeenCalledWith(expect.objectContaining({
+            status: httpStatus.BAD_REQUEST,
+            error: BAD_REQUEST_ERROR,
+          }))
         } catch {
           fail(MESSAGE_TEST_FAILED)
         }
@@ -137,7 +144,10 @@ describe('UpdateCustomerController - Tests', () => {
           await myController.execute(request, response)
           // Assert
           expect(response.status).toHaveBeenCalledWith(httpStatus.BAD_REQUEST)
-          expect(response.json).toHaveBeenCalledWith({ error: 'Bad Request' })
+          expect(response.json).toHaveBeenCalledWith(expect.objectContaining({
+            status: httpStatus.BAD_REQUEST,
+            error: BAD_REQUEST_ERROR,
+          }))
         } catch {
           fail(MESSAGE_TEST_FAILED)
         }

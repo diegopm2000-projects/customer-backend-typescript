@@ -7,6 +7,7 @@ import { mockRequest, mockResponse } from 'jest-mock-req-res'
 import { ID } from 'types-ddd'
 
 import { CreateCustomerController } from '../../../../../../../src/modules/main/customer/api/apirest/CreateCustomer.controller'
+import { BAD_REQUEST_ERROR, CONFLICT_ERROR } from '../../../../../../../src/modules/main/customer/api/apirest/shared/PresentationErrors'
 import { BadParametersInCustomerCreationError } from '../../../../../../../src/modules/main/customer/application/errors/BadParametersInCustomerCreationError'
 import { CustomerAlreadyExistsError } from '../../../../../../../src/modules/main/customer/application/errors/CustomerAlreadyExistsError'
 import { CreateCustomerUseCase } from '../../../../../../../src/modules/main/customer/application/usecases/CreateCustomer/CreateCustomer.usecase'
@@ -84,7 +85,10 @@ describe('CreateCustomerController - Tests', () => {
           await myController.execute(request, response)
           // Assert
           expect(response.status).toHaveBeenCalledWith(httpStatus.CONFLICT)
-          expect(response.json).toHaveBeenCalledWith({ error: 'Customer already exists' })
+          expect(response.json).toHaveBeenCalledWith(expect.objectContaining({
+            status: httpStatus.CONFLICT,
+            error: CONFLICT_ERROR,
+          }))
         } catch {
           fail(MESSAGE_TEST_FAILED)
         }
@@ -103,7 +107,10 @@ describe('CreateCustomerController - Tests', () => {
           await myController.execute(request, response)
           // Assert
           expect(response.status).toHaveBeenCalledWith(httpStatus.BAD_REQUEST)
-          expect(response.json).toHaveBeenCalledWith({ error: 'Bad Request' })
+          expect(response.json).toHaveBeenCalledWith(expect.objectContaining({
+            status: httpStatus.BAD_REQUEST,
+            error: BAD_REQUEST_ERROR,
+          }))
         } catch {
           fail(MESSAGE_TEST_FAILED)
         }
@@ -137,7 +144,10 @@ describe('CreateCustomerController - Tests', () => {
           await myController.execute(request, response)
           // Assert
           expect(response.status).toHaveBeenCalledWith(httpStatus.BAD_REQUEST)
-          expect(response.json).toHaveBeenCalledWith({ error: 'Bad Request' })
+          expect(response.json).toHaveBeenCalledWith(expect.objectContaining({
+            status: httpStatus.BAD_REQUEST,
+            error: BAD_REQUEST_ERROR,
+          }))
         } catch {
           fail(MESSAGE_TEST_FAILED)
         }

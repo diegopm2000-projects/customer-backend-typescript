@@ -31,7 +31,6 @@ export class GetCustomerByIdController {
       const svcResult = await this.usecase.execute({ customerId })
 
       if (!svcResult) {
-        // response.status(httpStatus.NOT_FOUND).json({ error: 'Customer not found' })
         response.status(httpStatus.NOT_FOUND).json(PresentationErrorBuilder.buildNotFoundError({ path: request.path, customerId }))
         return
       }

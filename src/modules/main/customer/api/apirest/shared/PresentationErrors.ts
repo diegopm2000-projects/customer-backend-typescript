@@ -14,9 +14,11 @@ interface PresentationError {
 const OBJECT_NAME = 'customer'
 
 export const BAD_REQUEST_INPUT_PARAMETERS_MESSAGE = 'Input parameters not valid'
-export const BAD_REQUEST_ERROR = 'Bad request'
 
-// TODO - continuar aquí poniendo los errores
+export const BAD_REQUEST_ERROR = 'Bad request'
+export const OBJECT_NOT_FOUND_ERROR = 'Object not found'
+export const CONFLICT_ERROR = 'Conflict'
+export const INTERNAL_SERVER_ERROR = 'Internal server error'
 
 export class PresentationErrorBuilder {
     static buildBadRequest(params: { path: string; detailedMessage: Array<any> }): PresentationError {
@@ -35,7 +37,7 @@ export class PresentationErrorBuilder {
         const { path, customerId } = params
         return {
             status: httpStatus.NOT_FOUND,
-            error: 'Object not found',
+            error: OBJECT_NOT_FOUND_ERROR,
             message: `The ${OBJECT_NAME} with id: ${customerId} was not found in the system`,
             path,
             timestamp: new Date(),
@@ -46,7 +48,18 @@ export class PresentationErrorBuilder {
         const { path, message } = params
         return {
             status: httpStatus.INTERNAL_SERVER_ERROR,
-            error: 'Internal server error',
+            error: INTERNAL_SERVER_ERROR,
+            message,
+            path,
+            timestamp: new Date(),
+        }
+    }
+
+    static buildConflictError(params: { path: string; message: string }): PresentationError {
+        const { path, message } = params
+        return {
+            status: httpStatus.CONFLICT,
+            error: CONFLICT_ERROR,
             message,
             path,
             timestamp: new Date(),

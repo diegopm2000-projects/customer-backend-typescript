@@ -10,6 +10,7 @@ import { ContainerFactory } from '../../../../../expectations/expectations.conta
 import { DEFAULT_ERROR_IN_TEST_MESSAGE, MESSAGE_TEST_FAILED } from '../../../../../expectations/expectations.global'
 import { DEFAULT_GET_CUSTOMER_BY_ID_SVC_RESULT } from '../../application/usecases/GetCustomerById/GetCustomerById.test'
 import { DEFAULT_CUSTOMER } from '../../domain/model/Customer.test'
+import { BAD_REQUEST_ERROR, INTERNAL_SERVER_ERROR, OBJECT_NOT_FOUND_ERROR } from '../../../../../../../src/modules/main/customer/api/apirest/shared/PresentationErrors'
 
 const DEFAULT_REQUEST = {
   params: {
@@ -72,10 +73,9 @@ describe('GetCustomerByIdController - Tests', () => {
           await myController.execute(request, response)
           // Assert
           expect(response.status).toHaveBeenCalledWith(httpStatus.NOT_FOUND)
-          // expect(response.json).toHaveBeenCalledWith({ error: 'Customer not found' })
           expect(response.json).toHaveBeenCalledWith(expect.objectContaining({
             status: httpStatus.NOT_FOUND,
-            error: "Object not found",
+            error: OBJECT_NOT_FOUND_ERROR,
           }))
         } catch {
           fail(MESSAGE_TEST_FAILED)
@@ -95,10 +95,9 @@ describe('GetCustomerByIdController - Tests', () => {
           await myController.execute(request, response)
           // Assert
           expect(response.status).toHaveBeenCalledWith(httpStatus.BAD_REQUEST)
-          // expect(response.json).toHaveBeenCalledWith({ error: 'Bad Request' })
           expect(response.json).toHaveBeenCalledWith(expect.objectContaining({
             status: httpStatus.BAD_REQUEST,
-            error: "Bad request",
+            error: BAD_REQUEST_ERROR,
           }))
         } catch {
           fail(MESSAGE_TEST_FAILED)
@@ -123,7 +122,7 @@ describe('GetCustomerByIdController - Tests', () => {
           // Assert
           expect(response.json).toHaveBeenCalledWith(expect.objectContaining({
             status: httpStatus.INTERNAL_SERVER_ERROR,
-            error: "Internal server error",
+            error: INTERNAL_SERVER_ERROR,
           }))
         } catch {
           fail(MESSAGE_TEST_FAILED)
