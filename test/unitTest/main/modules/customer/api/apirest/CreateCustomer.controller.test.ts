@@ -7,7 +7,7 @@ import { mockRequest, mockResponse } from 'jest-mock-req-res'
 import { ID } from 'types-ddd'
 
 import { CreateCustomerController } from '../../../../../../../src/modules/main/customer/api/apirest/CreateCustomer.controller'
-import { BAD_REQUEST_ERROR, CONFLICT_ERROR } from '../../../../../../../src/modules/main/customer/api/apirest/shared/PresentationErrors'
+import { BAD_REQUEST_ERROR, CONFLICT_ERROR } from '../../../../../../../src/modules/main/customer/api/apirest/shared/BasePresenter'
 import { BadParametersInCustomerCreationError } from '../../../../../../../src/modules/main/customer/application/errors/BadParametersInCustomerCreationError'
 import { CustomerAlreadyExistsError } from '../../../../../../../src/modules/main/customer/application/errors/CustomerAlreadyExistsError'
 import { CreateCustomerUseCase } from '../../../../../../../src/modules/main/customer/application/usecases/CreateCustomer/CreateCustomer.usecase'

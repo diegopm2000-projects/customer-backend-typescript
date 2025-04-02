@@ -15,7 +15,7 @@ import { Address } from '../../domain/models/value-objects/Address'
 import { Email } from '../../domain/models/value-objects/Email'
 import { Phone } from '../../domain/models/value-objects/Phone'
 import { InputSchemaValidator } from './shared/InputSchemaValidator'
-import { PresentationErrorBuilder } from './shared/PresentationErrors'
+import { BasePresenter } from './shared/BasePresenter'
 
 @injectable()
 export class UpdateCustomerController {
@@ -31,7 +31,7 @@ export class UpdateCustomerController {
       if (paramValidationResult.success === false) {
         console.log(`----> paramValidationResult data: ${paramValidationResult.data}, error: ${paramValidationResult.error}`)
         const detailedMessage = paramValidationResult.error.errors.map(err => ({ code: err.code, message: err.message, path: err.path }));
-        response.status(httpStatus.BAD_REQUEST).json(PresentationErrorBuilder.buildBadRequest({ path: request.path, detailedMessage }))
+        response.status(httpStatus.BAD_REQUEST).json(BasePresenter.buildBadRequest({ path: request.path, detailedMessage }))
         return
       }
 
@@ -55,16 +55,16 @@ export class UpdateCustomerController {
 
       if (svcResult instanceof BadParametersInCustomerUpdateError) {
         const detailedMessage = [svcResult.message];
-        response.status(httpStatus.BAD_REQUEST).json(PresentationErrorBuilder.buildBadRequest({ path: request.path, detailedMessage }))
+        response.status(httpStatus.BAD_REQUEST).json(BasePresenter.buildBadRequest({ path: request.path, detailedMessage }))
       }
       if (svcResult instanceof CustomerNotFoundError) {
-        response.status(httpStatus.NOT_FOUND).json(PresentationErrorBuilder.buildNotFoundError({ path: request.path, customerId: customerParams.id }))
+        BasePresenter.presentObjectNotFoundError({ request, response, objectId: customerParams.id, objectName: 'customer'})
         return
       }
 
       response.status(httpStatus.OK).json(svcResult)
     } catch (error: any) {
-      PresentationErrorBuilder.presentInternalServerError({ request, response, error })
+      BasePresenter.presentInternalServerError({ request, response, error })
     }
   }
 }

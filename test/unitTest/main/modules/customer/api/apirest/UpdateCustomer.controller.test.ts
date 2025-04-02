@@ -6,7 +6,7 @@ import httpStatus from 'http-status'
 import { mockRequest, mockResponse } from 'jest-mock-req-res'
 import { ID } from 'types-ddd'
 
-import { BAD_REQUEST_ERROR, OBJECT_NOT_FOUND_ERROR } from '../../../../../../../src/modules/main/customer/api/apirest/shared/PresentationErrors'
+import { BAD_REQUEST_ERROR, OBJECT_NOT_FOUND_ERROR } from '../../../../../../../src/modules/main/customer/api/apirest/shared/BasePresenter'
 import { UpdateCustomerController } from '../../../../../../../src/modules/main/customer/api/apirest/UpdateCustomer.controller'
 import { BadParametersInCustomerUpdateError } from '../../../../../../../src/modules/main/customer/application/errors/BadParametersInCustomerUpdateError copy'
 import { CustomerNotFoundError } from '../../../../../../../src/modules/main/customer/application/errors/CustomerNotFoundError'

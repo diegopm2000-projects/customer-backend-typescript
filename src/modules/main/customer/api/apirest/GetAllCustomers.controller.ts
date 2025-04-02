@@ -7,7 +7,7 @@ import { inject, injectable } from 'inversify'
 
 import { TYPES } from '../../../../shared/infrastructure/dependencyInjection/types'
 import { IGetAllCustomersUseCase } from '../../application/usecases/GetAllCustomers/IGetAllCustomers.usecase'
-import { PresentationErrorBuilder } from './shared/PresentationErrors'
+import { BasePresenter } from './shared/BasePresenter'
 
 @injectable()
 export class GetAllCustomersController {
@@ -19,7 +19,7 @@ export class GetAllCustomersController {
 
       response.status(httpStatus.OK).json(svcResult)
     } catch (error: any) {
-      PresentationErrorBuilder.presentInternalServerError({ request, response, error })
+      BasePresenter.presentInternalServerError({ request, response, error })
     }
   }
 }

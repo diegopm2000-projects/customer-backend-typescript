@@ -10,7 +10,7 @@ import { ContainerFactory } from '../../../../../expectations/expectations.conta
 import { DEFAULT_ERROR_IN_TEST_MESSAGE, MESSAGE_TEST_FAILED } from '../../../../../expectations/expectations.global'
 import { DEFAULT_GET_CUSTOMER_BY_ID_SVC_RESULT } from '../../application/usecases/GetCustomerById/GetCustomerById.test'
 import { DEFAULT_CUSTOMER } from '../../domain/model/Customer.test'
-import { BAD_REQUEST_ERROR, INTERNAL_SERVER_ERROR, OBJECT_NOT_FOUND_ERROR } from '../../../../../../../src/modules/main/customer/api/apirest/shared/PresentationErrors'
+import { BAD_REQUEST_ERROR, INTERNAL_SERVER_ERROR, OBJECT_NOT_FOUND_ERROR } from '../../../../../../../src/modules/main/customer/api/apirest/shared/BasePresenter'
 
 const DEFAULT_REQUEST = {
   params: {

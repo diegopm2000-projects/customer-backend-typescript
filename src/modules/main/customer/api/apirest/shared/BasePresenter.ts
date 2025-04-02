@@ -2,8 +2,6 @@ import httpStatus from 'http-status'
 
 import { Request, Response } from 'express'
 
-import { ApplicationError } from "../../../../../shared/application/ApplicationError";
-
 interface PresentationError {
     status: number
     error: string
@@ -13,8 +11,6 @@ interface PresentationError {
     timestamp: Date
 }
 
-const OBJECT_NAME = 'customer'
-
 export const BAD_REQUEST_INPUT_PARAMETERS_MESSAGE = 'Input parameters not valid'
 
 export const BAD_REQUEST_ERROR = 'Bad request'
@@ -22,7 +18,7 @@ export const OBJECT_NOT_FOUND_ERROR = 'Object not found'
 export const CONFLICT_ERROR = 'Conflict'
 export const INTERNAL_SERVER_ERROR = 'Internal server error'
 
-export class PresentationErrorBuilder {
+export class BasePresenter {
     static buildBadRequest(params: { path: string; detailedMessage: Array<any> }): PresentationError {
         const { path, detailedMessage } = params
         return {
@@ -35,18 +31,18 @@ export class PresentationErrorBuilder {
         }
 
     }
-    static buildNotFoundError(params: { path: string; customerId: string }): PresentationError  {
-        const { path, customerId } = params
+    private static buildJSONNotFoundError(params: { path: string; objectId: string; objectName: string }): PresentationError  {
+        const { path, objectId, objectName } = params
         return {
             status: httpStatus.NOT_FOUND,
             error: OBJECT_NOT_FOUND_ERROR,
-            message: `The ${OBJECT_NAME} with id: ${customerId} was not found in the system`,
+            message: `The ${objectName} with id: ${objectId} was not found in the system`,
             path,
             timestamp: new Date(),
         }
     }
 
-    static buildConflictError(params: { path: string; message: string }): PresentationError {
+    private static buildJSONConflictError(params: { path: string; message: string }): PresentationError {
         const { path, message } = params
         return {
             status: httpStatus.CONFLICT,
@@ -74,6 +70,18 @@ export class PresentationErrorBuilder {
       console.error(`error.stack: ${error.stack}`)
       console.error(`error.message: ${error.message}`)
 
-      response.status(httpStatus.INTERNAL_SERVER_ERROR).json(PresentationErrorBuilder.buildJSONInternalServerError({ path: request.path, message: error.message }))
+      response.status(httpStatus.INTERNAL_SERVER_ERROR).json(BasePresenter.buildJSONInternalServerError({ path: request.path, message: error.message }))
+    }
+
+    static presentObjectNotFoundError(params: { request: Request; response: Response; objectId: string; objectName: string }) {
+        const { request, response, objectId, objectName } = params
+
+        response.status(httpStatus.NOT_FOUND).json(BasePresenter.buildJSONNotFoundError({ path: request.path, objectId, objectName }))
+    }
+
+    static presentConflictError(params: { request: Request; response: Response; message: string }) {
+        const { request, response, message } = params
+
+        response.status(httpStatus.CONFLICT).json(BasePresenter.buildJSONConflictError({ path: request.path, message }))
     }
 }

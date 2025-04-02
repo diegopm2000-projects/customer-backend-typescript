@@ -14,7 +14,7 @@ import { Address } from '../../domain/models/value-objects/Address'
 import { Email } from '../../domain/models/value-objects/Email'
 import { Phone } from '../../domain/models/value-objects/Phone'
 import { InputSchemaValidator } from './shared/InputSchemaValidator'
-import { PresentationErrorBuilder } from './shared/PresentationErrors'
+import { BasePresenter } from './shared/BasePresenter'
 
 @injectable()
 export class CreateCustomerController {
@@ -30,7 +30,7 @@ export class CreateCustomerController {
       if (paramValidationResult.success === false) {
         console.log(`----> paramValidationResult data: ${paramValidationResult.data}, error: ${paramValidationResult.error}`)
         const detailedMessage = paramValidationResult.error.errors.map(err => ({ code: err.code, message: err.message, path: err.path }));
-        response.status(httpStatus.BAD_REQUEST).json(PresentationErrorBuilder.buildBadRequest({ path: request.path, detailedMessage }))
+        response.status(httpStatus.BAD_REQUEST).json(BasePresenter.buildBadRequest({ path: request.path, detailedMessage }))
         return
       }
 
@@ -55,16 +55,16 @@ export class CreateCustomerController {
       if (svcResult instanceof BadParametersInCustomerCreationError) {
         console.log(`----> paramValidationResult data: ${paramValidationResult.data}, error: ${paramValidationResult.error}`)
         const detailedMessage = [svcResult.message];
-        response.status(httpStatus.BAD_REQUEST).json(PresentationErrorBuilder.buildBadRequest({ path: request.path, detailedMessage }))
+        response.status(httpStatus.BAD_REQUEST).json(BasePresenter.buildBadRequest({ path: request.path, detailedMessage }))
       }
       if (svcResult instanceof CustomerAlreadyExistsError) {
-        response.status(httpStatus.CONFLICT).json(PresentationErrorBuilder.buildConflictError({ path: request.path, message: svcResult.message }))
+        BasePresenter.presentConflictError({ request, response, message: svcResult.message })
         return
       }
 
       response.status(httpStatus.CREATED).json(svcResult)
     } catch (error: any) {
-      PresentationErrorBuilder.presentInternalServerError({ request, response, error })
+      BasePresenter.presentInternalServerError({ request, response, error })
     }
   }
 }

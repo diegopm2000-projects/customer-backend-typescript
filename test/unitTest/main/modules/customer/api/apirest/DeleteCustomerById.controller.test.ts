@@ -4,12 +4,12 @@ import httpStatus from 'http-status'
 import { mockRequest, mockResponse } from 'jest-mock-req-res'
 
 import { DeleteCustomerByIdController } from '../../../../../../../src/modules/main/customer/api/apirest/DeleteCustomerById.controller'
+import { BAD_REQUEST_ERROR, OBJECT_NOT_FOUND_ERROR } from '../../../../../../../src/modules/main/customer/api/apirest/shared/BasePresenter'
 import { DeleteCustomerByIdUseCase } from '../../../../../../../src/modules/main/customer/application/usecases/DeleteCustomerById/DeleteCustomerById.usecase'
 import { TYPES } from '../../../../../../../src/modules/shared/infrastructure/dependencyInjection/types'
 import { ContainerFactory } from '../../../../../expectations/expectations.container'
 import { DEFAULT_ERROR_IN_TEST_MESSAGE, MESSAGE_TEST_FAILED } from '../../../../../expectations/expectations.global'
 import { DEFAULT_CUSTOMER } from '../../domain/model/Customer.test'
-import { BAD_REQUEST_ERROR } from '../../../../../../../src/modules/main/customer/api/apirest/shared/PresentationErrors'
 
 const DEFAULT_REQUEST = {
   params: {
@@ -92,7 +92,10 @@ describe('DeleteCustomerByIdController - Tests', () => {
           await myController.execute(request, response)
           // Assert
           expect(response.status).toHaveBeenCalledWith(httpStatus.NOT_FOUND)
-          expect(response.json).toHaveBeenCalledWith({ error: 'Customer not found' })
+          expect(response.json).toHaveBeenCalledWith(expect.objectContaining({
+            status: httpStatus.NOT_FOUND,
+            error: OBJECT_NOT_FOUND_ERROR,
+          }))
         } catch {
           fail(MESSAGE_TEST_FAILED)
         }

@@ -8,7 +8,7 @@ import { inject, injectable } from 'inversify'
 import { TYPES } from '../../../../shared/infrastructure/dependencyInjection/types'
 import { IGetCustomerByIdUseCase } from '../../application/usecases/GetCustomerById/IGetCustomerById.usecase'
 import { InputSchemaValidator } from './shared/InputSchemaValidator'
-import { PresentationErrorBuilder } from './shared/PresentationErrors'
+import { BasePresenter } from './shared/BasePresenter'
 
 @injectable()
 export class GetCustomerByIdController {
@@ -24,20 +24,20 @@ export class GetCustomerByIdController {
       if (paramValidationResult.success === false) {
         console.log(`----> paramValidationResult data: ${paramValidationResult.data}, error: ${paramValidationResult.error}`)
         const detailedMessage = paramValidationResult.error.errors.map(err => ({ code: err.code, message: err.message, path: err.path }));
-        response.status(httpStatus.BAD_REQUEST).json(PresentationErrorBuilder.buildBadRequest({ path: request.path, detailedMessage }))
+        response.status(httpStatus.BAD_REQUEST).json(BasePresenter.buildBadRequest({ path: request.path, detailedMessage }))
         return
       }
 
       const svcResult = await this.usecase.execute({ customerId })
 
       if (!svcResult) {
-        response.status(httpStatus.NOT_FOUND).json(PresentationErrorBuilder.buildNotFoundError({ path: request.path, customerId }))
+        BasePresenter.presentObjectNotFoundError({ request, response, objectId: customerId, objectName: 'customer'})
         return
       }
 
       response.status(httpStatus.OK).json(svcResult)
     } catch (error: any) {
-      PresentationErrorBuilder.presentInternalServerError({ request, response, error })
+      BasePresenter.presentInternalServerError({ request, response, error })
     }
   }
 }
