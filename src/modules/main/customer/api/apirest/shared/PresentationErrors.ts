@@ -1,5 +1,7 @@
 import httpStatus from 'http-status'
 
+import { Request, Response } from 'express'
+
 import { ApplicationError } from "../../../../../shared/application/ApplicationError";
 
 interface PresentationError {
@@ -44,7 +46,18 @@ export class PresentationErrorBuilder {
         }
     }
 
-    static buildInternalServerError(params: { path: string; message: string }): PresentationError {
+    static buildConflictError(params: { path: string; message: string }): PresentationError {
+        const { path, message } = params
+        return {
+            status: httpStatus.CONFLICT,
+            error: CONFLICT_ERROR,
+            message,
+            path,
+            timestamp: new Date(),
+        }
+    }
+
+    private static buildJSONInternalServerError(params: { path: string; message: string }): PresentationError {
         const { path, message } = params
         return {
             status: httpStatus.INTERNAL_SERVER_ERROR,
@@ -55,14 +68,12 @@ export class PresentationErrorBuilder {
         }
     }
 
-    static buildConflictError(params: { path: string; message: string }): PresentationError {
-        const { path, message } = params
-        return {
-            status: httpStatus.CONFLICT,
-            error: CONFLICT_ERROR,
-            message,
-            path,
-            timestamp: new Date(),
-        }
+    static presentInternalServerError(params: { request: Request; response: Response; error: Error }) {
+      const { request, response, error } = params
+
+      console.error(`error.stack: ${error.stack}`)
+      console.error(`error.message: ${error.message}`)
+
+      response.status(httpStatus.INTERNAL_SERVER_ERROR).json(PresentationErrorBuilder.buildJSONInternalServerError({ path: request.path, message: error.message }))
     }
 }

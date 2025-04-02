@@ -37,10 +37,7 @@ export class GetCustomerByIdController {
 
       response.status(httpStatus.OK).json(svcResult)
     } catch (error: any) {
-      console.error(`error.stack: ${error.stack}`)
-      console.error(`error.message: ${error.message}`)
-
-      response.status(httpStatus.INTERNAL_SERVER_ERROR).json(PresentationErrorBuilder.buildInternalServerError({ path: request.path, message: error.message }))
+      PresentationErrorBuilder.presentInternalServerError({ request, response, error })
     }
   }
 }

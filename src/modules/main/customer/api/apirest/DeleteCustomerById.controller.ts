@@ -37,10 +37,7 @@ export class DeleteCustomerByIdController {
 
       response.status(httpStatus.NO_CONTENT).json()
     } catch (error: any) {
-      console.error(`error.stack: ${error.stack}`)
-      console.error(`error.message: ${error.message}`)
-
-      response.status(httpStatus.INTERNAL_SERVER_ERROR).json(PresentationErrorBuilder.buildInternalServerError({ path: request.path, message: error.message }))
+      PresentationErrorBuilder.presentInternalServerError({ request, response, error })
     }
   }
 }
