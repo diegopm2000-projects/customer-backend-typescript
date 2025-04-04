@@ -14,7 +14,7 @@ import { CreateCustomerUseCase } from '../../../../../../../src/modules/main/cus
 import { TYPES } from '../../../../../../../src/modules/shared/infrastructure/dependencyInjection/types'
 import { ContainerFactory } from '../../../../../expectations/expectations.container'
 import { DEFAULT_ERROR_IN_TEST_MESSAGE, MESSAGE_TEST_FAILED } from '../../../../../expectations/expectations.global'
-import { DEFAULT_CREATE_CUSTOMER_SVC_RESULT } from '../../application/usecases/CreateCustomerById/CreateCustomer.usecase.test'
+import { DEFAULT_CREATE_CUSTOMER_SVC_RESULT } from '../../application/usecases/CreateCustomer/CreateCustomer.usecase.test'
 import { DEFAULT_ADDRESS, DEFAULT_ADDRESS_PROPS } from '../../domain/model/value-objects/Address.test'
 import { DEFAULT_EMAIL } from '../../domain/model/value-objects/Email.test'
 import { DEFAULT_PHONE } from '../../domain/model/value-objects/Phone.test'

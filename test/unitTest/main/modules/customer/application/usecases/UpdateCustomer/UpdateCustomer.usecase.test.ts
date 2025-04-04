@@ -38,7 +38,6 @@ export const DEFAULT_UPDATE_CUSTOMER_SVC_RESULT: CustomerDTO = {
   dateOfBirth: new Date('1990-01-01'),
   address: DEFAULT_ADDRESS_PROPS,
   nifCifNie: DEFAULT_NIFCIFNIE.value,
-  availableCredit: DEFAULT_AVAILABLE_CREDIT.value,
 }
 
 describe('UpdateCustomerUseCase - Tests', () => {

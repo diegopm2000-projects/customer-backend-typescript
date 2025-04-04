@@ -188,34 +188,34 @@ describe('App - Tests', () => {
           const res = await superagent.put(endpointPath).send(DEFAULT_CUSTOMER_BODY_REQUEST)
           // Assert
           expect(res.status).toBe(200)
-          expect(res.body).toStrictEqual(DEFAULT_CUSTOMER_BODY_RESPONSE)
+          expect(res.body).toStrictEqual(ALT_CUSTOMER_WITHOUT_CREDIT_BODY_RESPONSE)
           expect(fnService).toHaveBeenCalledTimes(1)
           // After
           await myApp.stop()
         })
       })
-      // describe('DeleteCustomerController - successfully case', () => {
-      //   let fnService: jest.SpyInstance
-      //   beforeEach(() => {
-      //     fnService = jest.spyOn(DeleteCustomerByIdUseCase.prototype, 'execute').mockResolvedValue(true)
-      //   })
-      //   afterEach(() => {
-      //     jest.restoreAllMocks()
-      //   })
-      //   it('DeleteCustomerController - successfully case', async () => {
-      //     // Arrange
-      //     const myApp = new App(DEFAULT_CONFIG)
-      //     // Act
-      //     await myApp.start()
-      //     const endpointPath = `http://localhost:${DEFAULT_CONFIG.expressPort}/api/customers/706781a2-e4ee-4fc5-ab0f-fdf92f643c8a`
-      //     const res = await superagent.delete(endpointPath)
-      //     // Assert
-      //     expect(res.status).toBe(204)
-      //     expect(fnService).toHaveBeenCalledTimes(1)
-      //     // After
-      //     await myApp.stop()
-      //   })
-      // })
+      describe('DeleteCustomerController - successfully case', () => {
+        let fnService: jest.SpyInstance
+        beforeEach(() => {
+          fnService = jest.spyOn(DeleteCustomerByIdUseCase.prototype, 'execute').mockResolvedValue(true)
+        })
+        afterEach(() => {
+          jest.restoreAllMocks()
+        })
+        it('DeleteCustomerController - successfully case', async () => {
+          // Arrange
+          const myApp = new App(DEFAULT_CONFIG)
+          // Act
+          await myApp.start()
+          const endpointPath = `http://localhost:${DEFAULT_CONFIG.expressPort}/api/customers/706781a2-e4ee-4fc5-ab0f-fdf92f643c8a`
+          const res = await superagent.delete(endpointPath)
+          // Assert
+          expect(res.status).toBe(204)
+          expect(fnService).toHaveBeenCalledTimes(1)
+          // After
+          await myApp.stop()
+        })
+      })
     })
   })
 })
