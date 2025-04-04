@@ -12,6 +12,7 @@ import { TYPES } from '../modules/shared/infrastructure/dependencyInjection/type
 import { IExpressInfra } from '../modules/shared/infrastructure/express/IExpressInfra'
 import { IMongoDBInfra } from '../modules/shared/infrastructure/persistence/mongodb/IMongoDBInfra'
 import { IAppConfig } from './IAppConfig'
+import { AddAvailableCreditController } from '../modules/main/customer/api/apirest/AddAvailableCredit.controller'
 
 export class App {
   private _appConfig: IAppConfig
@@ -44,6 +45,8 @@ export class App {
     expressInfra.app.post(BASE_API_CUSTOMERS, (req, res) => this.container?.get<CreateCustomerController>(TYPES.CreateCustomerController).execute(req, res))
     expressInfra.app.put(BASE_API_CUSTOMERS, (req, res) => this.container?.get<UpdateCustomerController>(TYPES.UpdateCustomerController).execute(req, res))
     expressInfra.app.delete(`${BASE_API_CUSTOMERS}/:customerId`, (req, res) => this.container?.get<DeleteCustomerByIdController>(TYPES.DeleteCustomerByIdController).execute(req, res))
+
+    expressInfra.app.patch(`${BASE_API_CUSTOMERS}/:customerId/availablecredit`, (req, res) => this.container?.get<AddAvailableCreditController>(TYPES.AddAvailableCreditController).execute(req, res))
 
     return true
   }

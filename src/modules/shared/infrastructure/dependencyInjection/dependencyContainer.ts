@@ -23,6 +23,9 @@ import { IMongoDBInfra } from '../persistence/mongodb/IMongoDBInfra'
 import { MongodBInfra } from '../persistence/mongodb/MongoDBInfra'
 import { DeleteCustomerByIdController } from '../../../main/customer/api/apirest/DeleteCustomerById.controller'
 import { UpdateCustomerController } from '../../../main/customer/api/apirest/UpdateCustomer.controller'
+import { IAddAvailableCreditUseCase } from '../../../main/customer/application/usecases/AddAvailableCredit/IAddAvailableCredit.usecase'
+import { AddAvailableCreditUseCase } from '../../../main/customer/application/usecases/AddAvailableCredit/AddAvailableCredit.usecase'
+import { AddAvailableCreditController } from '../../../main/customer/api/apirest/AddAvailableCredit.controller'
 
 export class DependencyContainer {
   public static init(appConfig: IAppConfig): Container {
@@ -44,6 +47,7 @@ export class DependencyContainer {
     container.bind<ICreateCustomerUseCase>(TYPES.ICreateCustomerUseCase).to(CreateCustomerUseCase).inSingletonScope()
     container.bind<IUpdateCustomerUseCase>(TYPES.IUpdateCustomerUseCase).to(UpdateCustomerUseCase).inSingletonScope()
     container.bind<IDeleteCustomerByIdUseCase>(TYPES.IDeleteCustomerByIdUseCase).to(DeleteCustomerByIdUseCase).inSingletonScope()
+    container.bind<IAddAvailableCreditUseCase>(TYPES.IAddAvailableCreditUseCase).to(AddAvailableCreditUseCase).inSingletonScope()
 
     // Controllers
     container.bind<GetCustomerByIdController>(TYPES.GetCustomerByIdController).to(GetCustomerByIdController).inSingletonScope()
@@ -51,6 +55,7 @@ export class DependencyContainer {
     container.bind<CreateCustomerController>(TYPES.CreateCustomerController).to(CreateCustomerController).inSingletonScope()
     container.bind<DeleteCustomerByIdController>(TYPES.DeleteCustomerByIdController).to(DeleteCustomerByIdController).inSingletonScope()
     container.bind<UpdateCustomerController>(TYPES.UpdateCustomerController).to(UpdateCustomerController).inSingletonScope()
+    container.bind<AddAvailableCreditController>(TYPES.AddAvailableCreditController).to(AddAvailableCreditController).inSingletonScope()
 
     return container
   }

@@ -4,6 +4,7 @@ import { Email } from './value-objects/Email'
 import { Phone } from './value-objects/Phone'
 import { Address } from './value-objects/Address'
 import { SpainID } from './value-objects/SpainID'
+import { AvailableCredit } from './value-objects/AvailableCredit'
 
 export interface CustomerProps {
   id: UID
@@ -14,6 +15,7 @@ export interface CustomerProps {
   dateOfBirth: Date
   address: Address
   nifCifNie: SpainID
+  availableCredit?: AvailableCredit
 }
 
 export class Customer extends Entity<CustomerProps> {
@@ -41,6 +43,9 @@ export class Customer extends Entity<CustomerProps> {
   get nifCifNie(): SpainID {
     return this.props.nifCifNie
   }
+  get availableCredit(): AvailableCredit | undefined {
+    return this.props.availableCredit
+  }
 
   private constructor(props: CustomerProps) {
     super(props)
@@ -48,5 +53,9 @@ export class Customer extends Entity<CustomerProps> {
 
   public static create(props: CustomerProps): Result<Customer> {
     return Ok(new Customer(props))
+  }
+
+  public updateAvailableCredit(availableCredit: AvailableCredit): void {
+    this.props.availableCredit = this.props.availableCredit ? AvailableCredit.create({ value: availableCredit.value + this.props.availableCredit.value }).value() : availableCredit
   }
 }

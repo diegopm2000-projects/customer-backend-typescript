@@ -3,6 +3,7 @@
 import { ID } from 'types-ddd'
 
 import { DEFAULT_ADDRESS } from './value-objects/Address.test'
+import { DEFAULT_AVAILABLE_CREDIT } from './value-objects/AvailableCredit.test'
 import { DEFAULT_EMAIL } from './value-objects/Email.test'
 import { DEFAULT_PHONE } from './value-objects/Phone.test'
 import { DEFAULT_NIFCIFNIE } from './value-objects/SpainID.test'
@@ -19,6 +20,7 @@ const DEFAULT_CUSTOMER_PROPS: CustomerProps = {
   dateOfBirth: new Date('1990-01-01'),
   address: DEFAULT_ADDRESS,
   nifCifNie: DEFAULT_NIFCIFNIE,
+  availableCredit: DEFAULT_AVAILABLE_CREDIT,
 }
 
 export const DEFAULT_CUSTOMER = Customer.create(DEFAULT_CUSTOMER_PROPS).value()
@@ -51,7 +53,7 @@ export const ALT_2_CUSTOMER = Customer.create(ALT_2_CUSTOMER_PROPS).value()
 
 describe('Customer - Tests', () => {
   describe('constructor - Tests', () => {
-    it('constructor - default successful case', () => {
+    it('constructor - default successful case with availableCredit informed', () => {
       // Arrange
       const props: CustomerProps = DEFAULT_CUSTOMER_PROPS
       // Act
@@ -68,6 +70,39 @@ describe('Customer - Tests', () => {
       expect(myObj.dateOfBirth).toBe(props.dateOfBirth)
       expect(myObj.address).toBe(props.address)
       expect(myObj.nifCifNie).toBe(props.nifCifNie)
+      expect(myObj.availableCredit).toBe(props.availableCredit)
+    })
+    it('constructor - default successful case with availableCredit NOT informed', () => {
+      // Arrange
+      const props: CustomerProps = ALT_CUSTOMER_PROPS
+      // Act
+      const result = Customer.create(props)
+      const myObj = result.value()
+      // Assert
+      expect(result.isOk()).toBeTruthy()
+      expect(myObj).toBeInstanceOf(Customer)
+      expect(myObj.id).toBe(props.id)
+      expect(myObj.firstName).toBe(props.firstName)
+      expect(myObj.lastName).toBe(props.lastName)
+      expect(myObj.email).toBe(props.email)
+      expect(myObj.phoneNumber).toBe(props.phoneNumber)
+      expect(myObj.dateOfBirth).toBe(props.dateOfBirth)
+      expect(myObj.address).toBe(props.address)
+      expect(myObj.nifCifNie).toBe(props.nifCifNie)
+      expect(myObj.availableCredit).toBeUndefined()
+    })
+  })
+
+  describe('updateAvailableCredit - Tests', () => {
+    it('updateAvailableCredit - successful case', () => {
+      // Arrange
+      const props: CustomerProps = ALT_CUSTOMER_PROPS
+      const customer = Customer.create(props).value()
+      const newAvailableCredit = DEFAULT_AVAILABLE_CREDIT
+      // Act
+      customer.updateAvailableCredit(newAvailableCredit)
+      // Assert
+      expect(customer.availableCredit).toBe(newAvailableCredit)
     })
   })
 })

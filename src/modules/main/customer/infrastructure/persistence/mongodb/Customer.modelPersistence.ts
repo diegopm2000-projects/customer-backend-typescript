@@ -17,4 +17,5 @@ export interface CustomerModelPersistence {
   dateOfBirth: Date
   address: AddressModelPersistence
   nifCifNie: string
+  availableCredit?: number
 }

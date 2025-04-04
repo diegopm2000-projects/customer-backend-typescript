@@ -8,11 +8,12 @@ import { v4 } from 'uuid'
 import { TYPES } from '../../../../../shared/infrastructure/dependencyInjection/types'
 import { ErrorInMongoDB } from '../../../../../shared/infrastructure/persistence/mongodb/errors/ErrorInMongoDB'
 import { IMongoDBInfra } from '../../../../../shared/infrastructure/persistence/mongodb/IMongoDBInfra'
+import { OrderingParams } from '../../../application/usecases/GetAllCustomers/IGetAllCustomers.usecase'
 import { Customer } from '../../../domain/models/Customer'
+import { SpainID } from '../../../domain/models/value-objects/SpainID'
 import { ICustomerRepository } from '../../../domain/repositories/ICustomer.repository'
 import { CustomerModelPersistence } from './Customer.modelPersistence'
 import { CustomerModelPersistenceConverter } from './Customer.modelPersistence.converter'
-import { SpainID } from '../../../domain/models/value-objects/SpainID'
 
 @injectable()
 export class CustomerMongoDBRepository implements ICustomerRepository {
@@ -35,10 +36,22 @@ export class CustomerMongoDBRepository implements ICustomerRepository {
     }
   }
 
-  async getAll(): Promise<Array<Customer>> {
+  async getAll(orderingParams?: OrderingParams): Promise<Array<Customer>> {
     const client = await this.mongoDBInfra.getConnectionDb()
 
-    const bdObjsFound: Array<Document> = await client.collection(this.collection).find().toArray()
+    let bdObjsFound: Array<Document>
+    if (orderingParams) {
+      const sortOrder = orderingParams.order === 'asc' ? 1 : -1
+      const sortField = orderingParams.field
+      bdObjsFound = await client
+        .collection(this.collection)
+        .find()
+        .sort({ [sortField as string]: sortOrder })
+        .toArray()
+    } else {
+      bdObjsFound = await client.collection(this.collection).find().toArray()
+    }
+
     return bdObjsFound.map((bdObjFound) => CustomerModelPersistenceConverter.modelPersistenceToModel(<CustomerModelPersistence>bdObjFound))
   }
 

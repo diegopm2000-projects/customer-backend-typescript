@@ -20,6 +20,7 @@ export const DEFAULT_GET_ALL_CUSTOMERS_SVC_RESULT = [
     dateOfBirth: new Date('1990-01-01'),
     address: DEFAULT_ADDRESS_PROPS,
     nifCifNie: DEFAULT_NIFCIFNIE.value,
+    availableCredit: 10000,
   },
 ]
 

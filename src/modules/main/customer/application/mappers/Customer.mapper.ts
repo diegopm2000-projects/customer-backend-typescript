@@ -13,23 +13,27 @@ class AddressMapper {
       country: model.country,
     }
 
-    if (model.additionalInfo) dto.additionalInfo = model.additionalInfo
+    if (model.additionalInfo != undefined) dto.additionalInfo = model.additionalInfo
 
     return dto
   }
 }
 
 export class CustomerMapper {
-  static modelToDTO(customer: Customer): CustomerDTO {
-    return {
-      id: customer.id.value(),
-      firstName: customer.firstName,
-      lastName: customer.lastName,
-      email: customer.email.value,
-      phoneNumber: customer.phoneNumber.value,
-      dateOfBirth: customer.dateOfBirth,
-      address: AddressMapper.modelToDTO(customer.address),
-      nifCifNie: customer.nifCifNie.value,
+  static modelToDTO(model: Customer): CustomerDTO {
+    const dto: CustomerDTO = {
+      id: model.id.value(),
+      firstName: model.firstName,
+      lastName: model.lastName,
+      email: model.email.value,
+      phoneNumber: model.phoneNumber.value,
+      dateOfBirth: model.dateOfBirth,
+      address: AddressMapper.modelToDTO(model.address),
+      nifCifNie: model.nifCifNie.value,
     }
+
+    if (model.availableCredit != undefined) dto.availableCredit = model.availableCredit.value
+
+    return dto
   }
 }

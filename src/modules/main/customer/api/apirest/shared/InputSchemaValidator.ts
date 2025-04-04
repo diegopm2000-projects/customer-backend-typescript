@@ -3,6 +3,7 @@
 import { z } from 'zod'
 import { PhoneValidatorService } from '../../../domain/services/PhoneValidator.service'
 import { SpainIDValidatorService } from '../../../domain/services/SpainIDValidator.service'
+import { CUSTOMER_SORT_FIELD, ORDER_DIRECTION } from '../../../application/usecases/GetAllCustomers/IGetAllCustomers.usecase'
 
 const AddressInputSchema = z.object({
   street: z.string(),
@@ -44,6 +45,35 @@ const customerUuidSchema = z.object({
   customerId: z.string().uuid(),
 })
 
+const addingAvailableCreditInputSchema = z.object({
+  customerId: z.string().uuid(),
+  amount: z.number().positive(),
+})
+
+const getAllCustomersOrderingParamsInputSchema = z
+  .object({
+    sort: z.nativeEnum(CUSTOMER_SORT_FIELD).optional(),
+    order: z.nativeEnum(ORDER_DIRECTION).optional(),
+  })
+  .refine(
+    (data) => {
+      console.log(`----> data: ${JSON.stringify(data)}`)
+
+      const sortDefined = data.sort !== undefined && data.sort !== null
+      const orderDefined = data.order !== undefined && data.order !== null
+
+      console.log(`----> sortDefined: ${sortDefined}, orderDefined: ${orderDefined}`)
+
+      const result = (sortDefined && orderDefined) || (!sortDefined && !orderDefined)
+      console.log(`----> result de parseo: ${result}`)
+
+      return result
+    },
+    {
+      message: "Both 'field' and 'order' must be provided together or omitted together.",
+    }
+  )
+
 export class InputSchemaValidator {
   static validateCustomerInputSchema(customerParams: any) {
     return CustomerInputSchema.safeParse(customerParams)
@@ -51,5 +81,14 @@ export class InputSchemaValidator {
 
   static validateUuidInputSchema(params: any) {
     return customerUuidSchema.safeParse(params)
+  }
+
+  static validateAddingAvailableCreditInputSchema(params: any) {
+    return addingAvailableCreditInputSchema.safeParse(params)
+  }
+
+  static validateGetAllCustomersOrderingParamsInputSchema(params: any) {
+    console.log(`----> params: ${JSON.stringify(params)}`)
+    return getAllCustomersOrderingParamsInputSchema.safeParse(params)
   }
 }

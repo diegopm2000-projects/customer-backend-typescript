@@ -17,4 +17,5 @@ export interface CustomerDTO {
   dateOfBirth: Date
   address: AddressDTO
   nifCifNie: string
+  availableCredit?: number
 }

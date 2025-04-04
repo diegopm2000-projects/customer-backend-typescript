@@ -16,6 +16,7 @@ import { DEFAULT_ADDRESS, DEFAULT_ADDRESS_PROPS } from '../../../domain/model/va
 import { DEFAULT_EMAIL } from '../../../domain/model/value-objects/Email.test'
 import { DEFAULT_PHONE } from '../../../domain/model/value-objects/Phone.test'
 import { DEFAULT_NIFCIFNIE } from '../../../domain/model/value-objects/SpainID.test'
+import { DEFAULT_AVAILABLE_CREDIT } from '../../../domain/model/value-objects/AvailableCredit.test'
 
 const DEFAULT_REQUEST: IUpdateCustomerRequest = {
   id: ID.create('706781a2-e4ee-4fc5-ab0f-fdf92f643c8a'),
@@ -37,6 +38,7 @@ export const DEFAULT_UPDATE_CUSTOMER_SVC_RESULT: CustomerDTO = {
   dateOfBirth: new Date('1990-01-01'),
   address: DEFAULT_ADDRESS_PROPS,
   nifCifNie: DEFAULT_NIFCIFNIE.value,
+  availableCredit: DEFAULT_AVAILABLE_CREDIT.value,
 }
 
 describe('UpdateCustomerUseCase - Tests', () => {

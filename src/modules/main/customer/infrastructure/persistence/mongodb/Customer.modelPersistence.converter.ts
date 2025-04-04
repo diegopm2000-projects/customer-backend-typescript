@@ -6,6 +6,7 @@ import { Email } from '../../../domain/models/value-objects/Email'
 import { Phone } from '../../../domain/models/value-objects/Phone'
 import { AddressModelPersistence, CustomerModelPersistence } from './Customer.modelPersistence'
 import { SpainID } from '../../../domain/models/value-objects/SpainID'
+import { AvailableCredit } from '../../../domain/models/value-objects/AvailableCredit'
 
 class AddressModelPersistenceConverter {
   static modelToModelPersistence(model: Address): AddressModelPersistence {
@@ -43,7 +44,7 @@ class AddressModelPersistenceConverter {
 
 export class CustomerModelPersistenceConverter {
   static modelToModelPersistence(model: Customer): CustomerModelPersistence {
-    return {
+    const mp: CustomerModelPersistence = {
       _id: model.id.value(),
       firstName: model.firstName,
       lastName: model.lastName,
@@ -53,6 +54,16 @@ export class CustomerModelPersistenceConverter {
       address: AddressModelPersistenceConverter.modelToModelPersistence(model.address),
       nifCifNie: model.nifCifNie.value,
     }
+
+    console.log(`----> model tiene availableCredit: ${model.availableCredit != undefined}`)
+    console.log(`----> model.availableCredit: ${JSON.stringify(model.availableCredit)}`)
+
+    if (model.availableCredit != undefined) mp.availableCredit = model.availableCredit.value
+    console.log(`----> mp.availableCredit: ${mp.availableCredit}`)
+
+    console.log(`----> mp: ${JSON.stringify(mp)}`)
+
+    return mp
   }
 
   static modelPersistenceToModel(modelPersistence: CustomerModelPersistence): Customer {
@@ -66,6 +77,8 @@ export class CustomerModelPersistenceConverter {
       address: AddressModelPersistenceConverter.modelPersistenceToModel(modelPersistence.address),
       nifCifNie: SpainID.create({ value: modelPersistence.nifCifNie }).value(),
     }
+
+    if (modelPersistence.availableCredit) props.availableCredit = AvailableCredit.create({ value: modelPersistence.availableCredit }).value()
 
     return Customer.create(props).value()
   }

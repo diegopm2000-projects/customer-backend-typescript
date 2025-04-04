@@ -27,6 +27,7 @@ export const TYPES = {
   ICreateCustomerUseCase: Symbol.for('ICreateCustomerUseCase'),
   IDeleteCustomerByIdUseCase: Symbol.for('IDeleteCustomerByIdUseCase'),
   IUpdateCustomerUseCase: Symbol.for('IUpdateCustomerUseCase'),
+  IAddAvailableCreditUseCase: Symbol.for('IAddAvailableCreditUseCase'),
 
   // //////////////////////////////////////////////////////////
   // CONTROLLERS
@@ -37,4 +38,5 @@ export const TYPES = {
   CreateCustomerController: Symbol.for('CreateCustomerController'),
   UpdateCustomerController: Symbol.for('UpdateCustomerController'),
   DeleteCustomerByIdController: Symbol.for('DeleteCustomerByIdController'),
+  AddAvailableCreditController: Symbol.for('AddAvailableCreditController'),
 }

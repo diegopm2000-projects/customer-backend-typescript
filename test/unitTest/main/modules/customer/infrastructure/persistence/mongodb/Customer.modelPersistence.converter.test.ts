@@ -24,6 +24,7 @@ const DEFAULT_MODEL_PERSISTENCE = {
     additionalInfo: 'myAdditionalInfo',
   },
   nifCifNie: DEFAULT_CUSTOMER.nifCifNie.value,
+  availableCredit: 10000,
 }
 
 describe('CustomerModelPersistenceConverter - Tests', () => {
