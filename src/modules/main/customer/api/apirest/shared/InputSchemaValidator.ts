@@ -57,17 +57,10 @@ const getAllCustomersOrderingParamsInputSchema = z
   })
   .refine(
     (data) => {
-      console.log(`----> data: ${JSON.stringify(data)}`)
-
       const sortDefined = data.sort !== undefined && data.sort !== null
       const orderDefined = data.order !== undefined && data.order !== null
 
-      console.log(`----> sortDefined: ${sortDefined}, orderDefined: ${orderDefined}`)
-
-      const result = (sortDefined && orderDefined) || (!sortDefined && !orderDefined)
-      console.log(`----> result de parseo: ${result}`)
-
-      return result
+      return (sortDefined && orderDefined) || (!sortDefined && !orderDefined)
     },
     {
       message: "Both 'field' and 'order' must be provided together or omitted together.",
@@ -88,7 +81,6 @@ export class InputSchemaValidator {
   }
 
   static validateGetAllCustomersOrderingParamsInputSchema(params: any) {
-    console.log(`----> params: ${JSON.stringify(params)}`)
     return getAllCustomersOrderingParamsInputSchema.safeParse(params)
   }
 }

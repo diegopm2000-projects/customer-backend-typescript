@@ -45,7 +45,6 @@ describe('CustomerModelPersistenceConverter - Tests', () => {
       const mp = DEFAULT_MODEL_PERSISTENCE
       // Act
       const result = CustomerModelPersistenceConverter.modelPersistenceToModel(mp)
-      console.log(`----> result: ${JSON.stringify(result)}`)
       // Assert
       expect(result.id.value()).toEqual(DEFAULT_MODEL_PERSISTENCE._id)
       expect(result.firstName).toEqual(DEFAULT_MODEL_PERSISTENCE.firstName)

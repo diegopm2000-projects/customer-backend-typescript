@@ -55,13 +55,7 @@ export class CustomerModelPersistenceConverter {
       nifCifNie: model.nifCifNie.value,
     }
 
-    console.log(`----> model tiene availableCredit: ${model.availableCredit != undefined}`)
-    console.log(`----> model.availableCredit: ${JSON.stringify(model.availableCredit)}`)
-
     if (model.availableCredit != undefined) mp.availableCredit = model.availableCredit.value
-    console.log(`----> mp.availableCredit: ${mp.availableCredit}`)
-
-    console.log(`----> mp: ${JSON.stringify(mp)}`)
 
     return mp
   }

@@ -7,6 +7,8 @@ import { ICustomerRepository } from '../../../domain/repositories/ICustomer.repo
 import { CustomerDTO } from '../../dtos/Customer.dto'
 import { CustomerMapper } from '../../mappers/Customer.mapper'
 import { IGetCustomerByIdRequest, IGetCustomerByIdResponse, IGetCustomerByIdUseCase } from './IGetCustomerById.usecase'
+import { asyncLogMethod } from '../../../../../shared/infrastructure/logger/LoggerDecorator'
+import { LOG_LEVEL } from '../../../../../shared/infrastructure/logger/ILogger'
 
 @injectable()
 export class GetCustomerByIdUseCase implements IGetCustomerByIdUseCase {
@@ -16,10 +18,9 @@ export class GetCustomerByIdUseCase implements IGetCustomerByIdUseCase {
     return customer ? CustomerMapper.modelToDTO(customer) : undefined
   }
 
+  @asyncLogMethod(LOG_LEVEL.info)
   async execute(request: IGetCustomerByIdRequest): Promise<IGetCustomerByIdResponse> {
-    console.log(`----> request: ${JSON.stringify(request)}`)
     const customer = await this.customerRepository.getById(ID.create(request.customerId))
-    console.log(`----> customer found: ${JSON.stringify(customer)}`)
 
     return this.buildResult(customer)
   }
