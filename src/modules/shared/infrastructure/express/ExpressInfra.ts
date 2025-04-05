@@ -32,16 +32,11 @@ export class ExpressInfra implements IExpressInfra {
   }
 
   async stop(): Promise<boolean> {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       if (this._server) {
-        this._server.close((err) => {
-          if (err) {
-            console.error('----> Error stopping the server:', err)
-            reject(err)
-          } else {
-            console.log('----> Server stopped successfully.')
-            resolve(true)
-          }
+        this._server.close(() => {
+          console.log('----> Server stopped successfully.')
+          resolve(true)
         })
       } else {
         console.warn('----> Server is not running.')

@@ -1,9 +1,7 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { inject, injectable } from 'inversify'
 import { omit } from 'lodash'
 import { Document, FindOneAndUpdateOptions } from 'mongodb'
 import { UID } from 'types-ddd'
-import { v4 } from 'uuid'
 
 import { TYPES } from '../../../../../shared/infrastructure/dependencyInjection/types'
 import { ErrorInMongoDB } from '../../../../../shared/infrastructure/persistence/mongodb/errors/ErrorInMongoDB'
@@ -26,7 +24,7 @@ export class CustomerMongoDBRepository implements ICustomerRepository {
     const now = new Date()
     return {
       $setOnInsert: {
-        _id: data._id ? data._id : v4(),
+        _id: data._id,
         createdAt: now,
       },
       $set: {

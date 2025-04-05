@@ -5,6 +5,7 @@ import { TYPES } from '../../../../../shared/infrastructure/dependencyInjection/
 import { ICustomerRepository } from '../../../domain/repositories/ICustomer.repository'
 import { CustomerNotFoundError } from '../../errors/CustomerNotFoundError'
 import { IAddAvailableCreditRequest, IAddAvailableCreditResponse, IAddAvailableCreditUseCase } from './IAddAvailableCredit.usecase'
+import { CustomerMapper } from '../../mappers/Customer.mapper'
 
 @injectable()
 export class AddAvailableCreditUseCase implements IAddAvailableCreditUseCase {
@@ -28,6 +29,6 @@ export class AddAvailableCreditUseCase implements IAddAvailableCreditUseCase {
 
     await this.customerRepository.save(customerFound)
 
-    return true
+    return CustomerMapper.modelToDTO(customerFound)
   }
 }

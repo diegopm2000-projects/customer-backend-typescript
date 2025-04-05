@@ -12,6 +12,7 @@ import { ContainerFactory } from '../../../../../../expectations/expectations.co
 import { ALT_2_CUSTOMER, ALT_CUSTOMER, DEFAULT_CUSTOMER } from '../../../../customer/domain/model/Customer.test'
 import { MESSAGE_TEST_FAILED } from '../../../../../../expectations/expectations.global'
 import { SpainID } from '../../../../../../../../src/modules/main/customer/domain/models/value-objects/SpainID'
+import { CUSTOMER_SORT_FIELD, ORDER_DIRECTION } from '../../../../../../../../src/modules/main/customer/application/usecases/GetAllCustomers/IGetAllCustomers.usecase'
 
 const EXAMPLE_MODEL_PERSISTENCE_DEFAULT = {
   _id: 'cd4ef971-2f9b-4b18-830f-b5ead60565fe',
@@ -42,6 +43,9 @@ export const mongoMock = {
     collection: (collectionName: string) => ({
       find: (filter: Filter<Document>, options: CountDocumentsOptions) => ({
         toArray: () => [EXAMPLE_MODEL_PERSISTENCE_DEFAULT],
+        sort: () => ({
+          toArray: () => [EXAMPLE_MODEL_PERSISTENCE_DEFAULT],
+        }),
       }),
       findOne: (filter: Filter<Document>, options: CountDocumentsOptions) => {
         if (JSON.stringify(filter) == JSON.stringify({ _id: DEFAULT_CUSTOMER.id.value() })) {
@@ -91,6 +95,28 @@ describe('CustomerMongoDBRepository - Tests', () => {
       // N/A
       // Act
       const result = await myRepository.getAll()
+      // Assert
+      expect(result.length).toBe(1)
+    })
+    it('getAll - alt case passing orderingParams (order desc)', async () => {
+      // Arrange
+      const orderingParams = {
+        field: CUSTOMER_SORT_FIELD.availableCredit,
+        order: ORDER_DIRECTION.desc,
+      }
+      // Act
+      const result = await myRepository.getAll(orderingParams)
+      // Assert
+      expect(result.length).toBe(1)
+    })
+    it('getAll - alt case passing orderingParams (order asc)', async () => {
+      // Arrange
+      const orderingParams = {
+        field: CUSTOMER_SORT_FIELD.availableCredit,
+        order: ORDER_DIRECTION.asc,
+      }
+      // Act
+      const result = await myRepository.getAll(orderingParams)
       // Assert
       expect(result.length).toBe(1)
     })

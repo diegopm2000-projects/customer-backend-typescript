@@ -14,19 +14,22 @@ export class GetAllCustomersController {
 
   async execute(request: Request, response: Response) {
     try {
-      const { sort, order } = request.query
+      const parameters = request.query
 
-      console.log(`----> sort: ${sort}, order: ${order}`)
+      console.log(`----> parameters: ${JSON.stringify(parameters)}`)
 
       // Validate parameters
       // TODO - aquí atascado, no hay forma de que valide bien esto
-      const paramValidationResult = InputSchemaValidator.validateGetAllCustomersOrderingParamsInputSchema({ sort, order })
+      const paramValidationResult = InputSchemaValidator.validateGetAllCustomersOrderingParamsInputSchema(parameters)
       if (paramValidationResult.success === false) {
+        console.log('----> NO VALIDAMOS LOS PARAMETROS DE ENTRADA')
         const detailedMessage = paramValidationResult.error.errors.map((err) => ({ code: err.code, message: err.message, path: err.path }))
         BasePresenter.presentBadRequestError({ request, response, detailedMessage })
         return
       }
       console.log(`----> parameters validated`)
+
+      const { sort, order } = parameters
 
       const iGetAllCustomersRequest: IGetAllCustomersRequest = {}
       if (sort != undefined && order != undefined) {
