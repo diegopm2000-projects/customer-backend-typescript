@@ -13,6 +13,8 @@ import { IExpressInfra } from '../modules/shared/infrastructure/express/IExpress
 import { IMongoDBInfra } from '../modules/shared/infrastructure/persistence/mongodb/IMongoDBInfra'
 import { IAppConfig } from './IAppConfig'
 import { AddAvailableCreditController } from '../modules/main/customer/api/apirest/AddAvailableCredit.controller'
+import { LogFacade } from '../modules/shared/infrastructure/logger/LogFacade'
+import { LOG_LOCATION } from '../modules/shared/infrastructure/logger/ILogger'
 
 export class App {
   private _appConfig: IAppConfig
@@ -52,12 +54,13 @@ export class App {
   }
 
   async stop() {
+    const { logger, fn } = LogFacade.getInstanceAndFunctionName(this.constructor.name, 'stop')
     if (this._container) {
-      console.log('Stopping application...')
+      logger.info({ fn, loc: LOG_LOCATION.MID, message: 'Stopping application...' })
       await this._container.get<IMongoDBInfra>(TYPES.IMongoDBInfra).closeConnectionDb()
-      console.log('MongoDB connection closed')
+      logger.info({ fn, loc: LOG_LOCATION.MID, message: 'MongoDB connection closed' })
       await this._container.get<IExpressInfra>(TYPES.IExpressInfra).stop()
-      console.log('Express server stopped')
+      logger.info({ fn, loc: LOG_LOCATION.MID, message: 'Express server stopped' })
     }
   }
 }

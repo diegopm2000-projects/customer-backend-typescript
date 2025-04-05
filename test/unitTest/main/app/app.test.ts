@@ -27,6 +27,8 @@ import { App } from '../../../../src/app/app'
 const DEFAULT_CONFIG: IAppConfig = {
   mongodburi: 'mongodb://localhost:27017',
   expressPort: 3000,
+  appLogLevel: 'info',
+  appLogImplementation: 'MOCK',
 }
 
 const DEFAULT_GET_CUSTOMER_BY_ID_SVC_RESULT: CustomerDTO = {

@@ -3,6 +3,8 @@
 import httpStatus from 'http-status'
 
 import { Request, Response } from 'express'
+import { LogFacade } from '../../../../../shared/infrastructure/logger/LogFacade'
+import { LOG_LOCATION } from '../../../../../shared/infrastructure/logger/ILogger'
 
 interface PresentationError {
   status: number
@@ -66,10 +68,12 @@ export class BasePresenter {
   }
 
   static presentInternalServerError(params: { request: Request; response: Response; error: Error }) {
+    const { logger, fn } = LogFacade.getInstanceAndFunctionName(this.constructor.name, 'presentInternalServerError')
+
     const { request, response, error } = params
 
-    console.error(`error.stack: ${error.stack}`)
-    console.error(`error.message: ${error.message}`)
+    logger.info({ fn, loc: LOG_LOCATION.ERROR, message: `error.stack: ${error.stack}` })
+    logger.info({ fn, loc: LOG_LOCATION.ERROR, message: `error.message: ${error.message}` })
 
     response.status(httpStatus.INTERNAL_SERVER_ERROR).json(BasePresenter.buildJSONInternalServerError({ path: request.path, message: error.message }))
   }

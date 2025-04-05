@@ -1,5 +1,7 @@
 import express, { Application } from 'express'
 import { Server } from 'http'
+import { LOG_LOCATION } from '../logger/ILogger'
+import { LogFacade } from '../logger/LogFacade'
 import { IExpressInfra } from './IExpressInfra'
 
 export class ExpressInfra implements IExpressInfra {
@@ -19,27 +21,32 @@ export class ExpressInfra implements IExpressInfra {
   }
 
   async start(): Promise<boolean> {
+    const { logger, fn } = LogFacade.getInstanceAndFunctionName(this.constructor.name, 'start')
+
+    logger.info({ fn, loc: LOG_LOCATION.IN, message: 'Starting express server...' })
+
     this._app = express()
 
     this._app.use(express.json())
 
     this._server = this._app.listen(this._port, () => {
-      // eslint-disable-next-line no-console
-      console.log(`Server is running on http://localhost:${this._port}`)
+      logger.info({ fn, loc: LOG_LOCATION.IN, message: `Server is running on http://localhost:${this._port}` })
     })
 
     return true
   }
 
   async stop(): Promise<boolean> {
+    const { logger, fn } = LogFacade.getInstanceAndFunctionName(this.constructor.name, 'stop')
+
     return new Promise((resolve) => {
       if (this._server) {
         this._server.close(() => {
-          console.log('----> Server stopped successfully.')
+          logger.info({ fn, loc: LOG_LOCATION.OUT, message: 'Server stopped successfully' })
           resolve(true)
         })
       } else {
-        console.warn('----> Server is not running.')
+        logger.info({ fn, loc: LOG_LOCATION.OUT, message: 'Server is not running' })
         resolve(false)
       }
     })

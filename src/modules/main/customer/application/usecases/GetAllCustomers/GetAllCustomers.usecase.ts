@@ -1,6 +1,8 @@
 import { inject, injectable } from 'inversify'
 
 import { TYPES } from '../../../../../shared/infrastructure/dependencyInjection/types'
+import { LOG_LEVEL } from '../../../../../shared/infrastructure/logger/ILogger'
+import { asyncLogMethod } from '../../../../../shared/infrastructure/logger/LoggerDecorator'
 import { Customer } from '../../../domain/models/Customer'
 import { ICustomerRepository } from '../../../domain/repositories/ICustomer.repository'
 import { CustomerDTO } from '../../dtos/Customer.dto'
@@ -15,6 +17,7 @@ export class GetAllCustomersUseCase implements IGetAllCustomersUseCase {
     return customerList.map((customer) => CustomerMapper.modelToDTO(customer))
   }
 
+  @asyncLogMethod(LOG_LEVEL.info)
   async execute(request: IGetAllCustomersRequest): Promise<IGetAllCustomersResponse> {
     const { orderingParams } = request
 
