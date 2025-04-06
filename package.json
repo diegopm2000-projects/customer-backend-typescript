@@ -56,7 +56,6 @@
     "reflect-metadata": "^0.2.2",
     "spain-id": "^1.1.7",
     "types-ddd": "^3.11.1",
-    "uuid": "^11.1.0",
     "validator": "^13.15.0",
     "winston": "^3.17.0",
     "winston-timestamp-colorize": "^1.1.0",
