@@ -1,0 +1,8 @@
+services:
+  - name: customer-backend-typescript
+    type: web
+    env: node
+    plan: free
+    region: oregon
+    buildCommand: npm install
+    startCommand: npm run start
