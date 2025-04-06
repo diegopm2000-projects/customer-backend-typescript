@@ -36,8 +36,24 @@ For checking the used dependencies, the application uses de npm library depcheck
 npm run depcheck
 ```
 
-## 5. Execute locally the application
+## 5. Configure locally the application
 
 Copy env.sample to a .env file
 
 You will need to set the value of the MONGO_DB_URI in .env
+
+## 6. Execute the application locally
+
+Execute this:
+
+```shell
+npm run start
+```
+
+## 7. Check the api
+
+You can view the api at this location:
+
+
+
+
